@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\JHipster.NetLite.Infrastructure\JHipster.NetLite.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>
