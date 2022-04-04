@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\JHipster.NetLite.Application\JHipster.NetLite.Application.csproj" />
     <ProjectReference Include="..\JHipster.NetLite.Domain\JHipster.NetLite.Domain.csproj" />
+    <ProjectReference Include="..\JHipster.NetLite.Infrastructure\JHipster.NetLite.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

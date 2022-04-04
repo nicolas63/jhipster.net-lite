@@ -1,5 +1,7 @@
-﻿namespace JHipster.NetLite.Infrastructure.Repositories;
+﻿using JHipster.NetLite.Domain.Repositories.Interfaces;
 
-public class ProjectLocalRepository
+namespace JHipster.NetLite.Infrastructure.Repositories;
+
+public class ProjectLocalRepository : IProjectRepository
 {
 }

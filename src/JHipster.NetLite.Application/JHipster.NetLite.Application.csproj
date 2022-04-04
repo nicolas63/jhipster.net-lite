@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JHipster.NetLite.Domain\JHipster.NetLite.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

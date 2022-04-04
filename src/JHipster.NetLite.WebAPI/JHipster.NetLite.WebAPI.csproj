@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JHipster.NetLite.Core\JHipster.NetLite.Core.csproj" />
+    <ProjectReference Include="..\JHipster.NetLite.Core\JHipster.NetLite.Web.csproj" />
   </ItemGroup>
 
 </Project>
