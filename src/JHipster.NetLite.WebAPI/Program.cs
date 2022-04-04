@@ -1,4 +1,4 @@
-using JHipster.NetLite.Core;
+using JHipster.NetLite.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 

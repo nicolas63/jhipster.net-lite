@@ -2,7 +2,7 @@
 using JHipster.NetLite.Domain.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace JHipster.NetLite.Core;
+namespace JHipster.NetLite.Web;
 
 public static class ServiceCollectionExtensions
 {
@@ -17,7 +17,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddJHipsterLiteApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IInitApplicationService, IInitApplicationService>(); 
+        services.AddScoped<IInitApplicationService, IInitApplicationService>();
         return services;
     }
 

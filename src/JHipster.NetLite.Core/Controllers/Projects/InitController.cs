@@ -1,8 +1,8 @@
-using JHipster.NetLite.Core.DTO;
+using JHipster.NetLite.Web.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace JHipster.NetLite.Core.Controllers.Projects.InitController;
+namespace JHipster.NetLite.Web.Controllers.Projects;
 
 [ApiController]
 [Route("[controller]")]
