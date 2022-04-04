@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Core", "JH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.WebAPI", "JHipster.NetLite.WebAPI\JHipster.NetLite.WebAPI.csproj", "{A0B1C214-AC14-4089-8EE5-FF3E79FFC332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JHipster.NetLite.Application", "JHipster.NetLite.Application\JHipster.NetLite.Application.csproj", "{F63C568A-AB92-4514-B576-BAD9568B237A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Application", "JHipster.NetLite.Application\JHipster.NetLite.Application.csproj", "{F63C568A-AB92-4514-B576-BAD9568B237A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JHipster.NetLite.Domain", "JHipster.NetLite.Domain\JHipster.NetLite.Domain.csproj", "{5A9B7224-5FEB-4BC2-82E9-FAA43E487FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Domain", "JHipster.NetLite.Domain\JHipster.NetLite.Domain.csproj", "{5A9B7224-5FEB-4BC2-82E9-FAA43E487FA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JHipster.NetLite.Infrastructure", "JHipster.NetLite.Infrastructure\JHipster.NetLite.Infrastructure.csproj", "{5715426D-414A-405A-AC84-C9E0DD1F11DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JHipster.NetLite.Domain.Services", "JHipster.NetLite.Domain.Services\JHipster.NetLite.Domain.Services.csproj", "{8391BBEB-AD87-45C0-9B76-D2D778885C13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{5A9B7224-5FEB-4BC2-82E9-FAA43E487FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A9B7224-5FEB-4BC2-82E9-FAA43E487FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A9B7224-5FEB-4BC2-82E9-FAA43E487FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5715426D-414A-405A-AC84-C9E0DD1F11DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5715426D-414A-405A-AC84-C9E0DD1F11DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5715426D-414A-405A-AC84-C9E0DD1F11DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5715426D-414A-405A-AC84-C9E0DD1F11DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
