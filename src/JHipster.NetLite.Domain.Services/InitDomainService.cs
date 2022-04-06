@@ -1,4 +1,5 @@
-﻿using JHipster.NetLite.Domain.Entities;
+﻿using HandlebarsDotNet.Compiler;
+using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Helpers;
@@ -21,6 +22,8 @@ public class InitDomainService : IInitDomainService
 
     private void AddReadme(Project project)
     {
+
+        //Template(project.Folder, "Init", "Readme.md", "Test/ReadMe/", "Toto.md"); 
         //MustacheHelper.Template(project.Folder); 
     }
 }
