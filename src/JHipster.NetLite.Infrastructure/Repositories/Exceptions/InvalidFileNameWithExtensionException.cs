@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JHipster.NetLite.Domain.Services.Exceptions;
+namespace JHipster.NetLite.Infrastucture.Repositories.Exceptions;
 
 public class InvalidFileNameWithExtensionException : Exception
 {

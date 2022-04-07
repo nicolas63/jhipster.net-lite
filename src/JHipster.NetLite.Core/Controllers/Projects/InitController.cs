@@ -24,6 +24,7 @@ public class InitController : ControllerBase
         _mapper = mapper;
     }
 
+    //TODO: rajouter des logs + excpetions pour les param
     [HttpPost]
     [Route("/api/projects/init")]
     public void Post(ProjectDto projectDto)

@@ -12,6 +12,8 @@ namespace JHipster.NetLite.Web;
 
 public static class ServiceCollectionExtensions
 {
+    private const string JhipsterLite = "JhipsterNetLite";
+
     public static IMvcBuilder AddJHipsterLite(this IMvcBuilder builder)
     {
         var assembly = typeof(ServiceCollectionExtensions).Assembly;
@@ -20,8 +22,14 @@ public static class ServiceCollectionExtensions
         builder.Services.AddJHipsterLiteApplicationServices()
                           .AddJHipsterLiteDomainServices()
                           .AddJHipsterLiteRepositories();
-        //ILogger _logger = builder.Services.BuildServiceProvider().GetService<ILogger>();
-        //LogAssciText(_logger);
+
+        using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
+            .SetMinimumLevel(LogLevel.Trace)
+            .AddConsole());
+
+        ILogger logger = loggerFactory.CreateLogger(JhipsterLite);
+        LogAssciText(logger);
+
         return builder;
     }
 
