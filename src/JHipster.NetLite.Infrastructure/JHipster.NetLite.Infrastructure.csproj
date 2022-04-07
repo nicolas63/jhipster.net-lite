@@ -16,4 +16,8 @@
     <ProjectReference Include="..\JHipster.NetLite.Domain\JHipster.NetLite.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Templates\" />
+  </ItemGroup>
+
 </Project>
