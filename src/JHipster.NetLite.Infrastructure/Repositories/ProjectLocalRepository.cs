@@ -2,55 +2,53 @@
 using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastucture.Repositories.Exceptions;
 using Microsoft.Extensions.Logging;
-using JHipster.NetLite.Infrastructure;
 using JHipster.NetLite.Domain.Services.Interfaces;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    //TOD: mettre tout ce qu'il ya dans FIleUtils içi + interface
     private const string DefaultExtension = ".mustache";
 
     private ILogger<IInitDomainService> _logger;
 
     public ProjectLocalRepository(ILogger<IInitDomainService> logger) => _logger = logger;
 
-    public void add(string folder, string source, string sourceFilename)
+    public async Task add(string folder, string source, string sourceFilename)
     {
-        add(folder, source, sourceFilename, ".");
+        await add(folder, source, sourceFilename, ".");
     }
 
-    public void add(string folder, string source, string sourceFilename, string destination)
+    public async Task add(string folder, string source, string sourceFilename, string destination)
     {
-        add(folder, source, sourceFilename, destination, sourceFilename);
+        await add(folder, source, sourceFilename, destination, sourceFilename);
     }
 
-    public void add(string folder, string source, string sourceFilename, string destination, string destinationFilename)
+    public async Task add(string folder, string source, string sourceFilename, string destination, string destinationFilename)
     {
         _logger.LogInformation("Adding file '{destinationFilename}'", destinationFilename);
         string destinationFolder = Path.Join(folder, destination);
         string sourcePath = Path.Join(folder, source);
 
-        byte[] dataToCopy = File.ReadAllBytes(Path.Join(sourcePath, sourceFilename));
+        byte[] dataToCopy = await File.ReadAllBytesAsync(Path.Join(sourcePath, sourceFilename));
 
         Directory.CreateDirectory(Path.Join(destinationFolder));
 
         string destinationPath = Path.Join(destinationFolder, destinationFilename);
-        File.WriteAllBytes(destinationPath, dataToCopy);
+        await File.WriteAllBytesAsync(destinationPath, dataToCopy);
     }
 
-    public void Template(string folder, string pathFile, string fileNameWithExtension)
+    public async Task Template(string folder, string pathFile, string fileNameWithExtension)
     {
-        Template(folder, pathFile, fileNameWithExtension, pathFile, fileNameWithExtension);
+        await Template(folder, pathFile, fileNameWithExtension, pathFile, fileNameWithExtension);
     }
 
-    public void Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile)
+    public async Task Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile)
     {
-        Template(folder, pathFile, fileNameWithExtension, newPathFile, fileNameWithExtension);
+        await Template(folder, pathFile, fileNameWithExtension, newPathFile, fileNameWithExtension);
     }
 
-    public void Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
+    public async Task Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
     {
 
         AssertRequiredTemplateParameters(folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
@@ -58,15 +56,15 @@ public class ProjectLocalRepository : IProjectRepository
         string pathFileToCopy = Path.Join(folder, pathFile, fileNameWithExtension + DefaultExtension);
         string pathFolderToCreate = Path.Join(folder, newPathFile);
         string pathFileToPaste = Path.Join(pathFolderToCreate, newPathName + DefaultExtension);
-        var dataToCopy = File.ReadAllText(pathFileToCopy);
+        var dataToCopy = await File.ReadAllTextAsync(pathFileToCopy);
 
         _logger.LogInformation("Starting templating '{pathFileToCopy}'", pathFileToCopy);
 
         Directory.CreateDirectory(pathFolderToCreate);
 
         File.Delete(pathFileToCopy);
-        File.WriteAllText(pathFileToPaste, dataToCopy);
-        File.WriteAllText(pathFileToPaste, MustacheHelper.Template(pathFileToPaste, getMustacheContext()));
+        await File.WriteAllTextAsync(pathFileToPaste, dataToCopy);
+        await File.WriteAllTextAsync(pathFileToPaste, await MustacheHelper.Template(pathFileToPaste, getMustacheContext()));
 
         _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
     }

@@ -20,17 +20,13 @@ public class InitDomainService : IInitDomainService
         _logger = logger;
     }
 
-    public void Init(Project project)
+    public async Task Init(Project project)
     {
-        AddReadme(project);
+        await AddReadme(project);
     }
 
-    private void AddReadme(Project project)
+    private async Task AddReadme(Project project)
     {
-        //new FileUtils(_logger).add(project.Folder, "Init", "Readme.md.mustache", "test", "new.md.mustache"); --> test add
-
-        new ProjectLocalRepository(_logger).Template(project.Folder, "Init", "Readme.md");
-        //Template(project.Folder, "Init", "Readme.md", "Test/ReadMe/", "Toto.md"); 
-        //MustacheHelper.Template(project.Folder); 
+        await _projectRepository.Template(project.Folder, "Init", "Readme.md");
     }
 }

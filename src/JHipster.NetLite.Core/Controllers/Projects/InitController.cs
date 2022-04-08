@@ -24,13 +24,23 @@ public class InitController : ControllerBase
         _mapper = mapper;
     }
 
-    //TODO: rajouter des logs + excpetions pour les param
     [HttpPost]
     [Route("/api/projects/init")]
-    public void Post(ProjectDto projectDto)
+    public async Task<IActionResult> Post(ProjectDto projectDto)
     {
-        var project = _mapper.Map<Project>(projectDto); 
-        _initApplicationService.Init(project);
+        try
+        {
+            var project = _mapper.Map<Project>(projectDto);
+            await _initApplicationService.Init(project);
+
+            _logger.LogInformation("Request succes");
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Exception in the Post method");
+            return BadRequest(ex.Message);
+        }
     }
 
 
