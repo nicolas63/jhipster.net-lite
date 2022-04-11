@@ -1,6 +1,9 @@
-﻿namespace JHipster.NetLite.Application.Services.Interfaces;
+﻿using JHipster.NetLite.Domain.Entities;
 
-public class IInitApplicationService
+namespace JHipster.NetLite.Application.Services.Interfaces;
+
+public interface IInitApplicationService
 {
+    Task Init(Project project);
 }
 
