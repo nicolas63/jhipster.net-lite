@@ -8,29 +8,30 @@ namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
+    public string DefaultFolder = Path.Join(Directory.GetCurrentDirectory(), "Templates");
+
     private const string DefaultExtension = ".mustache";
 
     private ILogger<IInitDomainService> _logger;
 
     public ProjectLocalRepository(ILogger<IInitDomainService> logger) => _logger = logger;
 
-    public async Task add(string folder, string source, string sourceFilename)
+    public async Task Add(string folder, string source, string sourceFilename)
     {
-        await add(folder, source, sourceFilename, ".");
+        await Add(folder, source, sourceFilename, ".");
     }
 
-    public async Task add(string folder, string source, string sourceFilename, string destination)
+    public async Task Add(string folder, string source, string sourceFilename, string destination)
     {
-        await add(folder, source, sourceFilename, destination, sourceFilename);
+        await Add(folder, source, sourceFilename, destination, sourceFilename);
     }
 
-    public async Task add(string folder, string source, string sourceFilename, string destination, string destinationFilename)
+    public async Task Add(string folder, string source, string sourceFilename, string destination, string destinationFilename)
     {
         _logger.LogInformation("Adding file '{destinationFilename}'", destinationFilename);
         string destinationFolder = Path.Join(folder, destination);
-        string sourcePath = Path.Join(folder, source);
 
-        byte[] dataToCopy = await File.ReadAllBytesAsync(Path.Join(sourcePath, sourceFilename));
+        byte[] dataToCopy = await File.ReadAllBytesAsync(Path.Join(source, sourceFilename));
 
         Directory.CreateDirectory(Path.Join(destinationFolder));
 
@@ -53,7 +54,7 @@ public class ProjectLocalRepository : IProjectRepository
 
         AssertRequiredTemplateParameters(folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
-        string pathFileToCopy = Path.Join(folder, pathFile, fileNameWithExtension + DefaultExtension);
+        string pathFileToCopy = Path.Join(DefaultFolder, pathFile, fileNameWithExtension + DefaultExtension);
         string pathFolderToCreate = Path.Join(folder, newPathFile);
         string pathFileToPaste = Path.Join(pathFolderToCreate, newPathName + DefaultExtension);
         var dataToCopy = await File.ReadAllTextAsync(pathFileToCopy);
@@ -62,9 +63,8 @@ public class ProjectLocalRepository : IProjectRepository
 
         Directory.CreateDirectory(pathFolderToCreate);
 
-        File.Delete(pathFileToCopy);
-        await File.WriteAllTextAsync(pathFileToPaste, dataToCopy);
-        await File.WriteAllTextAsync(pathFileToPaste, await MustacheHelper.Template(pathFileToPaste, getMustacheContext()));
+        var dataToPast = await MustacheHelper.Template(pathFileToCopy, getMustacheContext());
+        await File.WriteAllTextAsync(pathFileToPaste,dataToPast);
 
         _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
     }

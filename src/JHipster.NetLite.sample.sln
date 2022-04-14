@@ -15,6 +15,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Domain.Services", "JHipster.NetLite.Domain.Services\JHipster.NetLite.Domain.Services.csproj", "{8391BBEB-AD87-45C0-9B76-D2D778885C13}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{75216B45-F196-48E7-B102-17CD5FE4F8E4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Application.Tests", "JHipster.NetLite.Application.Tests\JHipster.NetLite.Application.Tests.csproj", "{AB6CE943-AB3C-4A08-B080-ACCA362DBA08}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Domain.Services.Tests", "JHipster.NetLite.Domain.Services.Tests\JHipster.NetLite.Domain.Services.Tests.csproj", "{7EC59C14-92B3-4C6B-97D7-1A11A92673F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Infrastructure.Tests", "JHipster.NetLite.Infrastructure.Tests\JHipster.NetLite.Infrastructure.Tests.csproj", "{573CAEE9-43EC-4FCA-A0B5-6ED26EADB9E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Web.Tests", "JHipster.NetLite.Web.Tests\JHipster.NetLite.Web.Tests.csproj", "{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +55,31 @@ Global
 		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8391BBEB-AD87-45C0-9B76-D2D778885C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB6CE943-AB3C-4A08-B080-ACCA362DBA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB6CE943-AB3C-4A08-B080-ACCA362DBA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB6CE943-AB3C-4A08-B080-ACCA362DBA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB6CE943-AB3C-4A08-B080-ACCA362DBA08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EC59C14-92B3-4C6B-97D7-1A11A92673F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC59C14-92B3-4C6B-97D7-1A11A92673F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC59C14-92B3-4C6B-97D7-1A11A92673F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC59C14-92B3-4C6B-97D7-1A11A92673F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{573CAEE9-43EC-4FCA-A0B5-6ED26EADB9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{573CAEE9-43EC-4FCA-A0B5-6ED26EADB9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{573CAEE9-43EC-4FCA-A0B5-6ED26EADB9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{573CAEE9-43EC-4FCA-A0B5-6ED26EADB9E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AB6CE943-AB3C-4A08-B080-ACCA362DBA08} = {75216B45-F196-48E7-B102-17CD5FE4F8E4}
+		{7EC59C14-92B3-4C6B-97D7-1A11A92673F0} = {75216B45-F196-48E7-B102-17CD5FE4F8E4}
+		{573CAEE9-43EC-4FCA-A0B5-6ED26EADB9E0} = {75216B45-F196-48E7-B102-17CD5FE4F8E4}
+		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6} = {75216B45-F196-48E7-B102-17CD5FE4F8E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B64C6192-A86D-4D08-AEA4-E7D5E3DE4503}
