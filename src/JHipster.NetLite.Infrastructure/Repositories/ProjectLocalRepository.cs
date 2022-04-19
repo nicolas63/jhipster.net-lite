@@ -57,7 +57,6 @@ public class ProjectLocalRepository : IProjectRepository
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, fileNameWithExtension + DefaultExtension);
         string pathFolderToCreate = Path.Join(folder, newPathFile);
         string pathFileToPaste = Path.Join(pathFolderToCreate, newPathName + DefaultExtension);
-        var dataToCopy = await File.ReadAllTextAsync(pathFileToCopy);
 
         _logger.LogInformation("Starting templating '{pathFileToCopy}'", pathFileToCopy);
 
