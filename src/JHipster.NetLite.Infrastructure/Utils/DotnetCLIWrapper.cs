@@ -37,11 +37,11 @@ public class DotnetCLIWrapper
     {
         if (force)
         {
-            processStartInfo.Arguments = "new sln --name " + solutionName + " --force";
+            processStartInfo.Arguments = $"new sln --name {solutionName} --force";
         }
         else
         {
-            processStartInfo.Arguments = "new sln --name " + solutionName;
+            processStartInfo.Arguments = $"new sln --name {solutionName}";
         }
 
         Process process = new Process();
@@ -52,7 +52,7 @@ public class DotnetCLIWrapper
 
     public void SlnAdd(string solutionFile, params string[] projects)
     {
-        processStartInfo.Arguments = "sln " + solutionFile + " add " + String.Join(" ", projects);
+        processStartInfo.Arguments = $"sln {solutionFile} add {String.Join(" ", projects)}";
         Process process = new Process();
         process.StartInfo = processStartInfo;
         StartProcess(process);
