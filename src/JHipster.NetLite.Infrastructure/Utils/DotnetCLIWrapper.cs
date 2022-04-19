@@ -55,7 +55,7 @@ public class DotnetCLIWrapper
         processStartInfo.Arguments = "sln " + solutionFile + " add " + String.Join(" ", projects);
         Process process = new Process();
         process.StartInfo = processStartInfo;
-        process.Start();
+        StartProcess(process);
         process.WaitForExit();
     }
 
@@ -64,7 +64,7 @@ public class DotnetCLIWrapper
         processStartInfo.Arguments = "build";
         Process process = new Process();
         process.StartInfo = processStartInfo;
-        process.Start();
+        StartProcess(process);
         process.WaitForExit();
     }
 }
