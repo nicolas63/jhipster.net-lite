@@ -1,4 +1,5 @@
 using FluentAssertions;
+using JHipster.NetLite.Infrastructure.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
@@ -12,13 +13,14 @@ public class CLIWrappTest
 
     private const string DefaultExtension = ".sln";
 
-    private CLIWrapp cliWrapp;
+    private DotnetCLIWrapper dotnetCliWrapp;
 
     [TestInitialize]
     public void InitTest()
     {
+        Directory.Delete(testPath, true);
         Directory.CreateDirectory(testPath);
-        cliWrapp = new CLIWrapp(testPath);
+        dotnetCliWrapp = new DotnetCLIWrapper(testPath);
     }
 
     [TestMethod]
@@ -28,7 +30,7 @@ public class CLIWrappTest
         var solutionName = "Test";
 
         //Act
-        cliWrapp.NewSln(solutionName, false);
+        dotnetCliWrapp.NewSln(solutionName, false);
 
         //Assert
         File.Exists(Path.Join(testPath, solutionName + DefaultExtension)).Should().BeTrue();
@@ -40,8 +42,8 @@ public class CLIWrappTest
         //Arrange
 
         //Act
-        cliWrapp.NewSln("Test", true);
-        Action act = () => cliWrapp.Build();
+        dotnetCliWrapp.NewSln("Test", true);
+        Action act = () => dotnetCliWrapp.Build();
 
         //Assert
         act.Should().NotThrow();
