@@ -81,31 +81,31 @@ public class ProjectLocalRepository : IProjectRepository
         if (String.IsNullOrEmpty(folder))
         {
             _logger.LogError("The folder '{folder}' is invalid", folder);
-            throw new InvalidFolderException("The folder '" + folder + "' is invalid");
+            throw new InvalidFolderException($"The folder '{folder}' is invalid");
         }
 
         if (String.IsNullOrEmpty(pathFile))
         {
             _logger.LogError("The Readme's path '{pathFile}' is invalid", pathFile);
-            throw new InvalidPathFileException("The Readme's path '" + pathFile + "' is invalid");
+            throw new InvalidPathFileException($"The Readme's path 'pathFile' is invalid");
         }
 
         if (String.IsNullOrEmpty(fileNameWithExtension))
         {
             _logger.LogError("The file name with extension '{fileNameWithExtension}' is invalid", fileNameWithExtension);
-            throw new InvalidFileNameWithExtensionException("The file name with extension '" + fileNameWithExtension + "' is invalid");
+            throw new InvalidFileNameWithExtensionException($"The file name with extension 'fileNameWithExtension' is invalid");
         }
 
         if (String.IsNullOrEmpty(newPathFile))
         {
             _logger.LogError("The new path file '{newPathFile}' is invalid", newPathFile);
-            throw new InvalidNewPathFileException("The new path file '" + newPathFile + "' is invalid");
+            throw new InvalidNewPathFileException($"The new path file 'newPathFile' is invalid");
         }
 
         if (String.IsNullOrEmpty(newPathName))
         {
             _logger.LogError("The new path name '{newPathName}' is invalid", newPathName);
-            throw new InvalidNewPathNameException("The new path name '" + newPathName + "' is invalid");
+            throw new InvalidNewPathNameException($"The new path name 'newPathName' is invalid");
         }
     }
 }
