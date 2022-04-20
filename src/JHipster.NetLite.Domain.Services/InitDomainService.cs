@@ -27,6 +27,6 @@ public class InitDomainService : IInitDomainService
 
     private async Task AddReadme(Project project)
     {
-        await _projectRepository.Template(project.Folder, "Init", "Readme.md");
+        await _projectRepository.Template(project, "Init", "Readme.md");
     }
 }

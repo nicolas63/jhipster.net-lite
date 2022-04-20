@@ -2,7 +2,9 @@
 
 public class Project
 {
-    public Project(string folder) => Folder = folder;
-
     public string Folder { get; set; }
+
+    public string Namespace { get; set; }
+
+    public string ProjectName { get; set; }
 }

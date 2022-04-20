@@ -3,12 +3,14 @@ using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastucture.Repositories.Exceptions;
 using Microsoft.Extensions.Logging;
 using JHipster.NetLite.Domain.Services.Interfaces;
+using JHipster.NetLite.Domain.Entities;
+using JHipster.NetLite.Infrastructure.Utils;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    public string DefaultFolder = Path.Join(Directory.GetCurrentDirectory(), "Templates");
+    public string DefaultFolder = Path.Join(Directory.GetCurrentDirectory(), @"..\JHipster.NetLite.Infrastructure", "Templates");
 
     private const string DefaultExtension = ".mustache";
 
@@ -39,41 +41,40 @@ public class ProjectLocalRepository : IProjectRepository
         await File.WriteAllBytesAsync(destinationPath, dataToCopy);
     }
 
-    public async Task Template(string folder, string pathFile, string fileNameWithExtension)
+    public async Task Template(Project project, string pathFile, string fileNameWithExtension)
     {
-        await Template(folder, pathFile, fileNameWithExtension, pathFile, fileNameWithExtension);
+        await Template(project, pathFile, fileNameWithExtension, pathFile, fileNameWithExtension);
     }
 
-    public async Task Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile)
+    public async Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile)
     {
-        await Template(folder, pathFile, fileNameWithExtension, newPathFile, fileNameWithExtension);
+        await Template(project, pathFile, fileNameWithExtension, newPathFile, fileNameWithExtension);
     }
 
-    public async Task Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
+    public async Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
     {
 
-        AssertRequiredTemplateParameters(folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
+        AssertRequiredTemplateParameters(project.Folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, fileNameWithExtension + DefaultExtension);
-        string pathFolderToCreate = Path.Join(folder, newPathFile);
+        string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
         string pathFileToPaste = Path.Join(pathFolderToCreate, newPathName + DefaultExtension);
 
         _logger.LogInformation("Starting templating '{pathFileToCopy}'", pathFileToCopy);
 
         Directory.CreateDirectory(pathFolderToCreate);
 
-        var dataToPast = await MustacheHelper.Template(pathFileToCopy, getMustacheContext());
+        var dataToPast = await MustacheHelper.Template(pathFileToCopy, project);
         await File.WriteAllTextAsync(pathFileToPaste,dataToPast);
 
         _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
     }
 
-    private Object getMustacheContext()
+    public void GenerateSolution(string solutionName) //peut être le project en param
     {
-        return new
-        {
-            projectName = "JHipster.NetLite"
-        };
+        var directoryPath = Path.Join(DefaultFolder, "WebApiGeneration", "Generation");//chemin du project.Folder peut être
+        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(directoryPath);
+        dotnetCLIWrapper.NewSln(solutionName, false);
     }
 
     private void AssertRequiredTemplateParameters(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)

@@ -20,6 +20,8 @@ public static class ServiceCollectionExtensions
         builder.AddControllersAsServices().AddApplicationPart(assembly).AddControllersAsServices();
         builder.Services.AddAutoMapper(assembly);
         builder.Services.AddJHipsterLiteApplicationServices()
+                          .AddJHipsterLiteApplicationAPI()
+                          .AddJHipsterLiteDomainAPI()
                           .AddJHipsterLiteDomainServices()
                           .AddJHipsterLiteRepositories();
 
@@ -38,9 +40,22 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IInitApplicationService, InitApplicationService>();
         return services;
     }
+
+    private static IServiceCollection AddJHipsterLiteApplicationAPI(this IServiceCollection services)
+    {
+        services.AddScoped<IInitApplicationAPI, InitApplicationAPI>();
+        return services;
+    }
+
     private static IServiceCollection AddJHipsterLiteDomainServices(this IServiceCollection services)
     {
         services.AddScoped<IInitDomainService, InitDomainService>();
+        return services;
+    }
+
+    private static IServiceCollection AddJHipsterLiteDomainAPI(this IServiceCollection services)
+    {
+        services.AddScoped<IInitDomainAPI, InitDomainAPI>();
         return services;
     }
 
