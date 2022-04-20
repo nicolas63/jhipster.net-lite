@@ -18,7 +18,10 @@ public class CLIWrappTest
     [TestInitialize]
     public void InitTest()
     {
-        Directory.Delete(testPath, true);
+        if (Directory.Exists(testPath))
+        {
+            Directory.Delete(testPath, true);
+        }
         Directory.CreateDirectory(testPath);
         dotnetCliWrapp = new DotnetCLIWrapper(testPath);
     }
