@@ -72,9 +72,9 @@ public class ProjectLocalRepository : IProjectRepository
 
     public void GenerateSolution(string solutionName) //peut être le project en param
     {
-        var directoryPath = Path.Join(DefaultFolder, "WebApiGeneration", "Generation");//chemin du project.Folder peut être
+        var directoryPath = Path.Join(DefaultFolder, "WebApiGeneration");//chemin du project.Folder peut être
         DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(directoryPath);
-        dotnetCLIWrapper.NewSln(solutionName, false);
+        dotnetCLIWrapper.NewSln(solutionName, true);
     }
 
     private void AssertRequiredTemplateParameters(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)

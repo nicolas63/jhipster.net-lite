@@ -12,7 +12,8 @@ public static class MustacheHelper
         return template(new
         {
             projectName = project.ProjectName,
-            namespaceValue = project.Namespace
+            namespaceValue = project.Namespace,
+            sslPort = project.SslPort
         }); 
     }
 }

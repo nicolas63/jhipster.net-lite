@@ -7,4 +7,6 @@ public class Project
     public string Namespace { get; set; }
 
     public string ProjectName { get; set; }
+
+    public string SslPort { get; set; }
 }

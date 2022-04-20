@@ -12,4 +12,6 @@ public class ProjectDto
     public string Namespace { get; set; }
 
     public string ProjectName { get; set; }
+
+    public string SslPort { get; set; }
 }
