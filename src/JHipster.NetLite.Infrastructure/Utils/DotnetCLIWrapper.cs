@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JHipster.NetLite.Domain.Services.Interfaces;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,7 +14,13 @@ public class DotnetCLIWrapper
 {
     private ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
-    public DotnetCLIWrapper(string workingDirectory) => InitializeProcessStartInfo(workingDirectory);
+    private ILogger<IInitDomainService> _logger;
+
+    public DotnetCLIWrapper(string workingDirectory, ILogger<IInitDomainService> logger) 
+    { 
+        _logger = logger;
+        InitializeProcessStartInfo(workingDirectory);
+    }
 
     private void InitializeProcessStartInfo(string workingDirectory)
     {
@@ -21,50 +29,66 @@ public class DotnetCLIWrapper
         processStartInfo.WorkingDirectory = workingDirectory;
     }
 
-    private void StartProcess(Process process)
+    private bool HasDotnet()
     {
         try
         {
+            processStartInfo.Arguments = "--version";
+
+            Process process = new Process();
+            process.StartInfo = processStartInfo;
             process.Start();
+            process.WaitForExit();
         }
-        catch (Win32Exception ex)
-        { 
-            //log de l'erreur
+        catch (Exception ex)
+        {
+            _logger.LogWarning("Dotnet is not installed");
+            return false;
         }
+        return true;
     }
 
     public void NewSln(string solutionName, bool force)
     {
-        if (force)
+        if (HasDotnet())
         {
-            processStartInfo.Arguments = "new sln --name " + solutionName + " --force";
-        }
-        else
-        {
-            processStartInfo.Arguments = "new sln --name " + solutionName;
-        }
+            if (force)
+            {
+                processStartInfo.Arguments = "new sln --name " + solutionName + " --force";
+            }
+            else
+            {
+                processStartInfo.Arguments = "new sln --name " + solutionName;
+            }
 
-        Process process = new Process();
-        process.StartInfo = processStartInfo;
-        StartProcess(process);
-        process.WaitForExit();
+            Process process = new Process();
+            process.StartInfo = processStartInfo;
+            process.Start();
+            process.WaitForExit();
+        }
     }
 
     public void SlnAdd(string solutionFile, params string[] projects)
     {
-        processStartInfo.Arguments = "sln " + solutionFile + " add " + String.Join(" ", projects);
-        Process process = new Process();
-        process.StartInfo = processStartInfo;
-        process.Start();
-        process.WaitForExit();
+        if (HasDotnet())
+        {
+            processStartInfo.Arguments = "sln " + solutionFile + " add " + String.Join(" ", projects);
+            Process process = new Process();
+            process.StartInfo = processStartInfo;
+            process.Start();
+            process.WaitForExit();
+        }
     }
 
     public void Build()
     {
-        processStartInfo.Arguments = "build";
-        Process process = new Process();
-        process.StartInfo = processStartInfo;
-        process.Start();
-        process.WaitForExit();
+        if (HasDotnet())
+        {
+            processStartInfo.Arguments = "build";
+            Process process = new Process();
+            process.StartInfo = processStartInfo;
+            process.Start();
+            process.WaitForExit();
+        }
     }
 }

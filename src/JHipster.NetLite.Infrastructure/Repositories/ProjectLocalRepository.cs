@@ -82,7 +82,7 @@ public class ProjectLocalRepository : IProjectRepository
 
     public void GenerateSolution(Project project, string solutionName)
     {
-        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(project.Folder);
+        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(project.Folder, _logger);
         dotnetCLIWrapper.NewSln(solutionName, true);
     }
 
