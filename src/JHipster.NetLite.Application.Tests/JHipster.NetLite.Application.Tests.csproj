@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JHipster.NetLite.Application\JHipster.NetLite.Application.csproj" />
+    <ProjectReference Include="..\JHipster.NetLite.Domain.Services\JHipster.NetLite.Domain.Services.csproj" />
   </ItemGroup>
 
 </Project>

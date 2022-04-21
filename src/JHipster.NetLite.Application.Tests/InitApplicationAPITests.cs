@@ -1,7 +1,8 @@
 ﻿using AutoFixture;
 using FluentAssertions;
+using JHipster.NetLite.Application.Services.Interfaces;
+using JHipster.NetLite.Application.Services;
 using JHipster.NetLite.Domain.Entities;
-using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Repositories;
@@ -19,35 +20,34 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class IniteDomainServiceTest
+    public class InitApplicationAPITests
     {
-        private IInitDomainService DomainService { get; set; }
-        public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
+
+        private IInitApplicationAPI ApplicationApi { get; set; }
+        public Mock<IInitDomainAPI> DomainApi { get; set; }
+        public ILogger<InitApplicationAPI> Logger { get; set; } = new NullLogger<InitApplicationAPI>();
 
         private Fixture fixture = new Fixture();
 
-        public IniteDomainServiceTest()
-        {
-        }
-
         [TestInitialize]
-        public async Task InitTest()
+        public void InitTest()
         {
-            DomainService = new InitDomainService(new ProjectLocalRepository(Logger), Logger);
+            DomainApi = new Mock<IInitDomainAPI>();
+            ApplicationApi = new InitApplicationAPI(DomainApi.Object, Logger);
         }
 
         [TestMethod]
         public async Task Should_NotThrow_When_Init()
         {
             //Arrange
+            var project = fixture.Create<Project>();
+            DomainApi.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
 
             //Act
-            Func<Task> task = async () => await DomainService.Init(fixture.Create<Project>());
+            Func<Task> task = async () => await ApplicationApi.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();
         }
-
-        
     }
 }

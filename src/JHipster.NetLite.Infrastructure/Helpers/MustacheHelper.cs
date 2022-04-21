@@ -5,6 +5,8 @@ namespace JHipster.NetLite.Infrastructure.Helpers;
 
 public static class MustacheHelper
 {
+    public const string Extension = ".mustache";
+
     public static async Task<string> Template(string filePath, Project project)
     {
         var source = await File.ReadAllTextAsync(filePath);
@@ -15,5 +17,25 @@ public static class MustacheHelper
             namespaceValue = project.Namespace,
             sslPort = project.SslPort
         }); 
+    }
+
+    public static string withExt(string value)
+    {
+        if (!value.EndsWith(Extension))
+        {
+            return value + Extension;
+        }
+
+        return value;
+    }
+
+    public static string withoutExt(string value)
+    {
+        if (value.EndsWith(Extension))
+        {
+            return value.Replace(Extension, "");
+        }
+
+        return value;
     }
 }

@@ -58,7 +58,7 @@ public class ProjectLocalRepository : IProjectRepository
 
         var folders = pathFile.Split(Path.DirectorySeparatorChar);
 
-        string pathFileToCopy = Path.Join(DefaultFolder, pathFile, fileNameWithExtension + DefaultExtension);
+        string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.withExt(fileNameWithExtension));
         string pathFolderToCreate= Path.Join(project.Folder, newPathFile);
         string foldersPath = pathFolderToCreate;
 
@@ -72,7 +72,7 @@ public class ProjectLocalRepository : IProjectRepository
                 Directory.CreateDirectory(foldersPath);
             }
         }
-        string pathFileToPaste = Path.Join(foldersPath, newPathName + DefaultExtension);
+        string pathFileToPaste = Path.Join(foldersPath, newPathName);
 
         var dataToPast = await MustacheHelper.Template(pathFileToCopy, project);
         await File.WriteAllTextAsync(pathFileToPaste,dataToPast);
@@ -80,10 +80,9 @@ public class ProjectLocalRepository : IProjectRepository
         _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
     }
 
-    public void GenerateSolution(string solutionName) //peut être le project en param
+    public void GenerateSolution(Project project, string solutionName)
     {
-        var directoryPath = Path.Join(DefaultFolder, "WebApiGeneration");//chemin du project.Folder peut être
-        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(directoryPath);
+        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(project.Folder);
         dotnetCLIWrapper.NewSln(solutionName, true);
     }
 
