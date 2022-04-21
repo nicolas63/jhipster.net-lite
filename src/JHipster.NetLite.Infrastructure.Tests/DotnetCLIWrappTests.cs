@@ -4,51 +4,53 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 
-namespace CLIWrapper.Tests;
-
-[TestClass]
-public class CLIWrappTest
+namespace JHipster.NetLite.Web.Tests
 {
-    private string testPath = Path.Join(Directory.GetCurrentDirectory(), "TestWrapper");
 
-    private const string DefaultExtension = ".sln";
-
-    private DotnetCLIWrapper dotnetCliWrapp;
-
-    [TestInitialize]
-    public void InitTest()
+    [TestClass]
+    public class DotnetCLIWrappTests
     {
-        if (Directory.Exists(testPath))
+        private string testPath = Path.Join(Directory.GetCurrentDirectory(), "TestWrapper");
+
+        private const string DefaultExtension = ".sln";
+
+        private DotnetCLIWrapper dotnetCliWrapp;
+
+        [TestInitialize]
+        public void InitTest()
         {
-            Directory.Delete(testPath, true);
+            if (Directory.Exists(testPath))
+            {
+                Directory.Delete(testPath, true);
+            }
+            Directory.CreateDirectory(testPath);
+            dotnetCliWrapp = new DotnetCLIWrapper(testPath);
         }
-        Directory.CreateDirectory(testPath);
-        dotnetCliWrapp = new DotnetCLIWrapper(testPath);
-    }
 
-    [TestMethod]
-    public void Should_CreateNewSln_When_Calling()
-    {
-        //Arrange
-        var solutionName = "Test";
+        [TestMethod]
+        public void Should_CreateNewSln_When_Calling()
+        {
+            //Arrange
+            var solutionName = "Test";
 
-        //Act
-        dotnetCliWrapp.NewSln(solutionName, false);
+            //Act
+            dotnetCliWrapp.NewSln(solutionName, false);
 
-        //Assert
-        File.Exists(Path.Join(testPath, solutionName + DefaultExtension)).Should().BeTrue();
-    }
+            //Assert
+            File.Exists(Path.Join(testPath, solutionName + DefaultExtension)).Should().BeTrue();
+        }
 
-    [TestMethod]
-    public void Should_NotThrow_When_Build()
-    {
-        //Arrange
+        [TestMethod]
+        public void Should_NotThrow_When_Build()
+        {
+            //Arrange
 
-        //Act
-        dotnetCliWrapp.NewSln("Test", true);
-        Action act = () => dotnetCliWrapp.Build();
+            //Act
+            dotnetCliWrapp.NewSln("Test", true);
+            Action act = () => dotnetCliWrapp.Build();
 
-        //Assert
-        act.Should().NotThrow();
+            //Assert
+            act.Should().NotThrow();
+        }
     }
 }

@@ -3,6 +3,7 @@ using FluentAssertions;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Web.Controllers.Projects;
+using JHipster.NetLite.Web.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -18,7 +19,7 @@ namespace JHipster.NetLite.Web.Tests
     public class InitControllerTest
     {
         private InitController InitController { get; set; }
-        public Mock<IInitApplicationService> ApplicationService { get; set; }//TODO IInitApplicationService
+        public Mock<IInitApplicationService> ApplicationService { get; set; }
         public IMapper Mapper { get; set; }
         public ILogger<InitController> Logger { get; set; } = new NullLogger<InitController>();
         
@@ -43,27 +44,21 @@ namespace JHipster.NetLite.Web.Tests
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await InitController.Post(new DTO.ProjectDto("_"));
+            var result = await InitController.Post(new ProjectDto(""));
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
             statusResult.Should().NotBeNull();
             statusResult.StatusCode.Should().Be((int) HttpStatusCode.BadRequest);
-
-            //TODO cast ton resulkt en BadRequestResult https://docs.microsoft.com/fr-fr/dotnet/api/microsoft.aspnetcore.mvc.badrequestresult?view=aspnetcore-6.0
-            // cette classe existe aussi mais elle est moins précise => https://docs.microsoft.com/fr-fr/dotnet/api/microsoft.aspnetcore.mvc.statuscoderesult?view=aspnetcore-6.0
-
-            //TODO regarde les trois A en test 
         }
 
         [TestMethod]
         public async Task Should_ReturnOkStatusCode_When_Call()
         {
             //Arrange
-            ApplicationService.Setup(app => app.Init(It.IsAny<Project>()));
 
             //Act
-            var result = await InitController.Post(new DTO.ProjectDto("_"));
+            var result = await InitController.Post(new ProjectDto(""));
 
             //Assert
             var statusResult = result as OkResult;
