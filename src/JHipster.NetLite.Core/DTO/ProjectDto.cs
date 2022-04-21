@@ -5,7 +5,13 @@ namespace JHipster.NetLite.Web.DTO;
 
 public class ProjectDto
 {
-    //TODO au lieu mettre en propriété
+    public ProjectDto(string folder, string @namespace, string projectName, string sslPort)
+    {
+        Folder = folder;
+        Namespace = @namespace;
+        ProjectName = projectName;
+        SslPort = sslPort;
+    }
 
     public string Folder { get; set; }
 

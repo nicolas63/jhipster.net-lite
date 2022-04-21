@@ -1,8 +1,10 @@
+using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Web.Controllers.Projects;
+using JHipster.NetLite.Web.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -18,7 +20,8 @@ namespace JHipster.NetLite.Web.Tests
     public class InitControllerTest
     {
         private InitController InitController { get; set; }
-        public Mock<IInitApplicationService> ApplicationService { get; set; }//TODO IInitApplicationService
+        public Mock<IInitApplicationService> ApplicationService { get; set; }
+        private Fixture fixture = new Fixture();
         public IMapper Mapper { get; set; }
         public ILogger<InitController> Logger { get; set; } = new NullLogger<InitController>();
         
@@ -43,7 +46,7 @@ namespace JHipster.NetLite.Web.Tests
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await InitController.Post(new DTO.ProjectDto("_"));
+            var result = await InitController.Post(new ProjectDto("","","",""));
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
@@ -60,10 +63,9 @@ namespace JHipster.NetLite.Web.Tests
         public async Task Should_ReturnOkStatusCode_When_Call()
         {
             //Arrange
-            ApplicationService.Setup(app => app.Init(It.IsAny<Project>()));
 
             //Act
-            var result = await InitController.Post(new DTO.ProjectDto("_"));
+            var result = await InitController.Post(fixture.Create<ProjectDto>());
 
             //Assert
             var statusResult = result as OkResult;

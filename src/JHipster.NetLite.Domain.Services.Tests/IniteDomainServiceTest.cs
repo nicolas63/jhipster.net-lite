@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AutoFixture;
+using FluentAssertions;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services;
@@ -17,14 +18,14 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Web.Tests
 {
-    //TODO: j'ai mélangé test repo et test InitDomainService
-    //TODO: faire un projet (dans le dossier tests) pour chaque couche avec les tests qui iront dans leur projet correspodant
     [TestClass]
     public class IniteDomainServiceTest
     {
         private IInitDomainService DomainService { get; set; }
         private Project Project { get; set; }
         public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
+
+        private Fixture fixture = new Fixture();
 
         public IniteDomainServiceTest()
         {
@@ -33,7 +34,6 @@ namespace JHipster.NetLite.Web.Tests
         [TestInitialize]
         public async Task InitTest()
         {
-            Project = new Project(Path.Join(Directory.GetCurrentDirectory(), "Test"));
             DomainService = new InitDomainService(new ProjectLocalRepository(Logger), Logger);
         }
 
@@ -43,7 +43,7 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            Func<Task> task = async () => await DomainService.Init(Project);
+            Func<Task> task = async () => await DomainService.Init(fixture.Create<Project>());
 
             //Assert
             await task.Should().NotThrowAsync();

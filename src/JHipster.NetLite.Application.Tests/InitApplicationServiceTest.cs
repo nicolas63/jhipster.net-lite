@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoFixture;
 using FluentAssertions;
 using JHipster.NetLite.Application.Services;
 using JHipster.NetLite.Application.Services.Interfaces;
@@ -24,6 +25,8 @@ namespace JHipster.NetLite.Web.Tests
         public Mock<IInitDomainService> DomainService { get; set; }
         public ILogger<InitApplicationService> Logger { get; set; } = new NullLogger<InitApplicationService>();
 
+        private Fixture fixture = new Fixture();
+
         public InitApplicationServiceTest()
         {
         }
@@ -39,10 +42,11 @@ namespace JHipster.NetLite.Web.Tests
         public async Task Should_NotThrow_When_Init()
         {
             //Arrange
-            DomainService.Setup(app => app.Init(It.IsAny<Project>()));
+            var project = fixture.Create<Project>();
+            DomainService.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
 
             //Act
-            Func<Task> task = async () => await ApplicationService.Init(new Project("_"));
+            Func<Task> task = async () => await ApplicationService.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();

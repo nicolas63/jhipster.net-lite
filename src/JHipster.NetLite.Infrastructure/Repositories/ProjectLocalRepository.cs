@@ -5,12 +5,13 @@ using Microsoft.Extensions.Logging;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Infrastructure.Utils;
+using System.Text;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    public string DefaultFolder = Path.Join(Directory.GetCurrentDirectory(), @"..\JHipster.NetLite.Infrastructure", "Templates");
+    public string DefaultFolder = Path.Join(AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("bin")), @"..\JHipster.NetLite.Infrastructure", "Templates");
 
     private const string DefaultExtension = ".mustache";
 
@@ -43,7 +44,7 @@ public class ProjectLocalRepository : IProjectRepository
 
     public async Task Template(Project project, string pathFile, string fileNameWithExtension)
     {
-        await Template(project, pathFile, fileNameWithExtension, pathFile, fileNameWithExtension);
+        await Template(project, pathFile, fileNameWithExtension, ".");
     }
 
     public async Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile)
@@ -53,16 +54,25 @@ public class ProjectLocalRepository : IProjectRepository
 
     public async Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
     {
-
         AssertRequiredTemplateParameters(project.Folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
+        var folders = pathFile.Split(Path.DirectorySeparatorChar);
+
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, fileNameWithExtension + DefaultExtension);
-        string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
-        string pathFileToPaste = Path.Join(pathFolderToCreate, newPathName + DefaultExtension);
+        string pathFolderToCreate= Path.Join(project.Folder, newPathFile);
+        string foldersPath = pathFolderToCreate;
 
         _logger.LogInformation("Starting templating '{pathFileToCopy}'", pathFileToCopy);
 
         Directory.CreateDirectory(pathFolderToCreate);
+        if(folders.Length >= 2){
+            for (int i = 1; i < folders.Length; i++)
+            {
+                foldersPath = Path.Join(foldersPath, folders[i]);
+                Directory.CreateDirectory(foldersPath);
+            }
+        }
+        string pathFileToPaste = Path.Join(foldersPath, newPathName + DefaultExtension);
 
         var dataToPast = await MustacheHelper.Template(pathFileToCopy, project);
         await File.WriteAllTextAsync(pathFileToPaste,dataToPast);

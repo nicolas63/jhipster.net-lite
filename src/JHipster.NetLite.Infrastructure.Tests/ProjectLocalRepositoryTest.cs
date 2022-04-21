@@ -16,8 +16,6 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Web.Tests
 {
-    //TODO: j'ai mélangé test repo et test InitDomainService
-    //TODO: faire un projet (dans le dossier tests) pour chaque couche avec les tests qui iront dans leur projet correspodant
     [TestClass]
     public class ProjectLocalRepositoryTest
     {
@@ -61,7 +59,7 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            //await DomainService.Init(new Project(Path.Join("NOTHING", folder)));
+            await DomainService.Init(new Project(Path.Join("NOTHING", folder),"","",""));
 
             //Assert
         }
@@ -74,7 +72,7 @@ namespace JHipster.NetLite.Web.Tests
 
             //Act
             var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, FileNameWithExtension + DefaultExtension));
-            //await ProjectRepository.Template(folder, PathFile, FileNameWithExtension);
+            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension);
             var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, PathFile, FileNameWithExtension + DefaultExtension));
 
             //Assert
@@ -88,7 +86,7 @@ namespace JHipster.NetLite.Web.Tests
             var newPathFile = "Redirect";
 
             //Act
-            //await ProjectRepository.Template(folder, PathFile, FileNameWithExtension, newPathFile);
+            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile);
 
             //Assert
             File.Exists(Path.Join(folder, newPathFile, FileNameWithExtension + DefaultExtension)).Should().BeTrue();
@@ -103,7 +101,7 @@ namespace JHipster.NetLite.Web.Tests
             var newPathName = "Suuuuu.md";
 
             //Act
-            //await ProjectRepository.Template(folder, PathFile, FileNameWithExtension, newPathFile, newPathName);
+            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile, newPathName);
 
             //Assert
             File.Exists(Path.Join(folder, newPathFile, newPathName + DefaultExtension)).Should().BeTrue();
