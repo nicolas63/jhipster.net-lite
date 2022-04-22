@@ -6,14 +6,13 @@ using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Infrastructure.Utils;
 using System.Text;
+using System.Reflection;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    public string DefaultFolder = Path.Join(AppContext.BaseDirectory.Substring(0, AppContext.BaseDirectory.IndexOf("bin")), @"..\JHipster.NetLite.Infrastructure", "Templates");
-
-    private const string DefaultExtension = ".mustache";
+    public string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
     private ILogger<IInitDomainService> _logger;
 

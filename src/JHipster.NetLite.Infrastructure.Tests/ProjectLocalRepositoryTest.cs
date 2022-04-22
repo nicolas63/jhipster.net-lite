@@ -2,6 +2,7 @@
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
+using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -22,8 +23,6 @@ namespace JHipster.NetLite.Web.Tests
         private const string PathFile = "Init";
 
         private const string FileNameWithExtension = "Readme.md";
-
-        private const string DefaultExtension = ".mustache";
 
         private const string DataInitialisationToCopy = "Test text";
 
@@ -71,9 +70,9 @@ namespace JHipster.NetLite.Web.Tests
             var folderPathBeforeTemplating = Path.Join(Directory.GetCurrentDirectory(), "Templates");
 
             //Act
-            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, FileNameWithExtension + DefaultExtension));
+            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.withExt(FileNameWithExtension)));
             await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension);
-            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, PathFile, FileNameWithExtension + DefaultExtension));
+            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, PathFile, MustacheHelper.withExt(FileNameWithExtension)));
 
             //Assert
             TextBeforeTemplating.Should().NotBeEquivalentTo(TextAfterTemplating);
@@ -89,7 +88,7 @@ namespace JHipster.NetLite.Web.Tests
             await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, FileNameWithExtension + DefaultExtension)).Should().BeTrue();
+            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.withExt(FileNameWithExtension))).Should().BeTrue();
 
         }
 
@@ -104,7 +103,7 @@ namespace JHipster.NetLite.Web.Tests
             await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile, newPathName);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, newPathName + DefaultExtension)).Should().BeTrue();
+            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.withExt(newPathName))).Should().BeTrue();
 
         }
 
