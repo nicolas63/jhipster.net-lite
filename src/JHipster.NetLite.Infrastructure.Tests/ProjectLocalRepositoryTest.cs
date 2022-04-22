@@ -28,9 +28,9 @@ namespace JHipster.NetLite.Web.Tests
 
         private const string FileToCopy = "FileToCopy.txt";
 
-        private string folder = Path.Join(Directory.GetCurrentDirectory(), "Test");
+        private string folder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test");
 
-        private string sourceFolder = Path.Join(Directory.GetCurrentDirectory(), "Test", "Copy");
+        private string sourceFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test", "Copy");
 
         private ProjectLocalRepository ProjectRepository { get; set; }
 
@@ -67,7 +67,7 @@ namespace JHipster.NetLite.Web.Tests
         public async Task Should_TemplateReadme_When_Call()
         {
             //Arrange
-            var folderPathBeforeTemplating = Path.Join(Directory.GetCurrentDirectory(), "Templates");
+            var folderPathBeforeTemplating = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
             //Act
             var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileNameWithExtension)));
