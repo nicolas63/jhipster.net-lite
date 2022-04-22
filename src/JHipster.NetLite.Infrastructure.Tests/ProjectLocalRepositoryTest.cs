@@ -70,9 +70,9 @@ namespace JHipster.NetLite.Web.Tests
             var folderPathBeforeTemplating = Path.Join(Directory.GetCurrentDirectory(), "Templates");
 
             //Act
-            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.withExt(FileNameWithExtension)));
+            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileNameWithExtension)));
             await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension);
-            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, PathFile, MustacheHelper.withExt(FileNameWithExtension)));
+            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, PathFile, MustacheHelper.WithExt(FileNameWithExtension)));
 
             //Assert
             TextBeforeTemplating.Should().NotBeEquivalentTo(TextAfterTemplating);
@@ -88,7 +88,7 @@ namespace JHipster.NetLite.Web.Tests
             await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.withExt(FileNameWithExtension))).Should().BeTrue();
+            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.WithExt(FileNameWithExtension))).Should().BeTrue();
 
         }
 
@@ -103,7 +103,7 @@ namespace JHipster.NetLite.Web.Tests
             await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile, newPathName);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.withExt(newPathName))).Should().BeTrue();
+            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.WithExt(newPathName))).Should().BeTrue();
 
         }
 

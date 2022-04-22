@@ -57,7 +57,7 @@ public class ProjectLocalRepository : IProjectRepository
 
         var folders = pathFile.Split(Path.DirectorySeparatorChar);
 
-        string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.withExt(fileNameWithExtension));
+        string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
         string pathFolderToCreate= Path.Join(project.Folder, newPathFile);
         string foldersPath = pathFolderToCreate;
 

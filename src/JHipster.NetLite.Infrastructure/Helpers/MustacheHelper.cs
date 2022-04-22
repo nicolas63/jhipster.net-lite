@@ -19,7 +19,7 @@ public static class MustacheHelper
         }); 
     }
 
-    public static string withExt(string value)
+    public static string WithExt(string value)
     {
         if (!value.EndsWith(Extension))
         {
@@ -29,7 +29,7 @@ public static class MustacheHelper
         return value;
     }
 
-    public static string withoutExt(string value)
+    public static string WithoutExt(string value)
     {
         if (value.EndsWith(Extension))
         {
