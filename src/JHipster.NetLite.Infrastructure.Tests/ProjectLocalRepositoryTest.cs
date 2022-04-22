@@ -57,18 +57,6 @@ namespace JHipster.NetLite.Web.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(IOException))]
-        public async Task Should_ThrowException_When_Call()
-        {
-            //Arrange
-
-            //Act
-            await DomainService.Init(new Project(Path.Join("NOTHING", folder),"","",""));
-
-            //Assert
-        }
-
-        [TestMethod]
         public async Task Should_TemplateReadme_When_Call()
         {
             //Arrange
