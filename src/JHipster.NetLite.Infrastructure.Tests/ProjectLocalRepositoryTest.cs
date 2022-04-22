@@ -31,9 +31,9 @@ namespace JHipster.NetLite.Web.Tests
 
         private const string FileToCopy = "FileToCopy.txt";
 
-        private string folder = Path.Join(Directory.GetCurrentDirectory(), "Test");
+        private string folder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test");
 
-        private string sourceFolder = Path.Join(Directory.GetCurrentDirectory(), "Test", "Copy");
+        private string sourceFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test", "Copy");
 
         private ProjectLocalRepository ProjectRepository { get; set; }
 
@@ -41,15 +41,16 @@ namespace JHipster.NetLite.Web.Tests
 
         public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
 
-        public ProjectLocalRepositoryTest()
-        {
-        }
-
         [TestInitialize]
         public async Task InitTest()
         {
             ProjectRepository = new ProjectLocalRepository(Logger);
             DomainService = new InitDomainService(ProjectRepository, Logger);
+            if (Directory.Exists(folder))
+            {
+                Directory.Delete(folder, true);
+            }
+            Directory.CreateDirectory(folder);
             Directory.CreateDirectory(sourceFolder);
             await File.WriteAllTextAsync(Path.Join(sourceFolder, FileToCopy), DataInitialisationToCopy);
         }
@@ -154,7 +155,7 @@ namespace JHipster.NetLite.Web.Tests
             //Assert
             Directory.Exists(Path.Join(folder, destinationFolder)).Should().BeTrue();
             File.Exists(Path.Join(folder, destinationFolder, destinationFileName)).Should().BeTrue();
-            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, FileToCopy)));
+            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, destinationFileName)));
 
         }
     }

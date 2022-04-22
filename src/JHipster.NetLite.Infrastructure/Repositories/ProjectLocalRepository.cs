@@ -3,12 +3,13 @@ using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastucture.Repositories.Exceptions;
 using Microsoft.Extensions.Logging;
 using JHipster.NetLite.Domain.Services.Interfaces;
+using System.Reflection;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    public string DefaultFolder = Path.Join(Directory.GetCurrentDirectory(), "Templates");
+    public string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
     private const string DefaultExtension = ".mustache";
 

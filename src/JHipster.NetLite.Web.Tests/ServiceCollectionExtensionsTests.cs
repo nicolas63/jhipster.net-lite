@@ -16,10 +16,6 @@ namespace JHipster.NetLite.Web.Tests
 
         private WebApplicationBuilder builder { get; set; }
 
-        public ServiceCollectionExtensionsTests()
-        {
-        }
-
         [TestInitialize]
         public void InitTest()
         {

@@ -17,8 +17,6 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Web.Tests
 {
-    //TODO: j'ai mélangé test repo et test InitDomainService
-    //TODO: faire un projet (dans le dossier tests) pour chaque couche avec les tests qui iront dans leur projet correspodant
     [TestClass]
     public class IniteDomainServiceTest
     {
