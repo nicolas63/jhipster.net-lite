@@ -22,7 +22,7 @@ namespace JHipster.NetLite.Web.Tests
     {
         private const string PathFile = "Init";
 
-        private const string FileNameWithExtension = "Readme.md";
+        private const string FileName = "Readme.md";
 
         private const string DataInitialisationToCopy = "Test text";
 
@@ -47,6 +47,11 @@ namespace JHipster.NetLite.Web.Tests
         {
             ProjectRepository = new ProjectLocalRepository(Logger);
             DomainService = new InitDomainService(ProjectRepository, Logger);
+            if (Directory.Exists(folder))
+            {
+                Directory.Delete(folder, true);
+            }
+            Directory.CreateDirectory(folder);
             Directory.CreateDirectory(sourceFolder);
             await File.WriteAllTextAsync(Path.Join(sourceFolder, FileToCopy), DataInitialisationToCopy);
         }
@@ -70,9 +75,9 @@ namespace JHipster.NetLite.Web.Tests
             var folderPathBeforeTemplating = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
             //Act
-            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileNameWithExtension)));
-            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension);
-            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, PathFile, MustacheHelper.WithExt(FileNameWithExtension)));
+            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileName)));
+            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileName);
+            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, FileName));
 
             //Assert
             TextBeforeTemplating.Should().NotBeEquivalentTo(TextAfterTemplating);
@@ -85,10 +90,10 @@ namespace JHipster.NetLite.Web.Tests
             var newPathFile = "Redirect";
 
             //Act
-            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile);
+            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileName, newPathFile);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.WithExt(FileNameWithExtension))).Should().BeTrue();
+            File.Exists(Path.Join(folder, newPathFile, FileName)).Should().BeTrue();
 
         }
 
@@ -100,10 +105,10 @@ namespace JHipster.NetLite.Web.Tests
             var newPathName = "Suuuuu.md";
 
             //Act
-            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileNameWithExtension, newPathFile, newPathName);
+            await ProjectRepository.Template(new Project(folder, "", "", ""), PathFile, FileName, newPathFile, newPathName);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, MustacheHelper.WithExt(newPathName))).Should().BeTrue();
+            File.Exists(Path.Join(folder, newPathFile, newPathName)).Should().BeTrue();
 
         }
 
@@ -151,7 +156,8 @@ namespace JHipster.NetLite.Web.Tests
             //Assert
             Directory.Exists(Path.Join(folder, destinationFolder)).Should().BeTrue();
             File.Exists(Path.Join(folder, destinationFolder, destinationFileName)).Should().BeTrue();
-            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, FileToCopy)));
+            var TextCopy = await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, destinationFileName));
+            TextToCopy.Should().BeEquivalentTo(TextCopy);
 
         }
     }
