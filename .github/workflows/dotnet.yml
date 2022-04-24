@@ -39,7 +39,9 @@ jobs:
         restore-keys: ${{ runner.os }}-sonar-scanner
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-      run: dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner    
+      run: |
+        mkdir ./.sonar/scanner
+        dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner    
     - name: Restore dependencies
       run: dotnet restore
     - name: Build, Test and Analyze
