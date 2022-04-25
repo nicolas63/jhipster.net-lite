@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Infrastructure.Utils;
 
-public class DotnetCLIWrapper
+public class DotnetCliWrapper
 {
-    private ProcessStartInfo processStartInfo = new ProcessStartInfo();
+    private readonly ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
-    public DotnetCLIWrapper(string workingDirectory) => InitializeProcessStartInfo(workingDirectory);
+    public DotnetCliWrapper(string workingDirectory) => InitializeProcessStartInfo(workingDirectory);
 
     private void InitializeProcessStartInfo(string workingDirectory)
     {

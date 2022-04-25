@@ -8,13 +8,13 @@ namespace JHipster.NetLite.Web.Tests
 {
 
     [TestClass]
-    public class DotnetCLIWrappTests
+    public class DotnetCliWrappTests
     {
         private string testPath = Path.Join(Directory.GetCurrentDirectory(), "TestWrapper");
 
         private const string DefaultExtension = ".sln";
 
-        private DotnetCLIWrapper dotnetCliWrapp;
+        private DotnetCliWrapper dotnetCliWrapp;
 
         [TestInitialize]
         public void InitTest()
@@ -24,7 +24,7 @@ namespace JHipster.NetLite.Web.Tests
                 Directory.Delete(testPath, true);
             }
             Directory.CreateDirectory(testPath);
-            dotnetCliWrapp = new DotnetCLIWrapper(testPath);
+            dotnetCliWrapp = new DotnetCliWrapper(testPath);
         }
 
         [TestMethod]

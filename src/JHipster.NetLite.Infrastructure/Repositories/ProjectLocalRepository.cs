@@ -9,7 +9,7 @@ namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    public string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
+    private string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
     private const string DefaultExtension = ".mustache";
 

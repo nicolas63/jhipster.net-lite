@@ -24,12 +24,8 @@ namespace JHipster.NetLite.Web.Tests
         private Project Project { get; set; }
         public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
 
-        public IniteDomainServiceTest()
-        {
-        }
-
         [TestInitialize]
-        public async Task InitTest()
+        public void InitTest()
         {
             Project = new Project(Path.Join(Directory.GetCurrentDirectory(), "Test"));
             DomainService = new InitDomainService(new ProjectLocalRepository(Logger), Logger);

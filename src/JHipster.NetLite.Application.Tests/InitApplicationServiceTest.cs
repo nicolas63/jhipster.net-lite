@@ -24,10 +24,6 @@ namespace JHipster.NetLite.Web.Tests
         public Mock<IInitDomainService> DomainService { get; set; }
         public ILogger<InitApplicationService> Logger { get; set; } = new NullLogger<InitApplicationService>();
 
-        public InitApplicationServiceTest()
-        {
-        }
-
         [TestInitialize]
         public void InitTest()
         {
