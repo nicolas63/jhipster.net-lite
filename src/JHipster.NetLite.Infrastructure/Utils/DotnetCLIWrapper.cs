@@ -14,7 +14,7 @@ public class DotnetCliWrapper
 {
     private readonly ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
-    private ILogger<IInitDomainService> _logger;
+    private readonly ILogger<IInitDomainService> _logger;
 
     private const string SolutionExtension = ".sln";
 
