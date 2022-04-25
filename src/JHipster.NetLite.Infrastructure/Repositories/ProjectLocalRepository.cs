@@ -13,7 +13,7 @@ public class ProjectLocalRepository : IProjectRepository
 
     private const string DefaultExtension = ".mustache";
 
-    private ILogger<IInitDomainService> _logger;
+    private readonly ILogger<IInitDomainService> _logger;
 
     public ProjectLocalRepository(ILogger<IInitDomainService> logger) => _logger = logger;
 
