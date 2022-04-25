@@ -14,15 +14,15 @@ namespace JHipster.NetLite.Web.Controllers.Projects;
 
 [ApiController]
 [Route("[controller]")]
-public class APIController : ControllerBase
+public class ApiController : ControllerBase
 {
-    private readonly ILogger<APIController> _logger;
+    private readonly ILogger<ApiController> _logger;
 
-    private readonly IInitApplicationAPI _initApplicationAPI;
+    private readonly IInitApplicationApi _initApplicationAPI;
 
     private readonly IMapper _mapper;
 
-    public APIController(ILogger<APIController> logger, IInitApplicationAPI initApplicationAPI, IMapper mapper)
+    public ApiController(ILogger<ApiController> logger, IInitApplicationApi initApplicationAPI, IMapper mapper)
     {
         _logger = logger;
         _initApplicationAPI = initApplicationAPI;

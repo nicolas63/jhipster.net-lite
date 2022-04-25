@@ -16,18 +16,18 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class IniteDomainAPITests
+    public class InitDomainApiTests
     {
-        private IInitDomainAPI DomainApi { get; set; }
+        private IInitDomainApi DomainApi { get; set; }
         public ILogger<InitDomainService> LoggerService { get; set; } = new NullLogger<InitDomainService>();
-        public ILogger<InitDomainAPI> LoggerApi { get; set; } = new NullLogger<InitDomainAPI>();
+        public ILogger<InitDomainApi> LoggerApi { get; set; } = new NullLogger<InitDomainApi>();
 
         private Fixture fixture = new Fixture();
 
         [TestInitialize]
         public async Task InitTest()
         {
-            DomainApi = new InitDomainAPI(new ProjectLocalRepository(LoggerService), LoggerApi);
+            DomainApi = new InitDomainApi(new ProjectLocalRepository(LoggerService), LoggerApi);
         }
 
         [TestMethod]

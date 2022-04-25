@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Domain.Services;
 
-public class InitDomainAPI : IInitDomainAPI
+public class InitDomainApi : IInitDomainApi
 {
     private readonly IProjectRepository _projectRepository;
 
-    private readonly ILogger<InitDomainAPI> _logger;
+    private readonly ILogger<InitDomainApi> _logger;
 
-    public InitDomainAPI(IProjectRepository projectRepository, ILogger<InitDomainAPI> logger)
+    public InitDomainApi(IProjectRepository projectRepository, ILogger<InitDomainApi> logger)
     {
         _projectRepository = projectRepository;
         _logger = logger;

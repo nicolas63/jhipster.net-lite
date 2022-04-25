@@ -20,20 +20,20 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class InitApplicationAPITests
+    public class InitApplicationApiTests
     {
 
-        private IInitApplicationAPI ApplicationApi { get; set; }
-        public Mock<IInitDomainAPI> DomainApi { get; set; }
-        public ILogger<InitApplicationAPI> Logger { get; set; } = new NullLogger<InitApplicationAPI>();
+        private IInitApplicationApi ApplicationApi { get; set; }
+        public Mock<IInitDomainApi> DomainApi { get; set; }
+        public ILogger<InitApplicationApi> Logger { get; set; } = new NullLogger<InitApplicationApi>();
 
         private Fixture fixture = new Fixture();
 
         [TestInitialize]
         public void InitTest()
         {
-            DomainApi = new Mock<IInitDomainAPI>();
-            ApplicationApi = new InitApplicationAPI(DomainApi.Object, Logger);
+            DomainApi = new Mock<IInitDomainApi>();
+            ApplicationApi = new InitApplicationApi(DomainApi.Object, Logger);
         }
 
         [TestMethod]

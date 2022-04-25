@@ -20,26 +20,26 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class APIControllerTests
+    public class ApiControllerTests
     {
-        private APIController ApiController { get; set; }
-        public Mock<IInitApplicationAPI> ApplicationAPI { get; set; }
+        private ApiController ApiController { get; set; }
+        public Mock<IInitApplicationApi> ApplicationAPI { get; set; }
 
         private Fixture fixture = new Fixture();
         public IMapper Mapper { get; set; }
-        public ILogger<APIController> Logger { get; set; } = new NullLogger<APIController>();
+        public ILogger<ApiController> Logger { get; set; } = new NullLogger<ApiController>();
 
-        public APIControllerTests()
+        public ApiControllerTests()
         {
-            var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(APIController)));
+            var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(ApiController)));
             Mapper = new Mapper(configuration);
         }
 
         [TestInitialize]
         public void InitTest()
         {
-            ApplicationAPI = new Mock<IInitApplicationAPI>();
-            ApiController = new APIController(Logger, ApplicationAPI.Object, Mapper);
+            ApplicationAPI = new Mock<IInitApplicationApi>();
+            ApiController = new ApiController(Logger, ApplicationAPI.Object, Mapper);
         }
 
         [TestMethod]

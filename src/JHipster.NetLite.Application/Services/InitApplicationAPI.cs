@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Application.Services;
 
-public class InitApplicationAPI : IInitApplicationAPI
+public class InitApplicationApi : IInitApplicationApi
 {
-    private readonly IInitDomainAPI _initDomainAPI;
+    private readonly IInitDomainApi _initDomainAPI;
 
-    private readonly ILogger<InitApplicationAPI> _logger;
+    private readonly ILogger<InitApplicationApi> _logger;
 
-    public InitApplicationAPI(IInitDomainAPI initDomainAPI, ILogger<InitApplicationAPI> logger)
+    public InitApplicationApi(IInitDomainApi initDomainAPI, ILogger<InitApplicationApi> logger)
     {
         _initDomainAPI = initDomainAPI;
         _logger = logger;

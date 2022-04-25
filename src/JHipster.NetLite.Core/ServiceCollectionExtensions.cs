@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddJHipsterLiteApplicationAPI(this IServiceCollection services)
     {
-        services.AddScoped<IInitApplicationAPI, InitApplicationAPI>();
+        services.AddScoped<IInitApplicationApi, InitApplicationApi>();
         return services;
     }
 
@@ -55,7 +55,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddJHipsterLiteDomainAPI(this IServiceCollection services)
     {
-        services.AddScoped<IInitDomainAPI, InitDomainAPI>();
+        services.AddScoped<IInitDomainApi, InitDomainApi>();
         return services;
     }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Domain.Services.Interfaces;
 
-public interface IInitDomainAPI
+public interface IInitDomainApi
 {
     Task Init(Project project);
 }

@@ -2,7 +2,7 @@
 
 namespace JHipster.NetLite.Application.Services.Interfaces;
 
-public interface IInitApplicationAPI
+public interface IInitApplicationApi
 {
     Task Init(Project project);
 }
