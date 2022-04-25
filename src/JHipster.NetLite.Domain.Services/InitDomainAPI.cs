@@ -35,6 +35,8 @@ public class InitDomainAPI : IInitDomainAPI
         await _projectRepository.Template(project, "WebApiGeneration", "appsettings.Development.json");
         await _projectRepository.Template(project, Path.Join("WebApiGeneration","Properties"), "launchSettings.json");
         await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Controllers"), "WeatherForecastController.cs");
-        _projectRepository.GenerateSolution(project, "Test");
+        _projectRepository.GenerateSolution(project, project.ProjectName);
+        await _projectRepository.Template(project, "WebApiGeneration", "generation.csproj");
+        _projectRepository.AddProjectsToSolution(project, project.ProjectName, "generation");
     }
 }

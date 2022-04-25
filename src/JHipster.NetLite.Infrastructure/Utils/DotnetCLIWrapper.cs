@@ -16,6 +16,10 @@ public class DotnetCLIWrapper
 
     private ILogger<IInitDomainService> _logger;
 
+    private const string SolutionExtension = ".sln";
+
+    private const string ProjectExtension = ".csproj";
+
     public DotnetCLIWrapper(string workingDirectory, ILogger<IInitDomainService> logger) 
     { 
         _logger = logger;
@@ -72,7 +76,11 @@ public class DotnetCLIWrapper
     {
         if (HasDotnet())
         {
-            processStartInfo.Arguments = "sln " + solutionFile + " add " + String.Join(" ", projects);
+            processStartInfo.Arguments = $"sln {solutionFile + SolutionExtension} add";
+            foreach (string project in projects)
+            {
+                processStartInfo.Arguments = $"{processStartInfo.Arguments} {project + ProjectExtension}";
+            }
             Process process = new Process();
             process.StartInfo = processStartInfo;
             process.Start();

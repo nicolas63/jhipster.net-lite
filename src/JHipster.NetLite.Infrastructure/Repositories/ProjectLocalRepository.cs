@@ -85,6 +85,12 @@ public class ProjectLocalRepository : IProjectRepository
         dotnetCLIWrapper.NewSln(solutionName, true);
     }
 
+    public void AddProjectsToSolution(Project project, string solutionFile, params string[] projects)
+    {
+        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(project.Folder, _logger);
+        dotnetCLIWrapper.SlnAdd(solutionFile, projects);
+    }
+
     private void AssertRequiredTemplateParameters(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
     {
         if (String.IsNullOrEmpty(folder))

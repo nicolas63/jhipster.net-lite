@@ -17,4 +17,6 @@ public interface IProjectRepository
     Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName);
 
     void GenerateSolution(Project project, string solutionName);
+
+    void AddProjectsToSolution(Project project, string solutionFile, params string[] projects);
 }

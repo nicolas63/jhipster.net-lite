@@ -10,6 +10,7 @@
     <None Remove="Templates\WebApiGeneration\appsettings.Development.json.mustache" />
     <None Remove="Templates\WebApiGeneration\appsettings.json.mustache" />
     <None Remove="Templates\WebApiGeneration\Controllers\WeatherForecastController.cs.mustache" />
+    <None Remove="Templates\WebApiGeneration\generation.csproj.mustache" />
     <None Remove="Templates\WebApiGeneration\Program.cs.mustache" />
     <None Remove="Templates\WebApiGeneration\Properties\launchSettings.json.mustache" />
     <None Remove="Templates\WebApiGeneration\WeatherForecast.cs.mustache" />
@@ -23,6 +24,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\WebApiGeneration\Controllers\WeatherForecastController.cs.mustache">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\WebApiGeneration\generation.csproj.mustache">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\WebApiGeneration\Program.cs.mustache">
