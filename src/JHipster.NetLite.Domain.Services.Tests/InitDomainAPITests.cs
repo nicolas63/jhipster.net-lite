@@ -25,7 +25,7 @@ namespace JHipster.NetLite.Web.Tests
         private Fixture fixture = new Fixture();
 
         [TestInitialize]
-        public async Task InitTest()
+        public void InitTest()
         {
             DomainApi = new InitDomainApi(new ProjectLocalRepository(LoggerService), LoggerApi);
         }

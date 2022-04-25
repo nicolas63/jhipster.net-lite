@@ -12,9 +12,9 @@ namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
-    public string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
+    private readonly string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
-    private ILogger<IInitDomainService> _logger;
+    private readonly ILogger<IInitDomainService> _logger;
 
     public ProjectLocalRepository(ILogger<IInitDomainService> logger) => _logger = logger;
 
@@ -81,13 +81,13 @@ public class ProjectLocalRepository : IProjectRepository
 
     public void GenerateSolution(Project project, string solutionName)
     {
-        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(project.Folder, _logger);
+        DotnetCliWrapper dotnetCLIWrapper = new DotnetCliWrapper(project.Folder, _logger);
         dotnetCLIWrapper.NewSln(solutionName, true);
     }
 
     public void AddProjectsToSolution(Project project, string solutionFile, params string[] projects)
     {
-        DotnetCLIWrapper dotnetCLIWrapper = new DotnetCLIWrapper(project.Folder, _logger);
+        DotnetCliWrapper dotnetCLIWrapper = new DotnetCliWrapper(project.Folder, _logger);
         dotnetCLIWrapper.SlnAdd(solutionFile, projects);
     }
 

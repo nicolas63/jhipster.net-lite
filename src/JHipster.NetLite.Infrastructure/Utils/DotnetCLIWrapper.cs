@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Infrastructure.Utils;
 
-public class DotnetCLIWrapper
+public class DotnetCliWrapper
 {
-    private ProcessStartInfo processStartInfo = new ProcessStartInfo();
+    private readonly ProcessStartInfo processStartInfo = new ProcessStartInfo();
 
     private ILogger<IInitDomainService> _logger;
 
@@ -20,7 +20,7 @@ public class DotnetCLIWrapper
 
     private const string ProjectExtension = ".csproj";
 
-    public DotnetCLIWrapper(string workingDirectory, ILogger<IInitDomainService> logger) 
+    public DotnetCliWrapper(string workingDirectory, ILogger<IInitDomainService> logger) 
     { 
         _logger = logger;
         InitializeProcessStartInfo(workingDirectory);

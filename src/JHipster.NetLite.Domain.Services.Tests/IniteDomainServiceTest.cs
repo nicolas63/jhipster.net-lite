@@ -26,12 +26,8 @@ namespace JHipster.NetLite.Web.Tests
 
         private Fixture fixture = new Fixture();
 
-        public IniteDomainServiceTest()
-        {
-        }
-
         [TestInitialize]
-        public async Task InitTest()
+        public void InitTest()
         {
             DomainService = new InitDomainService(new ProjectLocalRepository(Logger), Logger);
         }

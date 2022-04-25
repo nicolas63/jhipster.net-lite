@@ -38,10 +38,6 @@ namespace JHipster.NetLite.Web.Tests
 
         public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
 
-        public ProjectLocalRepositoryTest()
-        {
-        }
-
         [TestInitialize]
         public async Task InitTest()
         {

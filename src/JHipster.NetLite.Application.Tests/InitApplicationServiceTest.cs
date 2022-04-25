@@ -27,10 +27,6 @@ namespace JHipster.NetLite.Web.Tests
 
         private Fixture fixture = new Fixture();
 
-        public InitApplicationServiceTest()
-        {
-        }
-
         [TestInitialize]
         public void InitTest()
         {

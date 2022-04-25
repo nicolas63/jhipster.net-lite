@@ -16,10 +16,6 @@ namespace JHipster.NetLite.Web.Tests
 
         private WebApplicationBuilder builder { get; set; }
 
-        public ServiceCollectionExtensionsTests()
-        {
-        }
-
         [TestInitialize]
         public void InitTest()
         {
@@ -27,7 +23,7 @@ namespace JHipster.NetLite.Web.Tests
         }
 
         [TestMethod]
-        public async Task Should_NotThrow_When_Calling()
+        public void Should_NotThrow_When_Calling()
         {
             //Arrange
 
