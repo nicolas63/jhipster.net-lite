@@ -2,11 +2,11 @@
 
 public interface IProjectRepository
 {
-    Task add(string folder, string source, string sourceFilename);
+    Task Add(string folder, string source, string sourceFilename);
 
-    Task add(string folder, string source, string sourceFilename, string destination);
+    Task Add(string folder, string source, string sourceFilename, string destination);
 
-    Task add(string folder, string source, string sourceFilename, string destination, string destinationFilename);
+    Task Add(string folder, string source, string sourceFilename, string destination, string destinationFilename);
 
     Task Template(string folder, string pathFile, string fileNameWithExtension);
 

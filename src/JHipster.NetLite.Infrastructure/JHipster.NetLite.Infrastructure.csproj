@@ -21,4 +21,10 @@
     <Folder Include="Templates\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Templates\Init\Readme.md.mustache">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
