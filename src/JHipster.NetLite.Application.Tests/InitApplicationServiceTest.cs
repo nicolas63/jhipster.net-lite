@@ -27,8 +27,7 @@ namespace JHipster.NetLite.Web.Tests
 
         private Fixture fixture = new Fixture();
 
-        [TestInitialize]
-        public void InitTest()
+        public InitApplicationServiceTest()
         {
             DomainService = new Mock<IInitDomainService>();
             ApplicationService = new InitApplicationService(DomainService.Object, Logger);

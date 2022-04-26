@@ -29,8 +29,7 @@ namespace JHipster.NetLite.Web.Tests
 
         private Fixture fixture = new Fixture();
 
-        [TestInitialize]
-        public void InitTest()
+        public InitApplicationApiTests()
         {
             DomainApi = new Mock<IInitDomainApi>();
             ApplicationApi = new InitApplicationApi(DomainApi.Object, Logger);

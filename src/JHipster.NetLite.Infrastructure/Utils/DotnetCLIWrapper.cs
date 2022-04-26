@@ -28,7 +28,7 @@ public class DotnetCliWrapper
 
     private void InitializeProcessStartInfo(string workingDirectory)
     {
-        processStartInfo.FileName = "dotnet";
+        processStartInfo.FileName = "otnet";
         processStartInfo.UseShellExecute = false;
         processStartInfo.WorkingDirectory = workingDirectory;
     }
@@ -44,7 +44,7 @@ public class DotnetCliWrapper
             process.Start();
             process.WaitForExit();
         }
-        catch (Exception ex)
+        catch (Win32Exception ex)
         {
             _logger.LogWarning("Dotnet is not installed");
             return false;
@@ -58,11 +58,11 @@ public class DotnetCliWrapper
         {
             if (force)
             {
-                processStartInfo.Arguments = "new sln --name " + solutionName + " --force";
+                processStartInfo.Arguments = $"new sln --name {solutionName} --force";
             }
             else
             {
-                processStartInfo.Arguments = "new sln --name " + solutionName;
+                processStartInfo.Arguments = $"new sln --name {solutionName}";
             }
 
             Process process = new Process();

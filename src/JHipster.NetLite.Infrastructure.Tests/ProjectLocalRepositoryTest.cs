@@ -38,11 +38,15 @@ namespace JHipster.NetLite.Web.Tests
 
         public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
 
-        [TestInitialize]
-        public async Task InitTest()
+        public ProjectLocalRepositoryTest()
         {
             ProjectRepository = new ProjectLocalRepository(Logger);
             DomainService = new InitDomainService(ProjectRepository, Logger);
+        }
+
+        [TestInitialize]
+        public async Task InitTest()
+        {
             if (Directory.Exists(folder))
             {
                 Directory.Delete(folder, true);

@@ -33,11 +33,6 @@ namespace JHipster.NetLite.Web.Tests
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(ApiController)));
             Mapper = new Mapper(configuration);
-        }
-
-        [TestInitialize]
-        public void InitTest()
-        {
             ApplicationAPI = new Mock<IInitApplicationApi>();
             ApiController = new ApiController(Logger, ApplicationAPI.Object, Mapper);
         }

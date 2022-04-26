@@ -29,11 +29,6 @@ namespace JHipster.NetLite.Web.Tests
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(InitController)));
             Mapper = new Mapper(configuration);
-        }
-
-        [TestInitialize]
-        public void InitTest()
-        {
             ApplicationService = new Mock<IInitApplicationService>();
             InitController = new InitController(Logger, ApplicationService.Object, Mapper);
         }
