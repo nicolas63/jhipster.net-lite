@@ -1,5 +1,8 @@
 using FluentAssertions;
+using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Infrastructure.Utils;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
@@ -16,6 +19,8 @@ namespace JHipster.NetLite.Web.Tests
 
         private DotnetCliWrapper? dotnetCliWrapp;
 
+        private ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
+
         [TestInitialize]
         public void InitTest()
         {
@@ -24,7 +29,7 @@ namespace JHipster.NetLite.Web.Tests
                 Directory.Delete(testPath, true);
             }
             Directory.CreateDirectory(testPath);
-            dotnetCliWrapp = new DotnetCliWrapper(testPath);
+            dotnetCliWrapp = new DotnetCliWrapper(testPath, Logger);
         }
 
         [TestMethod]
