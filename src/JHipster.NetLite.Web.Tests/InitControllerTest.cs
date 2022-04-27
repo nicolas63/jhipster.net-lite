@@ -47,11 +47,6 @@ namespace JHipster.NetLite.Web.Tests
             var statusResult = result as BadRequestObjectResult;
             statusResult.Should().NotBeNull();
             statusResult.StatusCode.Should().Be((int) HttpStatusCode.BadRequest);
-
-            //TODO cast ton resulkt en BadRequestResult https://docs.microsoft.com/fr-fr/dotnet/api/microsoft.aspnetcore.mvc.badrequestresult?view=aspnetcore-6.0
-            // cette classe existe aussi mais elle est moins précise => https://docs.microsoft.com/fr-fr/dotnet/api/microsoft.aspnetcore.mvc.statuscoderesult?view=aspnetcore-6.0
-
-            //TODO regarde les trois A en test 
         }
 
         [TestMethod]

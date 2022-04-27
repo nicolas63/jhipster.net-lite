@@ -1,4 +1,5 @@
 ﻿using HandlebarsDotNet;
+using Humanizer;
 using JHipster.NetLite.Domain.Entities;
 
 namespace JHipster.NetLite.Infrastructure.Helpers;
@@ -13,7 +14,7 @@ public static class MustacheHelper
         var template = Handlebars.Compile(source);
         return template(new
         {
-            projectName = project.ProjectName,
+            projectName = project.ProjectName.Pascalize(),
             namespaceValue = project.Namespace,
             sslPort = project.SslPort
         }); 
