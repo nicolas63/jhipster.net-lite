@@ -17,8 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:7107;http://localhost:5131",
-      "dotnetRunMessages": true,
-      "nativeDebugging": false
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -28,7 +27,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WSL": {
+    "WSL 2 : Ubuntu": {
       "commandName": "WSL2",
       "launchBrowser": true,
       "launchUrl": "https://localhost:7107/swagger",
@@ -36,7 +35,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "https://localhost:7107;http://localhost:5131"
       },
-      "distributionName": ""
+      "distributionName": "Ubuntu"
     }
   }
 }
