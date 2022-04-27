@@ -58,13 +58,14 @@ public class ProjectLocalRepository : IProjectRepository
         var folders = pathFile.Split(Path.DirectorySeparatorChar);
 
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
-        string pathFolderToCreate= Path.Join(project.Folder, newPathFile);
+        string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
         string foldersPath = pathFolderToCreate;
 
         _logger.LogInformation("Starting templating '{pathFileToCopy}'", pathFileToCopy);
 
         Directory.CreateDirectory(pathFolderToCreate);
-        if(folders.Length >= 2){
+        if (folders.Length >= 2)
+        {
             for (int i = 1; i < folders.Length; i++)
             {
                 foldersPath = Path.Join(foldersPath, folders[i]);
@@ -74,7 +75,7 @@ public class ProjectLocalRepository : IProjectRepository
         string pathFileToPaste = Path.Join(foldersPath, newPathName);
 
         var dataToPast = await MustacheHelper.Template(pathFileToCopy, project);
-        await File.WriteAllTextAsync(pathFileToPaste,dataToPast);
+        await File.WriteAllTextAsync(pathFileToPaste, dataToPast);
 
         _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
     }

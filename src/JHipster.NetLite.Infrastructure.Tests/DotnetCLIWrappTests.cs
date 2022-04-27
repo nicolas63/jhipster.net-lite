@@ -14,7 +14,7 @@ namespace JHipster.NetLite.Web.Tests
 
         private const string DefaultExtension = ".sln";
 
-        private DotnetCliWrapper dotnetCliWrapp;
+        private DotnetCliWrapper? dotnetCliWrapp;
 
         [TestInitialize]
         public void InitTest()

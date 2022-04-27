@@ -20,8 +20,8 @@ public class DotnetCliWrapper
 
     private const string ProjectExtension = ".csproj";
 
-    public DotnetCliWrapper(string workingDirectory, ILogger<IInitDomainService> logger) 
-    { 
+    public DotnetCliWrapper(string workingDirectory, ILogger<IInitDomainService> logger)
+    {
         _logger = logger;
         InitializeProcessStartInfo(workingDirectory);
     }
@@ -44,7 +44,7 @@ public class DotnetCliWrapper
             process.Start();
             process.WaitForExit();
         }
-        catch (Exception ex)//TODO : plus spécifique en Exception
+        catch (Exception)//TODO : plus spécifique en Exception
         {
             _logger.LogWarning("Dotnet is not installed");
             return false;

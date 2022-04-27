@@ -9,7 +9,7 @@ public class InitApplicationService : IInitApplicationService
 {
     private readonly IInitDomainService _initDomainService;
 
-    private readonly ILogger<InitApplicationService> _logger; 
+    private readonly ILogger<InitApplicationService> _logger;
 
     public InitApplicationService(IInitDomainService initDomainService, ILogger<InitApplicationService> logger)
     {

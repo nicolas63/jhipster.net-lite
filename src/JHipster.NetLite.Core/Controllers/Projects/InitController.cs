@@ -13,7 +13,7 @@ public class InitController : ControllerBase
 {
     private readonly ILogger<InitController> _logger;
 
-    private readonly IInitApplicationService _initApplicationService; 
+    private readonly IInitApplicationService _initApplicationService;
 
     private readonly IMapper _mapper;
 

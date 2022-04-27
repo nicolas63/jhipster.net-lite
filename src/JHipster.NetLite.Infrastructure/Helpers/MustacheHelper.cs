@@ -17,7 +17,7 @@ public static class MustacheHelper
             projectName = project.ProjectName.Pascalize(),
             namespaceValue = project.Namespace,
             sslPort = project.SslPort
-        }); 
+        });
     }
 
     public static string WithExt(string value)

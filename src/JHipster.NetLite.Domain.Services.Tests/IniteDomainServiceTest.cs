@@ -43,6 +43,6 @@ namespace JHipster.NetLite.Web.Tests
             await task.Should().NotThrowAsync();
         }
 
-        
+
     }
 }

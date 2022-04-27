@@ -24,7 +24,7 @@ namespace JHipster.NetLite.Web.Tests
         private Fixture fixture = new Fixture();
         public IMapper Mapper { get; set; }
         public ILogger<InitController> Logger { get; set; } = new NullLogger<InitController>();
-        
+
         public InitControllerTest()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(InitController)));
@@ -41,12 +41,12 @@ namespace JHipster.NetLite.Web.Tests
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await InitController.Post(new ProjectDto("","","",""));
+            var result = await InitController.Post(new ProjectDto("", "", "", ""));
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
             statusResult.Should().NotBeNull();
-            statusResult.StatusCode.Should().Be((int) HttpStatusCode.BadRequest);
+            statusResult.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace JHipster.NetLite.Web.Tests
             //Assert
             var statusResult = result as OkResult;
             statusResult.Should().NotBeNull();
-            statusResult.StatusCode.Should().Be((int) HttpStatusCode.OK);
+            statusResult.StatusCode.Should().Be((int)HttpStatusCode.OK);
         }
     }
 }

@@ -126,7 +126,7 @@ namespace JHipster.NetLite.Web.Tests
 
             //Assert
             Directory.Exists(Path.Join(folder, destinationFolder)).Should().BeTrue();
-            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, destinationFolder,FileToCopy)));
+            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, FileToCopy)));
 
         }
 
