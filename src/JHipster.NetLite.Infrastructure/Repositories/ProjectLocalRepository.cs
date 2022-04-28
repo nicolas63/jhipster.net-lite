@@ -33,7 +33,7 @@ public class ProjectLocalRepository : IProjectRepository
         _logger.LogInformation("Adding file '{destinationFilename}'", destinationFilename);
         string destinationFolder = Path.Join(folder, destination);
 
-        byte[] dataToCopy = await File.ReadAllBytesAsync(Path.Join(source, sourceFilename));
+        byte[] dataToCopy = await File.ReadAllBytesAsync(Path.Join(DefaultFolder, source, sourceFilename));
 
         Directory.CreateDirectory(Path.Join(destinationFolder));
 
