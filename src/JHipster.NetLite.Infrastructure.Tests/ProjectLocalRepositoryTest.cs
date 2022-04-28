@@ -28,9 +28,11 @@ namespace JHipster.NetLite.Web.Tests
 
         private const string FileToCopy = "FileToCopy.txt";
 
+        private const string sourceFolder = "TestCopy";
+
         private string folder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test");
 
-        private string sourceFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test", "Copy");
+        private string TemplateFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
         private ProjectLocalRepository ProjectRepository { get; set; }
 
@@ -53,7 +55,8 @@ namespace JHipster.NetLite.Web.Tests
             }
             Directory.CreateDirectory(folder);
             Directory.CreateDirectory(sourceFolder);
-            await File.WriteAllTextAsync(Path.Join(sourceFolder, FileToCopy), DataInitialisationToCopy);
+            Directory.CreateDirectory(Path.Join(TemplateFolder, sourceFolder));
+            await File.WriteAllTextAsync(Path.Join(TemplateFolder, sourceFolder, FileToCopy), DataInitialisationToCopy);
         }
 
         [TestMethod]
@@ -104,7 +107,7 @@ namespace JHipster.NetLite.Web.Tests
         public async Task Should_CopyText_When_Call()
         {
             //Arrange
-            var TextToCopy = await File.ReadAllTextAsync(Path.Join(sourceFolder, FileToCopy));
+            var TextToCopy = await File.ReadAllTextAsync(Path.Join(Path.Join(TemplateFolder, sourceFolder, FileToCopy)));
 
             //Act
             await ProjectRepository.Add(folder, sourceFolder, FileToCopy);
@@ -112,6 +115,7 @@ namespace JHipster.NetLite.Web.Tests
             //Assert
             TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, FileToCopy)));
 
+            Directory.Delete(sourceFolder, true);
         }
 
         [TestMethod]
@@ -119,7 +123,7 @@ namespace JHipster.NetLite.Web.Tests
         {
             //Arrange
             var destinationFolder = "Redirect";
-            var TextToCopy = await File.ReadAllTextAsync(Path.Join(sourceFolder, FileToCopy));
+            var TextToCopy = await File.ReadAllTextAsync(Path.Join(TemplateFolder, sourceFolder, FileToCopy));
 
             //Act
             await ProjectRepository.Add(folder, sourceFolder, FileToCopy, destinationFolder);
@@ -136,7 +140,7 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
             var destinationFolder = "Redirect";
             var destinationFileName = "Renamed.txt";
-            var TextToCopy = await File.ReadAllTextAsync(Path.Join(sourceFolder, FileToCopy));
+            var TextToCopy = await File.ReadAllTextAsync(Path.Join(TemplateFolder, sourceFolder, FileToCopy));
 
             //Act
             await ProjectRepository.Add(folder, sourceFolder, FileToCopy, destinationFolder, destinationFileName);

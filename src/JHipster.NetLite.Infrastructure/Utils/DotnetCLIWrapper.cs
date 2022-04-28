@@ -30,6 +30,8 @@ public class DotnetCliWrapper
     {
         processStartInfo.FileName = "dotnet";
         processStartInfo.UseShellExecute = false;
+        processStartInfo.RedirectStandardOutput = true;
+        processStartInfo.RedirectStandardError = true;
         processStartInfo.WorkingDirectory = workingDirectory;
     }
 
@@ -96,6 +98,21 @@ public class DotnetCliWrapper
             Process process = new Process();
             process.StartInfo = processStartInfo;
             process.Start();
+            process.WaitForExit();
+        }
+    }
+
+    public void Tests()
+    {
+        if (HasDotnet())
+        {
+            processStartInfo.Arguments = "test";
+            Process process = new Process();
+            process.StartInfo = processStartInfo;
+            _logger.LogInformation("launching unit tests");
+            process.OutputDataReceived += (sender, args) => _logger.LogInformation(args.Data);
+            process.Start();
+            process.BeginOutputReadLine();
             process.WaitForExit();
         }
     }

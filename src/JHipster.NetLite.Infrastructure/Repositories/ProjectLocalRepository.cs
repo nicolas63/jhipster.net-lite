@@ -92,6 +92,13 @@ public class ProjectLocalRepository : IProjectRepository
         dotnetCLIWrapper.SlnAdd(solutionFile, projects);
     }
 
+    public void StartUnitsTests(Project project)
+    {
+        var srcFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..", "..");
+        DotnetCliWrapper dotnetCLIWrapper = new DotnetCliWrapper(srcFolder, _logger);
+        dotnetCLIWrapper.Tests();
+    }
+
     private void AssertRequiredTemplateParameters(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
     {
         if (String.IsNullOrEmpty(folder))
