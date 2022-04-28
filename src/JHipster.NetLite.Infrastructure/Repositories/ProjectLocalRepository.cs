@@ -7,6 +7,7 @@ using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Infrastructure.Utils;
 using System.Text;
 using System.Reflection;
+using JHipster.NetLite.Infrastructure.Repositories.Exceptions;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
@@ -33,12 +34,14 @@ public class ProjectLocalRepository : IProjectRepository
         _logger.LogInformation("Adding file '{destinationFilename}'", destinationFilename);
         string destinationFolder = Path.Join(folder, destination);
 
-        byte[] dataToCopy = await File.ReadAllBytesAsync(Path.Join(DefaultFolder, source, sourceFilename));
+        string dataToCopy = await File.ReadAllTextAsync(Path.Join(DefaultFolder, source, sourceFilename));
 
         Directory.CreateDirectory(Path.Join(destinationFolder));
 
         string destinationPath = Path.Join(destinationFolder, destinationFilename);
-        await File.WriteAllBytesAsync(destinationPath, dataToCopy);
+        await File.WriteAllTextAsync(destinationPath, dataToCopy);
+
+        await AssertFileIsGenerated(destinationPath, dataToCopy);
     }
 
     public async Task Template(Project project, string pathFile, string fileNameWithExtension)
@@ -77,6 +80,8 @@ public class ProjectLocalRepository : IProjectRepository
         var dataToPast = await MustacheHelper.Template(pathFileToCopy, project);
         await File.WriteAllTextAsync(pathFileToPaste, dataToPast);
 
+        await AssertFileIsGenerated(pathFileToPaste, dataToPast);
+
         _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
     }
 
@@ -84,6 +89,8 @@ public class ProjectLocalRepository : IProjectRepository
     {
         DotnetCliWrapper dotnetCLIWrapper = new DotnetCliWrapper(project.Folder, _logger);
         dotnetCLIWrapper.NewSln(solutionName, true);
+
+        AssertSlnIsGenerated(project.Folder, solutionName + DotnetCliWrapper.SolutionExtension);
     }
 
     public void AddProjectsToSolution(Project project, string solutionFile, params string[] projects)
@@ -97,6 +104,36 @@ public class ProjectLocalRepository : IProjectRepository
         var srcFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..", "..");
         DotnetCliWrapper dotnetCLIWrapper = new DotnetCliWrapper(srcFolder, _logger);
         dotnetCLIWrapper.Tests();
+    }
+
+    private async Task AssertFileIsGenerated(string pathFileGenerated, string data)
+    {
+        string dataFileGenerated;
+
+        if (!File.Exists(pathFileGenerated))
+        {
+            _logger.LogError("error generation of file '{pathFileGenerated}'", pathFileGenerated);
+            throw new GenerationAPIException($"error generation of file {pathFileGenerated}");
+        }
+        else
+        {
+           dataFileGenerated = await File.ReadAllTextAsync(pathFileGenerated);
+        }
+
+        if (!dataFileGenerated.Equals(data))
+        {
+            _logger.LogError("error generation file '{pathFileGenerated}'", pathFileGenerated);
+            throw new GenerationAPIException($"error generation file {pathFileGenerated}");
+        }
+    }
+
+    private void AssertSlnIsGenerated (string path, string solutionName)
+    {
+        if (!File.Exists(Path.Join(path, solutionName)))
+        {
+            _logger.LogError("error generation dotnet solution '{solutionName}'", solutionName);
+            throw new GenerationAPIException($"error generation dotnet solution '{solutionName}'");
+        }
     }
 
     private void AssertRequiredTemplateParameters(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)

@@ -16,7 +16,7 @@ public class DotnetCliWrapper
 
     private readonly ILogger<IInitDomainService> _logger;
 
-    private const string SolutionExtension = ".sln";
+    public const string SolutionExtension = ".sln";
 
     private const string ProjectExtension = ".csproj";
 
@@ -48,7 +48,7 @@ public class DotnetCliWrapper
         }
         catch (Exception)//TODO : plus spécifique en Exception
         {
-            _logger.LogWarning("Dotnet is not installed");
+            _logger.LogError("Dotnet is not installed");
             return false;
         }
         return true;
