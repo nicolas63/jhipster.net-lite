@@ -53,5 +53,3 @@ jobs:
         ./.sonar/scanner/dotnet-sonarscanner begin /k:"nicolas63_jhipster.net-lite" /o:"nicolas63" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
         dotnet build --no-restore
         dotnet test --no-build --verbosity normal
-        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-        ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
