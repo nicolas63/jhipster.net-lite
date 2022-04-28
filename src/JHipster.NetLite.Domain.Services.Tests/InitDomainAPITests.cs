@@ -1,7 +1,6 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using JHipster.NetLite.Domain.Entities;
-using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
@@ -9,24 +8,30 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JHipster.NetLite.Web.Tests
+namespace JHipster.NetLite.Domain.Services.Tests
 {
     [TestClass]
     public class InitDomainApiTests
     {
-        private IInitDomainApi DomainApi { get; set; }
-        public ILogger<InitDomainService> LoggerService { get; set; } = new NullLogger<InitDomainService>();
-        public ILogger<InitDomainApi> LoggerApi { get; set; } = new NullLogger<InitDomainApi>();
+        private IInitDomainApi domainApi;
+
+        private ILogger<InitDomainService> loggerService = new NullLogger<InitDomainService>();
+
+        private ILogger<InitDomainApi> loggerApi = new NullLogger<InitDomainApi>();
 
         private Fixture fixture = new Fixture();
 
+        private Project project;
+
         public InitDomainApiTests()
         {
-            DomainApi = new InitDomainApi(new ProjectLocalRepository(LoggerService), LoggerApi);
+            domainApi = new InitDomainApi(new ProjectLocalRepository(loggerService), loggerApi);
+            project = fixture.Create<Project>();
         }
 
         [TestMethod]
@@ -35,10 +40,12 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            Func<Task> task = async () => await DomainApi.Init(fixture.Create<Project>());
+            Func<Task> task = async () => await domainApi.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();
+
+            Directory.Delete(project.Folder, true);
         }
 
 

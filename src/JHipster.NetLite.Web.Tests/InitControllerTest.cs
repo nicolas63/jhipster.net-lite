@@ -19,29 +19,33 @@ namespace JHipster.NetLite.Web.Tests
     [TestClass]
     public class InitControllerTest
     {
-        private InitController InitController { get; set; }
-        public Mock<IInitApplicationService> ApplicationService { get; set; }
+        private InitController initController;
+
+        private Mock<IInitApplicationService> applicationService;
+
         private Fixture fixture = new Fixture();
-        public IMapper Mapper { get; set; }
-        public ILogger<InitController> Logger { get; set; } = new NullLogger<InitController>();
+
+        private IMapper mapper;
+
+        private ILogger<InitController> logger = new NullLogger<InitController>();
 
         public InitControllerTest()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(InitController)));
-            Mapper = new Mapper(configuration);
-            ApplicationService = new Mock<IInitApplicationService>();
-            InitController = new InitController(Logger, ApplicationService.Object, Mapper);
+            mapper = new Mapper(configuration);
+            applicationService = new Mock<IInitApplicationService>();
+            initController = new InitController(logger, applicationService.Object, mapper);
         }
 
         [TestMethod]
         public async Task Should_ReturnBadRequest_When_Exception()
         {
             //Arrange
-            ApplicationService.Setup(app => app.Init(It.IsAny<Project>()))
+            applicationService.Setup(app => app.Init(It.IsAny<Project>()))
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await InitController.Post(new ProjectDto("", "", "", ""));
+            var result = await initController.Post(new ProjectDto("", "", "", ""));
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
@@ -55,7 +59,7 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            var result = await InitController.Post(fixture.Create<ProjectDto>());
+            var result = await initController.Post(fixture.Create<ProjectDto>());
 
             //Assert
             var statusResult = result as OkResult;

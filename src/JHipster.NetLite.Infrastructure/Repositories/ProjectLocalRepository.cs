@@ -117,7 +117,7 @@ public class ProjectLocalRepository : IProjectRepository
         }
         else
         {
-           dataFileGenerated = await File.ReadAllTextAsync(pathFileGenerated);
+            dataFileGenerated = await File.ReadAllTextAsync(pathFileGenerated);
         }
 
         if (!dataFileGenerated.Equals(data))
@@ -127,7 +127,7 @@ public class ProjectLocalRepository : IProjectRepository
         }
     }
 
-    private void AssertSlnIsGenerated (string path, string solutionName)
+    private void AssertSlnIsGenerated(string path, string solutionName)
     {
         if (!File.Exists(Path.Join(path, solutionName)))
         {

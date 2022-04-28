@@ -6,20 +6,22 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Reflection;
 
-namespace JHipster.NetLite.Web.Tests
+namespace JHipster.NetLite.Infrastructure.Tests
 {
 
     [TestClass]
     public class DotnetCliWrappTests
     {
-        private string testPath = Path.Join(Directory.GetCurrentDirectory(), "TestWrapper");
 
         private const string DefaultExtension = ".sln";
 
+        private string testPath = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestWrapper");
+
         private DotnetCliWrapper? dotnetCliWrapp;
 
-        private ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
+        private ILogger<InitDomainService> logger = new NullLogger<InitDomainService>();
 
         [TestInitialize]
         public void InitTest()
@@ -29,7 +31,7 @@ namespace JHipster.NetLite.Web.Tests
                 Directory.Delete(testPath, true);
             }
             Directory.CreateDirectory(testPath);
-            dotnetCliWrapp = new DotnetCliWrapper(testPath, Logger);
+            dotnetCliWrapp = new DotnetCliWrapper(testPath, logger);
         }
 
         [TestMethod]

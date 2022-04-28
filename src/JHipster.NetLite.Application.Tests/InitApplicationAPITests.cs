@@ -17,22 +17,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JHipster.NetLite.Web.Tests
+namespace JHipster.NetLite.Application.Tests
 {
     [TestClass]
     public class InitApplicationApiTests
     {
 
-        private IInitApplicationApi ApplicationApi { get; set; }
-        public Mock<IInitDomainApi> DomainApi { get; set; }
-        public ILogger<InitApplicationApi> Logger { get; set; } = new NullLogger<InitApplicationApi>();
+        private IInitApplicationApi applicationApi;
+
+        private Mock<IInitDomainApi> domainApi;
+
+        private ILogger<InitApplicationApi> logger = new NullLogger<InitApplicationApi>();
 
         private Fixture fixture = new Fixture();
 
         public InitApplicationApiTests()
         {
-            DomainApi = new Mock<IInitDomainApi>();
-            ApplicationApi = new InitApplicationApi(DomainApi.Object, Logger);
+            domainApi = new Mock<IInitDomainApi>();
+            applicationApi = new InitApplicationApi(domainApi.Object, logger);
         }
 
         [TestMethod]
@@ -40,10 +42,10 @@ namespace JHipster.NetLite.Web.Tests
         {
             //Arrange
             var project = fixture.Create<Project>();
-            DomainApi.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
+            domainApi.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
 
             //Act
-            Func<Task> task = async () => await ApplicationApi.Init(project);
+            Func<Task> task = async () => await applicationApi.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();

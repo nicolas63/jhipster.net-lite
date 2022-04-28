@@ -22,30 +22,33 @@ namespace JHipster.NetLite.Web.Tests
     [TestClass]
     public class ApiControllerTests
     {
-        private ApiController ApiController { get; set; }
-        public Mock<IInitApplicationApi> ApplicationAPI { get; set; }
+        private ApiController apiController;
+
+        private Mock<IInitApplicationApi> applicationApi;
 
         private Fixture fixture = new Fixture();
-        public IMapper Mapper { get; set; }
-        public ILogger<ApiController> Logger { get; set; } = new NullLogger<ApiController>();
+
+        private IMapper mapper;
+
+        private ILogger<ApiController> logger = new NullLogger<ApiController>();
 
         public ApiControllerTests()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(ApiController)));
-            Mapper = new Mapper(configuration);
-            ApplicationAPI = new Mock<IInitApplicationApi>();
-            ApiController = new ApiController(Logger, ApplicationAPI.Object, Mapper);
+            mapper = new Mapper(configuration);
+            applicationApi = new Mock<IInitApplicationApi>();
+            apiController = new ApiController(logger, applicationApi.Object, mapper);
         }
 
         [TestMethod]
         public async Task Should_ReturnBadRequest_When_Exception()
         {
             //Arrange
-            ApplicationAPI.Setup(app => app.Init(It.IsAny<Project>()))
+            applicationApi.Setup(app => app.Init(It.IsAny<Project>()))
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await ApiController.Post(fixture.Create<ProjectDto>());
+            var result = await apiController.Post(fixture.Create<ProjectDto>());
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
@@ -59,7 +62,7 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            var result = await ApiController.Post(fixture.Create<ProjectDto>());
+            var result = await apiController.Post(fixture.Create<ProjectDto>());
 
             //Assert
             var statusResult = result as OkResult;

@@ -13,8 +13,7 @@ namespace JHipster.NetLite.Web.Tests
     [TestClass]
     public class ServiceCollectionExtensionsTests
     {
-
-        private WebApplicationBuilder builder { get; set; }
+        private WebApplicationBuilder builder;
 
         public ServiceCollectionExtensionsTests()
         {

@@ -16,19 +16,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JHipster.NetLite.Web.Tests
+namespace JHipster.NetLite.Domain.Services.Tests
 {
     [TestClass]
     public class IniteDomainServiceTest
     {
-        private IInitDomainService DomainService { get; set; }
-        public ILogger<InitDomainService> Logger { get; set; } = new NullLogger<InitDomainService>();
+        private IInitDomainService domainService;
+
+        private ILogger<InitDomainService> logger = new NullLogger<InitDomainService>();
 
         private Fixture fixture = new Fixture();
 
+        private Project project;
+
         public IniteDomainServiceTest()
         {
-            DomainService = new InitDomainService(new ProjectLocalRepository(Logger), Logger);
+            domainService = new InitDomainService(new ProjectLocalRepository(logger), logger);
+            project = fixture.Create<Project>();
         }
 
         [TestMethod]
@@ -37,10 +41,12 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            Func<Task> task = async () => await DomainService.Init(fixture.Create<Project>());
+            Func<Task> task = async () => await domainService.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();
+
+            Directory.Delete(project.Folder, true);
         }
 
 
