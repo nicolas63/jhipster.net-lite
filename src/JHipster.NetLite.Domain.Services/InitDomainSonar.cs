@@ -5,11 +5,6 @@ using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Domain.Services;
 

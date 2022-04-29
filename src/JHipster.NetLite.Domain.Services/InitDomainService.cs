@@ -2,8 +2,6 @@
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services.Interfaces;
-using JHipster.NetLite.Infrastructure.Helpers;
-using JHipster.NetLite.Infrastructure.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace JHipster.NetLite.Domain.Services;
