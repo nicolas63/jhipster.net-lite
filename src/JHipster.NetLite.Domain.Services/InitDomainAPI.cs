@@ -37,7 +37,5 @@ public class InitDomainApi : IInitDomainApi
         _projectRepository.AddProjectsToSolution(project, "projectName", "projectName");
         //Editorconfig
         await _projectRepository.Add(project.Folder, "WebApiGeneration", ".editorconfig");
-        //Units tests
-        _projectRepository.StartUnitsTests(project);
     }
 }
