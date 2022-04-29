@@ -31,7 +31,7 @@ public class ProjectLocalRepository : IProjectRepository
 
     public async Task Add(string folder, string source, string sourceFilename, string destination, string destinationFilename)
     {
-        _logger.LogInformation("Adding file '{destinationFilename}'", destinationFilename);
+        _logger.LogInformation($"Adding file '{destinationFilename}'");
         var folders = source.Split(Path.DirectorySeparatorChar);
         string destinationFolder = Path.Join(folder, destination);
         var foldersPath = destinationFolder;
@@ -68,17 +68,17 @@ public class ProjectLocalRepository : IProjectRepository
     {
         AssertRequiredTemplateParameters(project.Folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
-        var folders = pathFile.Split(Path.DirectorySeparatorChar);
+        var folders = pathFile.Split(Path.DirectorySeparatorChar);//TODO pourquoi un split ici ? 
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
         string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
-        string foldersPath = pathFolderToCreate;
+        string foldersPath = pathFolderToCreate;//TODO inutile ? 
 
-        _logger.LogInformation("Starting templating '{pathFileToCopy}'", pathFileToCopy);
+        _logger.LogInformation($"Starting templating '{pathFileToCopy}'");
 
         Directory.CreateDirectory(pathFolderToCreate);
         if (folders.Length >= 2)
         {
-            for (int i = 1; i < folders.Length; i++)
+            for (int i = 1; i < folders.Length; i++) //le CreateDirectory fait déjà toutes l'arborescence  
             {
                 foldersPath = Path.Join(foldersPath, folders[i]);
                 Directory.CreateDirectory(foldersPath);
@@ -91,7 +91,7 @@ public class ProjectLocalRepository : IProjectRepository
 
         await AssertFileIsGenerated(pathFileToPaste, dataToPast);
 
-        _logger.LogInformation("Ending templating '{pathFileToPaste}'", pathFileToPaste);
+        _logger.LogInformation($"Ending templating '{pathFileToPaste}'");
     }
 
     public void GenerateSolution(Project project, string solutionName)
@@ -121,17 +121,15 @@ public class ProjectLocalRepository : IProjectRepository
 
         if (!File.Exists(pathFileGenerated))
         {
-            _logger.LogError("error generation of file '{pathFileGenerated}'", pathFileGenerated);
+            _logger.LogError($"error generation of file '{pathFileGenerated}'");
             throw new GenerationException($"error generation of file {pathFileGenerated}");
         }
-        else
-        {
-            dataFileGenerated = await File.ReadAllTextAsync(pathFileGenerated);
-        }
+
+        dataFileGenerated = await File.ReadAllTextAsync(pathFileGenerated);
 
         if (!dataFileGenerated.Equals(data))
         {
-            _logger.LogError("error generation file '{pathFileGenerated}'", pathFileGenerated);
+            _logger.LogError($"error generation file '{pathFileGenerated}'");
             throw new GenerationException($"error generation file {pathFileGenerated}");
         }
     }
@@ -140,41 +138,41 @@ public class ProjectLocalRepository : IProjectRepository
     {
         if (!File.Exists(Path.Join(path, solutionName)))
         {
-            _logger.LogError("error generation dotnet solution '{solutionName}'", solutionName);
+            _logger.LogError($"error generation dotnet solution '{solutionName}'");
             throw new GenerationException($"error generation dotnet solution '{solutionName}'");
         }
     }
 
     private void AssertRequiredTemplateParameters(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName)
     {
-        if (String.IsNullOrEmpty(folder))
+        if (string.IsNullOrEmpty(folder))
         {
-            _logger.LogError("The folder '{folder}' is invalid", folder);
+            _logger.LogError($"The folder '{folder}' is invalid");
             throw new InvalidFolderException($"The folder '{folder}' is invalid");
         }
 
-        if (String.IsNullOrEmpty(pathFile))
+        if (string.IsNullOrEmpty(pathFile))
         {
-            _logger.LogError("The Readme's path '{pathFile}' is invalid", pathFile);
-            throw new InvalidPathFileException($"The Readme's path 'pathFile' is invalid");
+            _logger.LogError($"The file path '{pathFile}' is invalid");
+            throw new InvalidPathFileException($"The file path '{pathFile}' is invalid");
         }
 
-        if (String.IsNullOrEmpty(fileNameWithExtension))
+        if (string.IsNullOrEmpty(fileNameWithExtension))
         {
-            _logger.LogError("The file name with extension '{fileNameWithExtension}' is invalid", fileNameWithExtension);
-            throw new InvalidFileNameWithExtensionException($"The file name with extension 'fileNameWithExtension' is invalid");
+            _logger.LogError($"The file name with extension '{fileNameWithExtension}' is invalid");
+            throw new InvalidFileNameWithExtensionException($"The file name with extension '{fileNameWithExtension}' is invalid");
         }
 
-        if (String.IsNullOrEmpty(newPathFile))
+        if (string.IsNullOrEmpty(newPathFile))
         {
-            _logger.LogError("The new path file '{newPathFile}' is invalid", newPathFile);
-            throw new InvalidNewPathFileException($"The new path file 'newPathFile' is invalid");
+            _logger.LogError($"The new path file '{newPathFile}' is invalid");
+            throw new InvalidNewPathFileException($"The new path file '{newPathFile}' is invalid");
         }
 
-        if (String.IsNullOrEmpty(newPathName))
+        if (string.IsNullOrEmpty(newPathName))
         {
-            _logger.LogError("The new path name '{newPathName}' is invalid", newPathName);
-            throw new InvalidNewPathNameException($"The new path name 'newPathName' is invalid");
+            _logger.LogError($"The new path name '{newPathName}' is invalid");
+            throw new InvalidNewPathNameException($"The new path name '{newPathName}' is invalid");
         }
     }
 }

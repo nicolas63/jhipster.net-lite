@@ -28,32 +28,32 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
         private const string FileToCopy = "FileToCopy.txt";
 
-        private const string sourceFolder = "TestCopy";
+        private const string SourceFolder = "TestCopy";
 
-        private string folder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test");
+        private string _folder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Test");
 
-        private string templateFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
+        private string _templateFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
-        private ProjectLocalRepository projectRepository;
+        private ProjectLocalRepository _projectRepository;
 
-        private ILogger<InitDomainService> logger = new NullLogger<InitDomainService>();
+        private ILogger<InitDomainService> _logger = new NullLogger<InitDomainService>();
 
         public ProjectLocalRepositoryTest()
         {
-            projectRepository = new ProjectLocalRepository(logger);
+            _projectRepository = new ProjectLocalRepository(_logger);
         }
 
         [TestInitialize]
         public async Task InitTest()
         {
-            if (Directory.Exists(folder))
+            if (Directory.Exists(_folder))
             {
-                Directory.Delete(folder, true);
+                Directory.Delete(_folder, true);
             }
-            Directory.CreateDirectory(folder);
-            Directory.CreateDirectory(sourceFolder);
-            Directory.CreateDirectory(Path.Join(templateFolder, sourceFolder));
-            await File.WriteAllTextAsync(Path.Join(templateFolder, sourceFolder, FileToCopy), DataInitialisationToCopy);
+            Directory.CreateDirectory(_folder);
+            Directory.CreateDirectory(SourceFolder);
+            Directory.CreateDirectory(Path.Join(_templateFolder, SourceFolder));
+            await File.WriteAllTextAsync(Path.Join(_templateFolder, SourceFolder, FileToCopy), DataInitialisationToCopy);
         }
 
         [TestMethod]
@@ -63,12 +63,12 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var folderPathBeforeTemplating = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
             //Act
-            var TextBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileName)));
-            await projectRepository.Template(new Project(folder, "", "", ""), PathFile, FileName);
-            var TextAfterTemplating = await File.ReadAllTextAsync(Path.Join(folder, FileName));
+            var textBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileName)));
+            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName);
+            var textAfterTemplating = await File.ReadAllTextAsync(Path.Join(_folder, FileName));
 
             //Assert
-            TextBeforeTemplating.Should().NotBeEquivalentTo(TextAfterTemplating);
+            textBeforeTemplating.Should().NotBeEquivalentTo(textAfterTemplating);
         }
 
         [TestMethod]
@@ -78,10 +78,10 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var newPathFile = "Redirect";
 
             //Act
-            await projectRepository.Template(new Project(folder, "", "", ""), PathFile, FileName, newPathFile);
+            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName, newPathFile);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, FileName)).Should().BeTrue();
+            File.Exists(Path.Join(_folder, newPathFile, FileName)).Should().BeTrue();
 
         }
 
@@ -93,10 +93,10 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var newPathName = "Suuuuu.md";
 
             //Act
-            await projectRepository.Template(new Project(folder, "", "", ""), PathFile, FileName, newPathFile, newPathName);
+            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName, newPathFile, newPathName);
 
             //Assert
-            File.Exists(Path.Join(folder, newPathFile, newPathName)).Should().BeTrue();
+            File.Exists(Path.Join(_folder, newPathFile, newPathName)).Should().BeTrue();
 
         }
 
@@ -104,15 +104,15 @@ namespace JHipster.NetLite.Infrastructure.Tests
         public async Task Should_CopyText_When_Call()
         {
             //Arrange
-            var TextToCopy = await File.ReadAllTextAsync(Path.Join(Path.Join(templateFolder, sourceFolder, FileToCopy)));
+            var textToCopy = await File.ReadAllTextAsync(Path.Join(Path.Join(_templateFolder, SourceFolder, FileToCopy)));
 
             //Act
-            await projectRepository.Add(folder, sourceFolder, FileToCopy);
+            await _projectRepository.Add(_folder, SourceFolder, FileToCopy);
 
             //Assert
-            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, FileToCopy)));
+            textToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(_folder, FileToCopy)));
 
-            Directory.Delete(sourceFolder, true);
+            Directory.Delete(SourceFolder, true);
         }
 
         [TestMethod]
@@ -120,14 +120,14 @@ namespace JHipster.NetLite.Infrastructure.Tests
         {
             //Arrange
             var destinationFolder = "Redirect";
-            var TextToCopy = await File.ReadAllTextAsync(Path.Join(templateFolder, sourceFolder, FileToCopy));
+            var textToCopy = await File.ReadAllTextAsync(Path.Join(_templateFolder, SourceFolder, FileToCopy));
 
             //Act
-            await projectRepository.Add(folder, sourceFolder, FileToCopy, destinationFolder);
+            await _projectRepository.Add(_folder, SourceFolder, FileToCopy, destinationFolder);
 
             //Assert
-            Directory.Exists(Path.Join(folder, destinationFolder)).Should().BeTrue();
-            TextToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, FileToCopy)));
+            Directory.Exists(Path.Join(_folder, destinationFolder)).Should().BeTrue();
+            textToCopy.Should().BeEquivalentTo(await File.ReadAllTextAsync(Path.Join(_folder, destinationFolder, FileToCopy)));
 
         }
 
@@ -137,16 +137,16 @@ namespace JHipster.NetLite.Infrastructure.Tests
             //Arrange
             var destinationFolder = "Redirect";
             var destinationFileName = "Renamed.txt";
-            var TextToCopy = await File.ReadAllTextAsync(Path.Join(templateFolder, sourceFolder, FileToCopy));
+            var textToCopy = await File.ReadAllTextAsync(Path.Join(_templateFolder, SourceFolder, FileToCopy));
 
             //Act
-            await projectRepository.Add(folder, sourceFolder, FileToCopy, destinationFolder, destinationFileName);
+            await _projectRepository.Add(_folder, SourceFolder, FileToCopy, destinationFolder, destinationFileName);
 
             //Assert
-            Directory.Exists(Path.Join(folder, destinationFolder)).Should().BeTrue();
-            File.Exists(Path.Join(folder, destinationFolder, destinationFileName)).Should().BeTrue();
-            var TextCopy = await File.ReadAllTextAsync(Path.Join(folder, destinationFolder, destinationFileName));
-            TextToCopy.Should().BeEquivalentTo(TextCopy);
+            Directory.Exists(Path.Join(_folder, destinationFolder)).Should().BeTrue();
+            File.Exists(Path.Join(_folder, destinationFolder, destinationFileName)).Should().BeTrue();
+            var textCopy = await File.ReadAllTextAsync(Path.Join(_folder, destinationFolder, destinationFileName));
+            textToCopy.Should().BeEquivalentTo(textCopy);
 
         }
     }
