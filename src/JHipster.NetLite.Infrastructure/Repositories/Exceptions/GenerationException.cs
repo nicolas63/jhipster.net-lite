@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace JHipster.NetLite.Infrastructure.Repositories.Exceptions;
 
-public class GenerationAPIException : Exception
+public class GenerationException : Exception
 {
-    public GenerationAPIException() : base() { }
-    public GenerationAPIException(string message) : base(message) { }
-    public GenerationAPIException(string message, Exception innerException) : base(message, innerException) { }
+    public GenerationException() : base() { }
+    public GenerationException(string message) : base(message) { }
+    public GenerationException(string message, Exception innerException) : base(message, innerException) { }
 }

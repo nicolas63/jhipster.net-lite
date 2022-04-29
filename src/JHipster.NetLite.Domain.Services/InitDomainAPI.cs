@@ -27,18 +27,22 @@ public class InitDomainApi : IInitDomainApi
         await CreateAPI(project);
     }
 
-    public async Task CreateAPI(Project project)
+    private async Task CreateAPI(Project project)
     {
+        //Web Api
         await _projectRepository.Template(project, "WebApiGeneration", "WeatherForecast.cs");
         await _projectRepository.Template(project, "WebApiGeneration", "Program.cs");
         await _projectRepository.Template(project, "WebApiGeneration", "appsettings.json");
         await _projectRepository.Template(project, "WebApiGeneration", "appsettings.Development.json");
         await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Properties"), "launchSettings.json");
         await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Controllers"), "WeatherForecastController.cs");
+        //Solution - csproj
         _projectRepository.GenerateSolution(project, "projectName");
         await _projectRepository.Template(project, "WebApiGeneration", "projectName.csproj");
         _projectRepository.AddProjectsToSolution(project, "projectName", "projectName");
+        //Editorconfig
         await _projectRepository.Add(project.Folder, "WebApiGeneration", ".editorconfig");
+        //Units tests
         _projectRepository.StartUnitsTests(project);
     }
 }

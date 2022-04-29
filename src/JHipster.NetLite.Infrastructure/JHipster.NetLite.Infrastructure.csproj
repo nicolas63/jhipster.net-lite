@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Templates\Sonar\SonarQube.Analysis.xml" />
     <None Remove="Templates\WebApiGeneration\.editorconfig" />
     <None Remove="Templates\WebApiGeneration\appsettings.Development.json.mustache" />
     <None Remove="Templates\WebApiGeneration\appsettings.json.mustache" />
     <None Remove="Templates\WebApiGeneration\Controllers\WeatherForecastController.cs.mustache" />
+    <None Remove="Templates\GithubAction\.github\workflows\dotnet.yml" />
     <None Remove="Templates\WebApiGeneration\Program.cs.mustache" />
     <None Remove="Templates\WebApiGeneration\projectName.csproj.mustache" />
     <None Remove="Templates\WebApiGeneration\Properties\launchSettings.json.mustache" />
@@ -18,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Templates\Sonar\SonarQube.Analysis.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\WebApiGeneration\.editorconfig">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -28,6 +33,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\WebApiGeneration\Controllers\WeatherForecastController.cs.mustache">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\GithubAction\.github\workflows\dotnet.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\WebApiGeneration\projectName.csproj.mustache">

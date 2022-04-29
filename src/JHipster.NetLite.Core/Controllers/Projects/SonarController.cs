@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this
+
+using AutoMapper;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Web.DTO;
@@ -14,29 +17,29 @@ namespace JHipster.NetLite.Web.Controllers.Projects;
 
 [ApiController]
 [Route("[controller]")]
-public class ApiController : ControllerBase
+public class SonarController : ControllerBase
 {
-    private readonly ILogger<ApiController> _logger;
+    private readonly ILogger<SonarController> _logger;
 
-    private readonly IInitApplicationApi _initApplicationApi;
+    private readonly IInitApplicationSonar _initApplicationSonar;
 
     private readonly IMapper _mapper;
 
-    public ApiController(ILogger<ApiController> logger, IInitApplicationApi initApplicationApi, IMapper mapper)
+    public SonarController(ILogger<SonarController> logger, IInitApplicationSonar initApplicationSonar, IMapper mapper)
     {
         _logger = logger;
-        _initApplicationApi = initApplicationApi;
+        _initApplicationSonar = initApplicationSonar;
         _mapper = mapper;
     }
 
     [HttpPost]
-    [Route("/api/projects/api")]
+    [Route("/api/projects/sonar")]
     public async Task<IActionResult> Post(ProjectDto projectDto)
     {
         try
         {
             var project = _mapper.Map<Project>(projectDto);
-            await _initApplicationApi.Init(project);
+            await _initApplicationSonar.Init(project);
 
             _logger.LogInformation("Request succes");
             return Ok();

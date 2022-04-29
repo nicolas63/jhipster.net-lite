@@ -32,13 +32,23 @@ public class ProjectLocalRepository : IProjectRepository
     public async Task Add(string folder, string source, string sourceFilename, string destination, string destinationFilename)
     {
         _logger.LogInformation("Adding file '{destinationFilename}'", destinationFilename);
+        var folders = source.Split(Path.DirectorySeparatorChar);
         string destinationFolder = Path.Join(folder, destination);
+        var foldersPath = destinationFolder;
 
         string dataToCopy = await File.ReadAllTextAsync(Path.Join(DefaultFolder, source, sourceFilename));
 
         Directory.CreateDirectory(Path.Join(destinationFolder));
+        if (folders.Length >= 2)
+        {
+            for (int i = 1; i < folders.Length; i++)
+            {
+                foldersPath = Path.Join(foldersPath, folders[i]);
+                Directory.CreateDirectory(foldersPath);
+            }
+        }
+        string destinationPath = Path.Join(foldersPath, destinationFilename);
 
-        string destinationPath = Path.Join(destinationFolder, destinationFilename);
         await File.WriteAllTextAsync(destinationPath, dataToCopy);
 
         await AssertFileIsGenerated(destinationPath, dataToCopy);
@@ -59,7 +69,6 @@ public class ProjectLocalRepository : IProjectRepository
         AssertRequiredTemplateParameters(project.Folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
         var folders = pathFile.Split(Path.DirectorySeparatorChar);
-
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
         string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
         string foldersPath = pathFolderToCreate;
@@ -113,7 +122,7 @@ public class ProjectLocalRepository : IProjectRepository
         if (!File.Exists(pathFileGenerated))
         {
             _logger.LogError("error generation of file '{pathFileGenerated}'", pathFileGenerated);
-            throw new GenerationAPIException($"error generation of file {pathFileGenerated}");
+            throw new GenerationException($"error generation of file {pathFileGenerated}");
         }
         else
         {
@@ -123,7 +132,7 @@ public class ProjectLocalRepository : IProjectRepository
         if (!dataFileGenerated.Equals(data))
         {
             _logger.LogError("error generation file '{pathFileGenerated}'", pathFileGenerated);
-            throw new GenerationAPIException($"error generation file {pathFileGenerated}");
+            throw new GenerationException($"error generation file {pathFileGenerated}");
         }
     }
 
@@ -132,7 +141,7 @@ public class ProjectLocalRepository : IProjectRepository
         if (!File.Exists(Path.Join(path, solutionName)))
         {
             _logger.LogError("error generation dotnet solution '{solutionName}'", solutionName);
-            throw new GenerationAPIException($"error generation dotnet solution '{solutionName}'");
+            throw new GenerationException($"error generation dotnet solution '{solutionName}'");
         }
     }
 

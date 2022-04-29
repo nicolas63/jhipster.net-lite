@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this
+
+using AutoMapper;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Web.DTO;
@@ -14,29 +17,29 @@ namespace JHipster.NetLite.Web.Controllers.Projects;
 
 [ApiController]
 [Route("[controller]")]
-public class ApiController : ControllerBase
+public class GithubActionController : ControllerBase
 {
-    private readonly ILogger<ApiController> _logger;
+    private readonly ILogger<GithubActionController> _logger;
 
-    private readonly IInitApplicationApi _initApplicationApi;
+    private readonly IInitApplicationGithubAction _initApplicationGithubAction;
 
     private readonly IMapper _mapper;
 
-    public ApiController(ILogger<ApiController> logger, IInitApplicationApi initApplicationApi, IMapper mapper)
+    public GithubActionController(ILogger<GithubActionController> logger, IInitApplicationGithubAction initApplicationGithubAction, IMapper mapper)
     {
         _logger = logger;
-        _initApplicationApi = initApplicationApi;
+        _initApplicationGithubAction = initApplicationGithubAction;
         _mapper = mapper;
     }
 
     [HttpPost]
-    [Route("/api/projects/api")]
+    [Route("/api/projects/CI/GithubAction")]
     public async Task<IActionResult> Post(ProjectDto projectDto)
     {
         try
         {
             var project = _mapper.Map<Project>(projectDto);
-            await _initApplicationApi.Init(project);
+            await _initApplicationGithubAction.Init(project);
 
             _logger.LogInformation("Request succes");
             return Ok();
