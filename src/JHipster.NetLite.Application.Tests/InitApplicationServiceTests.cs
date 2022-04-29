@@ -18,7 +18,7 @@ using Moq;
 namespace JHipster.NetLite.Application.Tests
 {
     [TestClass]
-    public class InitApplicationServiceTest
+    public class InitApplicationServiceTests
     {
 
         private IInitApplicationService applicationService;
@@ -29,7 +29,7 @@ namespace JHipster.NetLite.Application.Tests
 
         private Fixture fixture = new Fixture();
 
-        public InitApplicationServiceTest()
+        public InitApplicationServiceTests()
         {
             domainService = new Mock<IInitDomainService>();
             applicationService = new InitApplicationService(domainService.Object, logger);

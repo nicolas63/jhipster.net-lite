@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Domain.Services.Tests
 {
     [TestClass]
-    public class InitDomainServiceTest
+    public class InitDomainServiceTests
     {
         private IInitDomainService domainService;
 
@@ -29,7 +29,7 @@ namespace JHipster.NetLite.Domain.Services.Tests
 
         private Project project;
 
-        public InitDomainServiceTest()
+        public InitDomainServiceTests()
         {
             domainService = new InitDomainService(new ProjectLocalRepository(logger), logger);
             project = fixture.Create<Project>();

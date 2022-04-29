@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class InitControllerTest
+    public class InitControllerTests
     {
         private InitController initController;
 
@@ -29,7 +29,7 @@ namespace JHipster.NetLite.Web.Tests
 
         private ILogger<InitController> logger = new NullLogger<InitController>();
 
-        public InitControllerTest()
+        public InitControllerTests()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(InitController)));
             mapper = new Mapper(configuration);
