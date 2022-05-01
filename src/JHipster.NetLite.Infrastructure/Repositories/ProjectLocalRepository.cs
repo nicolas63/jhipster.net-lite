@@ -71,20 +71,18 @@ public class ProjectLocalRepository : IProjectRepository
         var folders = pathFile.Split(Path.DirectorySeparatorChar);//TODO pourquoi un split ici ? 
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
         string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
-        string foldersPath = pathFolderToCreate;//TODO inutile ? 
 
         _logger.LogInformation($"Starting templating '{pathFileToCopy}'");
 
-        Directory.CreateDirectory(pathFolderToCreate);
         if (folders.Length >= 2)
         {
-            for (int i = 1; i < folders.Length; i++) //le CreateDirectory fait déjà toutes l'arborescence  
+            for (int i = 1; i < folders.Length; i++)
             {
-                foldersPath = Path.Join(foldersPath, folders[i]);
-                Directory.CreateDirectory(foldersPath);
+                pathFolderToCreate = Path.Join(pathFolderToCreate, folders[i]);
             }
         }
-        string pathFileToPaste = Path.Join(foldersPath, newPathName);
+        Directory.CreateDirectory(pathFolderToCreate);
+        string pathFileToPaste = Path.Join(pathFolderToCreate, newPathName);
 
         var dataToPast = await MustacheHelper.Template(pathFileToCopy, project);
         await File.WriteAllTextAsync(pathFileToPaste, dataToPast);
