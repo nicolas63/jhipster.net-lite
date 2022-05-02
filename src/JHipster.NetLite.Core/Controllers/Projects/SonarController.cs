@@ -21,14 +21,14 @@ public class SonarController : ControllerBase
 {
     private readonly ILogger<SonarController> _logger;
 
-    private readonly IInitApplicationSonar _initApplicationSonar;
+    private readonly ISonarApplicationService _sonarApplicationService;
 
     private readonly IMapper _mapper;
 
-    public SonarController(ILogger<SonarController> logger, IInitApplicationSonar initApplicationSonar, IMapper mapper)
+    public SonarController(ILogger<SonarController> logger, ISonarApplicationService sonarApplicationService, IMapper mapper)
     {
         _logger = logger;
-        _initApplicationSonar = initApplicationSonar;
+        _sonarApplicationService = sonarApplicationService;
         _mapper = mapper;
     }
 
@@ -39,7 +39,7 @@ public class SonarController : ControllerBase
         try
         {
             var project = _mapper.Map<Project>(projectDto);
-            await _initApplicationSonar.Init(project);
+            await _sonarApplicationService.Init(project);
 
             _logger.LogInformation("Request succes");
             return Ok();

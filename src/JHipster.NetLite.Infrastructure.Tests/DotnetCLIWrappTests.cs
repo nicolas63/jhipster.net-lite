@@ -17,21 +17,21 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
         private const string DefaultExtension = ".sln";
 
-        private string testPath = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestWrapper");
+        private string _testPath = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestWrapper");
 
-        private DotnetCliWrapper? dotnetCliWrapp;
+        private DotnetCliWrapper? _dotnetCliWrapp;
 
-        private ILogger<InitDomainService> logger = new NullLogger<InitDomainService>();
+        private ILogger<InitDomainService> _logger = new NullLogger<InitDomainService>();
 
         [TestInitialize]
         public void InitTest()
         {
-            if (Directory.Exists(testPath))
+            if (Directory.Exists(_testPath))
             {
-                Directory.Delete(testPath, true);
+                Directory.Delete(_testPath, true);
             }
-            Directory.CreateDirectory(testPath);
-            dotnetCliWrapp = new DotnetCliWrapper(testPath, logger);
+            Directory.CreateDirectory(_testPath);
+            _dotnetCliWrapp = new DotnetCliWrapper(_testPath, _logger);
         }
 
         [TestMethod]
@@ -41,10 +41,10 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var solutionName = "Test";
 
             //Act
-            dotnetCliWrapp.NewSln(solutionName, false);
+            _dotnetCliWrapp.NewSln(solutionName, false);
 
             //Assert
-            File.Exists(Path.Join(testPath, solutionName + DefaultExtension)).Should().BeTrue();
+            File.Exists(Path.Join(_testPath, solutionName + DefaultExtension)).Should().BeTrue();
         }
 
         [TestMethod]
@@ -53,8 +53,8 @@ namespace JHipster.NetLite.Infrastructure.Tests
             //Arrange
 
             //Act
-            dotnetCliWrapp.NewSln("Test", true);
-            Action act = () => dotnetCliWrapp.Build();
+            _dotnetCliWrapp.NewSln("Test", true);
+            Action act = () => _dotnetCliWrapp.Build();
 
             //Assert
             act.Should().NotThrow();

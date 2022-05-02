@@ -20,32 +20,32 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Application.Tests
 {
     [TestClass]
-    public class InitApplicationApiTests
+    public class ApiApplicationServiceTests
     {
 
-        private IInitApplicationApi applicationApi;
+        private IApiApplicationService _apiApplicationService;
 
-        private Mock<IInitDomainApi> domainApi;
+        private Mock<IApiDomainService> _apiDomainService;
 
-        private ILogger<InitApplicationApi> logger = new NullLogger<InitApplicationApi>();
+        private ILogger<ApiApplicationService> _logger = new NullLogger<ApiApplicationService>();
 
-        private Fixture fixture = new Fixture();
+        private Fixture _fixture = new Fixture();
 
-        public InitApplicationApiTests()
+        public ApiApplicationServiceTests()
         {
-            domainApi = new Mock<IInitDomainApi>();
-            applicationApi = new InitApplicationApi(domainApi.Object, logger);
+            _apiDomainService = new Mock<IApiDomainService>();
+            _apiApplicationService = new ApiApplicationService(_apiDomainService.Object, _logger);
         }
 
         [TestMethod]
         public async Task Should_NotThrow_When_Init()
         {
             //Arrange
-            var project = fixture.Create<Project>();
-            domainApi.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
+            var project = _fixture.Create<Project>();
+            _apiDomainService.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
 
             //Act
-            Func<Task> task = async () => await applicationApi.Init(project);
+            Func<Task> task = async () => await _apiApplicationService.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();

@@ -8,13 +8,13 @@ using Microsoft.Extensions.Logging;
 
 namespace JHipster.NetLite.Domain.Services;
 
-public class InitDomainSonar : IInitDomainSonar
+public class GithubActionDomainService : IGithubActionDomainService
 {
     private readonly IProjectRepository _projectRepository;
 
-    private readonly ILogger<InitDomainSonar> _logger;
+    private readonly ILogger<GithubActionDomainService> _logger;
 
-    public InitDomainSonar(IProjectRepository projectRepository, ILogger<InitDomainSonar> logger)
+    public GithubActionDomainService(IProjectRepository projectRepository, ILogger<GithubActionDomainService> logger)
     {
         _projectRepository = projectRepository;
         _logger = logger;
@@ -22,11 +22,12 @@ public class InitDomainSonar : IInitDomainSonar
 
     public async Task Init(Project project)
     {
-        await AddSonar(project);
+        await AddGithubAction(project);
     }
 
-    private async Task AddSonar(Project project)
+    private async Task AddGithubAction(Project project)
     {
-        await _projectRepository.Add(project.Folder, "Sonar", "SonarQube.Analysis.xml");
+        //Dotnet yml
+        await _projectRepository.Add(project.Folder, Path.Join("GithubAction", ".github", "workflows"), "dotnet.yml");
     }
 }

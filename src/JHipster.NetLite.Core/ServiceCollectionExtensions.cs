@@ -20,13 +20,7 @@ public static class ServiceCollectionExtensions
         builder.AddControllersAsServices().AddApplicationPart(assembly).AddControllersAsServices();
         builder.Services.AddAutoMapper(assembly);
         builder.Services.AddJHipsterLiteApplicationServices()
-                          .AddJHipsterLiteApplicationApi()
-                          .AddJHipsterLiteApplicationGithubAction()
-                          .AddJHipsterLiteApplicationSonar()
-                          .AddJHipsterLiteDomainApi()
                           .AddJHipsterLiteDomainServices()
-                          .AddJHipsterLiteDomainGithubAction()
-                          .AddJHipsterLiteDomainSonar()
                           .AddJHipsterLiteRepositories();
 
         using var loggerFactory = LoggerFactory.Create(loggingBuilder => loggingBuilder
@@ -42,47 +36,22 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddJHipsterLiteApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IInitApplicationService, InitApplicationService>();
-        return services;
-    }
+        services.AddScoped<IApiApplicationService, ApiApplicationService>();
+        services.AddScoped<ISolutionApplicationService, SolutionApplicationService>();
+        services.AddScoped<IGithubActionApplicationService, GithubActionApplicationService>();
+        services.AddScoped<ISonarApplicationService, SonarApplicationService>();
 
-    private static IServiceCollection AddJHipsterLiteApplicationApi(this IServiceCollection services)
-    {
-        services.AddScoped<IInitApplicationApi, InitApplicationApi>();
-        return services;
-    }
-
-    private static IServiceCollection AddJHipsterLiteApplicationGithubAction(this IServiceCollection services)
-    {
-        services.AddScoped<IInitApplicationGithubAction, InitApplicationGithubAction>();
-        return services;
-    }
-
-    private static IServiceCollection AddJHipsterLiteApplicationSonar(this IServiceCollection services)
-    {
-        services.AddScoped<IInitApplicationSonar, InitApplicationSonar>();
         return services;
     }
 
     private static IServiceCollection AddJHipsterLiteDomainServices(this IServiceCollection services)
     {
         services.AddScoped<IInitDomainService, InitDomainService>();
-        return services;
-    }
+        services.AddScoped<IApiDomainService, ApiDomainService>();
+        services.AddScoped<ISolutionDomainService, SolutionDomainService>();
+        services.AddScoped<IGithubActionDomainService, GithubActionDomainService>();
+        services.AddScoped<ISonarDomainService, SonarDomainService>();
 
-    private static IServiceCollection AddJHipsterLiteDomainApi(this IServiceCollection services)
-    {
-        services.AddScoped<IInitDomainApi, InitDomainApi>();
-        return services;
-    }
-
-    private static IServiceCollection AddJHipsterLiteDomainGithubAction(this IServiceCollection services)
-    {
-        services.AddScoped<IInitDomainGithubAction, InitDomainGithubAction>();
-        return services;
-    }
-    private static IServiceCollection AddJHipsterLiteDomainSonar(this IServiceCollection services)
-    {
-        services.AddScoped<IInitDomainSonar, InitDomainSonar>();
         return services;
     }
 

@@ -18,14 +18,14 @@ public class ApiController : ControllerBase
 {
     private readonly ILogger<ApiController> _logger;
 
-    private readonly IInitApplicationApi _initApplicationApi;
+    private readonly IApiApplicationService _apiApplicationService;
 
     private readonly IMapper _mapper;
 
-    public ApiController(ILogger<ApiController> logger, IInitApplicationApi initApplicationApi, IMapper mapper)
+    public ApiController(ILogger<ApiController> logger, IApiApplicationService apiApplicationService, IMapper mapper)
     {
         _logger = logger;
-        _initApplicationApi = initApplicationApi;
+        _apiApplicationService = apiApplicationService;
         _mapper = mapper;
     }
 
@@ -36,7 +36,7 @@ public class ApiController : ControllerBase
         try
         {
             var project = _mapper.Map<Project>(projectDto);
-            await _initApplicationApi.Init(project);
+            await _apiApplicationService.Init(project);
 
             _logger.LogInformation("Request succes");
             return Ok();

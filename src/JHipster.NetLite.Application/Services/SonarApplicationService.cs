@@ -8,20 +8,20 @@ using Microsoft.Extensions.Logging;
 
 namespace JHipster.NetLite.Application.Services;
 
-public class InitApplicationSonar : IInitApplicationSonar
+public class SonarApplicationService : ISonarApplicationService
 {
-    private readonly IInitDomainSonar _initDomainSonar;
+    private readonly ISonarDomainService _sonarDomainService;
 
-    private readonly ILogger<InitApplicationSonar> _logger;
+    private readonly ILogger<SonarApplicationService> _logger;
 
-    public InitApplicationSonar(IInitDomainSonar initDomainSonar, ILogger<InitApplicationSonar> logger)
+    public SonarApplicationService(ISonarDomainService sonarDomainService, ILogger<SonarApplicationService> logger)
     {
-        _initDomainSonar = initDomainSonar;
+        _sonarDomainService = sonarDomainService;
         _logger = logger;
     }
 
     public async Task Init(Project project)
     {
-        await _initDomainSonar.Init(project);
+        await _sonarDomainService.Init(project);
     }
 }

@@ -5,7 +5,7 @@ using JHipster.NetLite.Domain.Entities;
 
 namespace JHipster.NetLite.Domain.Services.Interfaces;
 
-public interface IInitDomainSonar
+public interface IGithubActionDomainService
 {
     Task Init(Project project);
 }

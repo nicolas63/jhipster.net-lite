@@ -21,29 +21,29 @@ namespace JHipster.NetLite.Application.Tests
     public class InitApplicationServiceTests
     {
 
-        private IInitApplicationService applicationService;
+        private IInitApplicationService _initApplicationService;
 
-        private Mock<IInitDomainService> domainService;
+        private Mock<IInitDomainService> _initDomainService;
 
-        private ILogger<InitApplicationService> logger = new NullLogger<InitApplicationService>();
+        private ILogger<InitApplicationService> _logger = new NullLogger<InitApplicationService>();
 
-        private Fixture fixture = new Fixture();
+        private Fixture _fixture = new Fixture();
 
         public InitApplicationServiceTests()
         {
-            domainService = new Mock<IInitDomainService>();
-            applicationService = new InitApplicationService(domainService.Object, logger);
+            _initDomainService = new Mock<IInitDomainService>();
+            _initApplicationService = new InitApplicationService(_initDomainService.Object, _logger);
         }
 
         [TestMethod]
         public async Task Should_NotThrow_When_Init()
         {
             //Arrange
-            var project = fixture.Create<Project>();
-            domainService.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
+            var project = _fixture.Create<Project>();
+            _initDomainService.Setup(m => m.Init(project)).Returns(Task.FromResult(true));
 
             //Act
-            Func<Task> task = async () => await applicationService.Init(project);
+            Func<Task> task = async () => await _initApplicationService.Init(project);
 
             //Assert
             await task.Should().NotThrowAsync();

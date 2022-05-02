@@ -5,7 +5,7 @@ using JHipster.NetLite.Domain.Entities;
 
 namespace JHipster.NetLite.Application.Services.Interfaces;
 
-public interface IInitApplicationSonar
+public interface ISonarApplicationService
 {
     Task Init(Project project);
 }

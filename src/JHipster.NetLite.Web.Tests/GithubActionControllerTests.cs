@@ -1,4 +1,7 @@
-﻿using AutoFixture;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this
+
+using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
 using JHipster.NetLite.Application.Services.Interfaces;
@@ -20,35 +23,35 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class ApiControllerTests
+    public class GithubActionControllerTests
     {
-        private ApiController _apiController;
+        private GithubActionController _githubActionController;
 
-        private Mock<IApiApplicationService> _apiApplicationService;
+        private Mock<IGithubActionApplicationService> _githubActionApplicationService;
 
         private Fixture _fixture = new Fixture();
 
         private IMapper _mapper;
 
-        private ILogger<ApiController> _logger = new NullLogger<ApiController>();
+        private ILogger<GithubActionController> _logger = new NullLogger<GithubActionController>();
 
-        public ApiControllerTests()
+        public GithubActionControllerTests()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(ApiController)));
             _mapper = new Mapper(configuration);
-            _apiApplicationService = new Mock<IApiApplicationService>();
-            _apiController = new ApiController(_logger, _apiApplicationService.Object, _mapper);
+            _githubActionApplicationService = new Mock<IGithubActionApplicationService>();
+            _githubActionController = new GithubActionController(_logger, _githubActionApplicationService.Object, _mapper);
         }
 
         [TestMethod]
         public async Task Should_ReturnBadRequest_When_Exception()
         {
             //Arrange
-            _apiApplicationService.Setup(app => app.Init(It.IsAny<Project>()))
+            _githubActionApplicationService.Setup(app => app.Init(It.IsAny<Project>()))
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await _apiController.Post(_fixture.Create<ProjectDto>());
+            var result = await _githubActionController.Post(_fixture.Create<ProjectDto>());
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
@@ -62,7 +65,7 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            var result = await _apiController.Post(_fixture.Create<ProjectDto>());
+            var result = await _githubActionController.Post(_fixture.Create<ProjectDto>());
 
             //Assert
             var statusResult = result as OkResult;

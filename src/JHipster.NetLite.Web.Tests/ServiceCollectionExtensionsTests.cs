@@ -13,11 +13,11 @@ namespace JHipster.NetLite.Web.Tests
     [TestClass]
     public class ServiceCollectionExtensionsTests
     {
-        private WebApplicationBuilder builder;
+        private WebApplicationBuilder _builder;
 
         public ServiceCollectionExtensionsTests()
         {
-            builder = WebApplication.CreateBuilder();
+            _builder = WebApplication.CreateBuilder();
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace JHipster.NetLite.Web.Tests
 
 
             //Act
-            Action act = () => builder.Services.AddControllers().AddJHipsterLite();
+            Action act = () => _builder.Services.AddControllers().AddJHipsterLite();
 
             //Assert
             act.Should().NotThrow();

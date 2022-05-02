@@ -5,7 +5,7 @@ using JHipster.NetLite.Domain.Entities;
 
 namespace JHipster.NetLite.Application.Services.Interfaces;
 
-public interface IInitApplicationGithubAction
+public interface ISolutionApplicationService
 {
     Task Init(Project project);
 }

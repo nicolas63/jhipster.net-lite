@@ -17,29 +17,29 @@ namespace JHipster.NetLite.Web.Controllers.Projects;
 
 [ApiController]
 [Route("[controller]")]
-public class GithubActionController : ControllerBase
+public class SolutionController : ControllerBase
 {
-    private readonly ILogger<GithubActionController> _logger;
+    private readonly ILogger<SolutionController> _logger;
 
-    private readonly IGithubActionApplicationService _initApplicationGithubAction;
+    private readonly ISolutionApplicationService _solutionApplicationService;
 
     private readonly IMapper _mapper;
 
-    public GithubActionController(ILogger<GithubActionController> logger, IGithubActionApplicationService initApplicationGithubAction, IMapper mapper)
+    public SolutionController(ILogger<SolutionController> logger, ISolutionApplicationService solutionApplicationService, IMapper mapper)
     {
         _logger = logger;
-        _initApplicationGithubAction = initApplicationGithubAction;
+        _solutionApplicationService = solutionApplicationService;
         _mapper = mapper;
     }
 
     [HttpPost]
-    [Route("/api/projects/CI/GithubAction")]
+    [Route("/api/projects/solution")]
     public async Task<IActionResult> Post(ProjectDto projectDto)
     {
         try
         {
             var project = _mapper.Map<Project>(projectDto);
-            await _initApplicationGithubAction.Init(project);
+            await _solutionApplicationService.Init(project);
 
             _logger.LogInformation("Request succes");
             return Ok();

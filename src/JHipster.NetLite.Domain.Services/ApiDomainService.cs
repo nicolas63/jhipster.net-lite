@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace JHipster.NetLite.Domain.Services;
 
-public class InitDomainApi : IInitDomainApi
+public class ApiDomainService : IApiDomainService
 {
     private readonly IProjectRepository _projectRepository;
 
-    private readonly ILogger<InitDomainApi> _logger;
+    private readonly ILogger<ApiDomainService> _logger;
 
-    public InitDomainApi(IProjectRepository projectRepository, ILogger<InitDomainApi> logger)
+    public ApiDomainService(IProjectRepository projectRepository, ILogger<ApiDomainService> logger)
     {
         _projectRepository = projectRepository;
         _logger = logger;
@@ -31,10 +31,6 @@ public class InitDomainApi : IInitDomainApi
         await _projectRepository.Template(project, "WebApiGeneration", "appsettings.Development.json");
         await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Properties"), "launchSettings.json");
         await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Controllers"), "WeatherForecastController.cs");
-        //Solution - csproj
-        _projectRepository.GenerateSolution(project, "projectName");
-        await _projectRepository.Template(project, "WebApiGeneration", "projectName.csproj");
-        _projectRepository.AddProjectsToSolution(project, "projectName", "projectName");
         //Editorconfig
         await _projectRepository.Add(project.Folder, "WebApiGeneration", ".editorconfig");
     }
