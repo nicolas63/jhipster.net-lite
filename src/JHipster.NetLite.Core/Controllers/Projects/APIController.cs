@@ -29,6 +29,22 @@ public class ApiController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Creates a TodoItem.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns>A newly created TodoItem</returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     POST /Todo
+    ///     {
+    ///        "id": 1,
+    ///        "name": "Item #1",
+    ///        "isComplete": true
+    ///     }
+    ///
+    /// </remarks>
     [HttpPost]
     [Route("/api/projects/api")]
     public async Task<IActionResult> Post(ProjectDto projectDto)
