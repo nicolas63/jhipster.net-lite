@@ -1,3 +1,4 @@
+using AutoFixture;
 using AutoMapper;
 using FluentAssertions;
 using JHipster.NetLite.Application.Services.Interfaces;
@@ -16,40 +17,40 @@ using System.Threading.Tasks;
 namespace JHipster.NetLite.Web.Tests
 {
     [TestClass]
-    public class InitControllerTest
+    public class InitControllerTests
     {
-        private InitController InitController { get; set; }
-        public Mock<IInitApplicationService> ApplicationService { get; set; }
-        public IMapper Mapper { get; set; }
-        public ILogger<InitController> Logger { get; set; } = new NullLogger<InitController>();
-        
-        public InitControllerTest()
+        private InitController _initController;
+
+        private Mock<IInitApplicationService> _initApplicationService;
+
+        private Fixture _fixture = new Fixture();
+
+        private IMapper _mapper;
+
+        private ILogger<InitController> _logger = new NullLogger<InitController>();
+
+        public InitControllerTests()
         {
             var configuration = new MapperConfiguration(cfg => cfg.AddMaps(typeof(InitController)));
-            Mapper = new Mapper(configuration);
-        }
-
-        [TestInitialize]
-        public void InitTest()
-        {
-            ApplicationService = new Mock<IInitApplicationService>();
-            InitController = new InitController(Logger, ApplicationService.Object, Mapper);
+            _mapper = new Mapper(configuration);
+            _initApplicationService = new Mock<IInitApplicationService>();
+            _initController = new InitController(_logger, _initApplicationService.Object, _mapper);
         }
 
         [TestMethod]
         public async Task Should_ReturnBadRequest_When_Exception()
         {
             //Arrange
-            ApplicationService.Setup(app => app.Init(It.IsAny<Project>()))
+            _initApplicationService.Setup(app => app.Init(It.IsAny<Project>()))
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await InitController.Post(new ProjectDto(""));
+            var result = await _initController.Post(new ProjectDto("", "", "", ""));
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;
             statusResult.Should().NotBeNull();
-            statusResult.StatusCode.Should().Be((int) HttpStatusCode.BadRequest);
+            statusResult.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -58,12 +59,12 @@ namespace JHipster.NetLite.Web.Tests
             //Arrange
 
             //Act
-            var result = await InitController.Post(new ProjectDto(""));
+            var result = await _initController.Post(_fixture.Create<ProjectDto>());
 
             //Assert
             var statusResult = result as OkResult;
             statusResult.Should().NotBeNull();
-            statusResult.StatusCode.Should().Be((int) HttpStatusCode.OK);
+            statusResult.StatusCode.Should().Be((int)HttpStatusCode.OK);
         }
     }
 }

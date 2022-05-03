@@ -1,4 +1,6 @@
-﻿namespace JHipster.NetLite.Domain.Repositories.Interfaces;
+﻿using JHipster.NetLite.Domain.Entities;
+
+namespace JHipster.NetLite.Domain.Repositories.Interfaces;
 
 public interface IProjectRepository
 {
@@ -8,9 +10,15 @@ public interface IProjectRepository
 
     Task Add(string folder, string source, string sourceFilename, string destination, string destinationFilename);
 
-    Task Template(string folder, string pathFile, string fileNameWithExtension);
+    Task Template(Project project, string pathFile, string fileNameWithExtension);
 
-    Task Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile);
+    Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile);
 
-    Task Template(string folder, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName);
+    Task Template(Project project, string pathFile, string fileNameWithExtension, string newPathFile, string newPathName);
+
+    void GenerateSolution(Project project, string solutionName);
+
+    void AddProjectsToSolution(Project project, string solutionFile, params string[] projects);
+
+    void StartUnitsTests(Project project);
 }

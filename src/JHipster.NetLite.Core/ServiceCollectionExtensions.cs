@@ -36,11 +36,20 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddJHipsterLiteApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IInitApplicationService, InitApplicationService>();
+        services.AddScoped<IApiApplicationService, ApiApplicationService>();
+        services.AddScoped<IGithubActionApplicationService, GithubActionApplicationService>();
+        services.AddScoped<ISonarApplicationService, SonarApplicationService>();
+
         return services;
     }
+
     private static IServiceCollection AddJHipsterLiteDomainServices(this IServiceCollection services)
     {
         services.AddScoped<IInitDomainService, InitDomainService>();
+        services.AddScoped<IApiDomainService, ApiDomainService>();
+        services.AddScoped<IGithubActionDomainService, GithubActionDomainService>();
+        services.AddScoped<ISonarDomainService, SonarDomainService>();
+
         return services;
     }
 
