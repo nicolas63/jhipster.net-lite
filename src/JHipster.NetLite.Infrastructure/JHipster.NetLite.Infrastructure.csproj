@@ -38,7 +38,7 @@
     <Content Include="Templates\GithubAction\.github\workflows\dotnet.yml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\WebApiGeneration\projectName.csproj.mustache">
+    <Content Include="Templates\WebApiGeneration\ProjectName.csproj.mustache">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Templates\WebApiGeneration\Program.cs.mustache">
