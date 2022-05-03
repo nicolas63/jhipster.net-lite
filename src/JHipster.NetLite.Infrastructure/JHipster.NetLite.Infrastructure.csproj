@@ -14,7 +14,7 @@
     <None Remove="Templates\WebApiGeneration\Controllers\WeatherForecastController.cs.mustache" />
     <None Remove="Templates\GithubAction\.github\workflows\dotnet.yml" />
     <None Remove="Templates\WebApiGeneration\Program.cs.mustache" />
-    <None Remove="Templates\WebApiGeneration\projectName.csproj.mustache" />
+    <None Remove="Templates\WebApiGeneration\ProjectName.csproj.mustache" />
     <None Remove="Templates\WebApiGeneration\Properties\launchSettings.json.mustache" />
     <None Remove="Templates\WebApiGeneration\WeatherForecast.cs.mustache" />
   </ItemGroup>
