@@ -24,6 +24,22 @@ public class InitController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Generating the Readme file and initializes the project solution
+    /// </summary>
+    /// <param name="folder"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///        "folder": "C:/Sample",
+    ///        "namespace": "sample",
+    ///        "projectName": "SampleProject",
+    ///        "sslPort": "12345"
+    ///     }
+    ///
+    /// </remarks>
     [HttpPost]
     [Route("/api/projects/init")]
     public async Task<IActionResult> Post(ProjectDto projectDto)

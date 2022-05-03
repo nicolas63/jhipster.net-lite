@@ -21,10 +21,20 @@ public class InitDomainService : IInitDomainService
     public async Task Init(Project project)
     {
         await AddReadme(project);
+        await InitSolution(project);
     }
 
     private async Task AddReadme(Project project)
     {
         await _projectRepository.Template(project, "Init", "Readme.md");
+    }
+
+    private async Task InitSolution(Project project)
+    {
+        //Solution
+        _projectRepository.GenerateSolution(project, "projectName");
+        //csproj
+        await _projectRepository.Template(project, "WebApiGeneration", project.ProjectName + ".csproj");
+        _projectRepository.AddProjectsToSolution(project, "projectName", project.ProjectName);
     }
 }

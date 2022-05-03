@@ -32,6 +32,22 @@ public class SonarController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Generating the SonarQube.Analysis.xml file
+    /// </summary>
+    /// <param name="folder"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///        "folder": "C:/Sample",
+    ///        "namespace": "sample",
+    ///        "projectName": "SampleProject",
+    ///        "sslPort": "12345"
+    ///     }
+    ///
+    /// </remarks>
     [HttpPost]
     [Route("/api/projects/sonar")]
     public async Task<IActionResult> Post(ProjectDto projectDto)

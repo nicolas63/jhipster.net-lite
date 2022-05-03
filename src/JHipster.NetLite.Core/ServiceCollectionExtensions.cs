@@ -37,7 +37,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IInitApplicationService, InitApplicationService>();
         services.AddScoped<IApiApplicationService, ApiApplicationService>();
-        services.AddScoped<ISolutionApplicationService, SolutionApplicationService>();
         services.AddScoped<IGithubActionApplicationService, GithubActionApplicationService>();
         services.AddScoped<ISonarApplicationService, SonarApplicationService>();
 
@@ -48,7 +47,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<IInitDomainService, InitDomainService>();
         services.AddScoped<IApiDomainService, ApiDomainService>();
-        services.AddScoped<ISolutionDomainService, SolutionDomainService>();
         services.AddScoped<IGithubActionDomainService, GithubActionDomainService>();
         services.AddScoped<ISonarDomainService, SonarDomainService>();
 

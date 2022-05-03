@@ -30,18 +30,18 @@ public class ApiController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a TodoItem.
+    /// Generates a web API project
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns>A newly created TodoItem</returns>
+    /// <param name="folder">The folder using for the generation</param>
+    /// <returns></returns>
     /// <remarks>
     /// Sample request:
     ///
-    ///     POST /Todo
     ///     {
-    ///        "id": 1,
-    ///        "name": "Item #1",
-    ///        "isComplete": true
+    ///        "folder": "C:/Sample",
+    ///        "namespace": "sample",
+    ///        "projectName": "SampleProject",
+    ///        "sslPort": "12345"
     ///     }
     ///
     /// </remarks>

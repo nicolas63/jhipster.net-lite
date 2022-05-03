@@ -1,7 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this
-
-using AutoMapper;
+﻿using AutoMapper;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Web.DTO;
@@ -32,6 +29,22 @@ public class GithubActionController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Generation of the Github Action files
+    /// </summary>
+    /// <param name="folder"></param>
+    /// <returns></returns>
+    /// <remarks>
+    /// Sample request:
+    ///
+    ///     {
+    ///        "folder": "C:/Sample",
+    ///        "namespace": "sample",
+    ///        "projectName": "SampleProject",
+    ///        "sslPort": "12345"
+    ///     }
+    ///
+    /// </remarks>
     [HttpPost]
     [Route("/api/projects/CI/GithubAction")]
     public async Task<IActionResult> Post(ProjectDto projectDto)
