@@ -48,12 +48,21 @@ namespace JHipster.NetLite.Domain.Services.Tests
             //Arrange
 
             //Act
+            //await _initDomainService.Init(_project);
             Func<Task> task = async () => await _initDomainService.Init(_project);
 
             //Assert
             await task.Should().NotThrowAsync();
 
-            Directory.Delete(_project.Folder, true);
+
+            var directory = new DirectoryInfo(_projectFolder) { Attributes = FileAttributes.Normal };
+
+            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            {
+                info.Attributes = FileAttributes.Normal;
+            }
+
+            directory.Delete(true);
         }
 
 

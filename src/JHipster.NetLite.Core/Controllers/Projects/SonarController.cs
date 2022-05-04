@@ -33,7 +33,7 @@ public class SonarController : ControllerBase
     }
 
     /// <summary>
-    /// Generating the SonarQube.Analysis.xml file
+    /// Generating the Readme file and initializes the project solution
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>
@@ -44,7 +44,9 @@ public class SonarController : ControllerBase
     ///        "folder": "C:/Sample",
     ///        "namespace": "sample",
     ///        "projectName": "SampleProject",
-    ///        "sslPort": "12345"
+    ///        "sslPort": "12345",
+    ///        "GitName": "Jean.Dupont",
+    ///        "GitEmail": "jean.dupont@gmail.com"
     ///     }
     ///
     /// </remarks>

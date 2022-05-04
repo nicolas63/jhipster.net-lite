@@ -64,7 +64,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
             //Act
             var textBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileName)));
-            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName);
+            await _projectRepository.Template(new Project(_folder, "", "", "", "", ""), PathFile, FileName);
             var textAfterTemplating = await File.ReadAllTextAsync(Path.Join(_folder, FileName));
 
             //Assert
@@ -78,7 +78,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var newPathFile = "Redirect";
 
             //Act
-            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName, newPathFile);
+            await _projectRepository.Template(new Project(_folder, "", "", "", "", ""), PathFile, FileName, newPathFile);
 
             //Assert
             File.Exists(Path.Join(_folder, newPathFile, FileName)).Should().BeTrue();
@@ -93,7 +93,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var newPathName = "Suuuuu.md";
 
             //Act
-            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName, newPathFile, newPathName);
+            await _projectRepository.Template(new Project(_folder, "", "", "", "", ""), PathFile, FileName, newPathFile, newPathName);
 
             //Assert
             File.Exists(Path.Join(_folder, newPathFile, newPathName)).Should().BeTrue();

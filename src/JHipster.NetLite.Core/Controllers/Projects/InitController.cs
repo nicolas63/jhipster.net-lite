@@ -36,7 +36,9 @@ public class InitController : ControllerBase
     ///        "folder": "C:/Sample",
     ///        "namespace": "sample",
     ///        "projectName": "SampleProject",
-    ///        "sslPort": "12345"
+    ///        "sslPort": "12345",
+    ///        "GitName": "Jean.Dupont",
+    ///        "GitEmail": "jean.dupont@gmail.com"
     ///     }
     ///
     /// </remarks>

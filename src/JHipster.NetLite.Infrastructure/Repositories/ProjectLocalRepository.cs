@@ -8,6 +8,7 @@ using JHipster.NetLite.Infrastructure.Utils;
 using System.Text;
 using System.Reflection;
 using JHipster.NetLite.Infrastructure.Repositories.Exceptions;
+using LibGit2Sharp;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
@@ -68,7 +69,7 @@ public class ProjectLocalRepository : IProjectRepository
     {
         AssertRequiredTemplateParameters(project.Folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
-        var folders = pathFile.Split(Path.DirectorySeparatorChar);//TODO pourquoi un split ici ? 
+        var folders = pathFile.Split(Path.DirectorySeparatorChar);
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
         string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
 
@@ -90,6 +91,26 @@ public class ProjectLocalRepository : IProjectRepository
         await AssertFileIsGenerated(pathFileToPaste, dataToPast);
 
         _logger.LogInformation($"Ending templating '{pathFileToPaste}'");
+    }
+
+    public void InitGit(Project project)
+    {
+        Repository.Init(project.Folder);
+        using (var repo = new Repository(project.Folder))
+        {
+            RepositoryStatus status = repo.RetrieveStatus();
+            if (status.IsDirty)
+            {
+                List<string> filePaths = status.Untracked.Select(mods => mods.FilePath).ToList();
+                filePaths.ForEach(file => Commands.Stage(repo, file));
+
+                repo.Commit(
+                    "Initial commit...",
+                    new Signature(project.GitName, project.GitEmail, DateTimeOffset.Now),
+                    new Signature(project.GitName, project.GitEmail, DateTimeOffset.Now)
+                    );
+            }
+        }
     }
 
     public void GenerateSolution(Project project, string solutionName)

@@ -2,6 +2,7 @@
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services.Interfaces;
+using LibGit2Sharp;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -25,6 +26,7 @@ public class InitDomainService : IInitDomainService
     {
         await AddReadme(project);
         await InitSolution(project);
+        InitGit(project);
     }
 
     private async Task AddReadme(Project project)
@@ -39,5 +41,10 @@ public class InitDomainService : IInitDomainService
         //csproj
         await _projectRepository.Template(project, "WebApiGeneration", CsprojName + ".csproj");
         _projectRepository.AddProjectsToSolution(project, project.ProjectName, CsprojName);
+    }
+
+    private void InitGit(Project project)
+    {
+        _projectRepository.InitGit(project);
     }
 }
