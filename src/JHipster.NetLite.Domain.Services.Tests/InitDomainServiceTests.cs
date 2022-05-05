@@ -53,7 +53,6 @@ namespace JHipster.NetLite.Domain.Services.Tests
             //Assert
             await task.Should().NotThrowAsync();
 
-
             var directory = new DirectoryInfo(_projectFolder) { Attributes = FileAttributes.Normal };
 
             foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
