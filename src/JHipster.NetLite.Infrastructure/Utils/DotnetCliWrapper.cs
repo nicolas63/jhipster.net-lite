@@ -46,7 +46,7 @@ public class DotnetCliWrapper
             process.Start();
             process.WaitForExit();
         }
-        catch (Exception)//TODO : plus spécifique en Exception
+        catch (Exception)
         {
             _logger.LogError("Dotnet is not installed");
             return false;

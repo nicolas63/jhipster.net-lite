@@ -8,7 +8,6 @@ using JHipster.NetLite.Infrastructure.Utils;
 using System.Text;
 using System.Reflection;
 using JHipster.NetLite.Infrastructure.Repositories.Exceptions;
-using LibGit2Sharp;
 
 namespace JHipster.NetLite.Infrastructure.Repositories;
 
@@ -95,7 +94,7 @@ public class ProjectLocalRepository : IProjectRepository
 
     public void InitGit(Project project)
     {
-        Repository.Init(project.Folder);
+        /*Repository.Init(project.Folder);
         using (var repo = new Repository(project.Folder))
         {
             RepositoryStatus status = repo.RetrieveStatus();
@@ -110,7 +109,10 @@ public class ProjectLocalRepository : IProjectRepository
                     new Signature(project.GitName, project.GitEmail, DateTimeOffset.Now)
                     );
             }
-        }
+        }*/
+        var gitCli = new GitCliWrapper(project.Folder, _logger);
+        gitCli.GitInit();
+        gitCli.GitAddAll();
     }
 
     public void GenerateSolution(Project project, string solutionName)
