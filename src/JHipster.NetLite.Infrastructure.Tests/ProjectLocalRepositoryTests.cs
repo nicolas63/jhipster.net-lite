@@ -4,6 +4,7 @@ using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastructure.Repositories;
+using LibGit2Sharp;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -162,6 +163,11 @@ namespace JHipster.NetLite.Infrastructure.Tests
             //Assert
             var dir = new DirectoryInfo(Path.Join(_folder, ".git"));
             dir.Exists.Should().BeTrue();
+
+            using (var repo = new Repository(_folder))
+            {
+                repo.Commits.Should().HaveCount(1);
+            }
 
             var directory = new DirectoryInfo(_folder) { Attributes = FileAttributes.Normal };
 
