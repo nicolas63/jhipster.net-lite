@@ -2,7 +2,6 @@
 using JHipster.NetLite.Domain.Entities;
 using JHipster.NetLite.Domain.Repositories.Interfaces;
 using JHipster.NetLite.Domain.Services.Interfaces;
-using LibGit2Sharp;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
