@@ -48,7 +48,6 @@ namespace JHipster.NetLite.Domain.Services.Tests
             //Arrange
 
             //Act
-            //await _initDomainService.Init(_project);
             Func<Task> task = async () => await _initDomainService.Init(_project);
 
             //Assert
