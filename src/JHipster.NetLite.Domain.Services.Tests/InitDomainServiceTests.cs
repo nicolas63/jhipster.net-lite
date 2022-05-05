@@ -49,11 +49,11 @@ namespace JHipster.NetLite.Domain.Services.Tests
 
             //Act
             //await _initDomainService.Init(_project);
+  
             Func<Task> task = async () => await _initDomainService.Init(_project);
 
             //Assert
             await task.Should().NotThrowAsync();
-
 
             var directory = new DirectoryInfo(_projectFolder) { Attributes = FileAttributes.Normal };
 

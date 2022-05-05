@@ -51,7 +51,7 @@ public class ProjectLocalRepository : IProjectRepository
         string destinationPath = Path.Join(foldersPath, destinationFilename);
 
         await File.WriteAllTextAsync(destinationPath, dataToCopy);
-
+        
         await AssertFileIsGenerated(destinationPath, dataToCopy);
     }
 
