@@ -4,6 +4,7 @@ using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastructure.Repositories;
+using LibGit2Sharp;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -148,6 +149,34 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var textCopy = await File.ReadAllTextAsync(Path.Join(_folder, destinationFolder, destinationFileName));
             textToCopy.Should().BeEquivalentTo(textCopy);
 
+        }
+
+        [TestMethod]
+        public async Task Should_InitGit_When_Call()
+        {
+            //Arrange
+            File.Create(Path.Join(_folder, "file.txt")).Close();
+
+            //Act
+            _projectRepository.InitGit(new Project(_folder, "", "", "", "Jean", "Dupont"));
+
+            //Assert
+            var dir = new DirectoryInfo(Path.Join(_folder, ".git"));
+            dir.Exists.Should().BeTrue();
+            using (var repo = new Repository(_folder))
+            {
+                RepositoryStatus status = repo.RetrieveStatus();
+                repo.Commits.Should().HaveCount(1);
+            }
+
+            var directory = new DirectoryInfo(_folder) { Attributes = FileAttributes.Normal };
+
+            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            {
+                info.Attributes = FileAttributes.Normal;
+            }
+
+            directory.Delete(true);
         }
     }
 }
