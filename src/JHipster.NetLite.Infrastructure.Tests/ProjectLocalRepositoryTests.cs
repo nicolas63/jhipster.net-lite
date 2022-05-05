@@ -152,13 +152,13 @@ namespace JHipster.NetLite.Infrastructure.Tests
         }
 
         [TestMethod]
-        public async Task Should_InitGit_When_Call()
+        public void Should_InitGit_When_Call()
         {
             //Arrange
             File.Create(Path.Join(_folder, "file.txt")).Close();
 
             //Act
-            _projectRepository.InitGit(new Project(_folder, "", "", "", "Jean", "Dupont"));
+            _projectRepository.InitGit(new Project(_folder, "", "", "", "Jean.Dupont", "jean.dupont@gmail.com"));
 
             //Assert
             var dir = new DirectoryInfo(Path.Join(_folder, ".git"));
