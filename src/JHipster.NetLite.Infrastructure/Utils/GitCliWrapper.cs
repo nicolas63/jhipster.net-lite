@@ -52,7 +52,7 @@ public class GitCliWrapper
         return true;
     }
 
-    public void GitInit()
+    public GitCliWrapper GitInit()
     {
         if (HasGit())
         {
@@ -63,9 +63,11 @@ public class GitCliWrapper
             process.Start();
             process.WaitForExit();
         }
+
+        return this;
     }
 
-    public void GitAddAll()
+    public GitCliWrapper GitAddAll()
     {
         if (HasGit())
         {
@@ -74,12 +76,23 @@ public class GitCliWrapper
             process.StartInfo = processStartInfo;
             process.Start();
             process.WaitForExit();
-
         }
+
+        return this;
     }
 
-    public void GitCommit(string message)
+    public GitCliWrapper GitCommit(string message)
     {
+        if (HasGit())
+        {
+            Process process = new Process();
+            processStartInfo.Arguments = $"commit -m \"{message}\"";
+            process.StartInfo = processStartInfo;
+            process.Start();
+            process.WaitForExit();
+            var test = process.ExitCode;
+        }
 
+        return this;
     }
 }

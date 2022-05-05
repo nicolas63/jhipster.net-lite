@@ -13,6 +13,8 @@ namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
+    private const string initialCommitMessage = "Initial commit...";
+
     private readonly string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
     private readonly ILogger<IInitDomainService> _logger;
@@ -94,25 +96,10 @@ public class ProjectLocalRepository : IProjectRepository
 
     public void InitGit(Project project)
     {
-        /*Repository.Init(project.Folder);
-        using (var repo = new Repository(project.Folder))
-        {
-            RepositoryStatus status = repo.RetrieveStatus();
-            if (status.IsDirty)
-            {
-                List<string> filePaths = status.Untracked.Select(mods => mods.FilePath).ToList();
-                filePaths.ForEach(file => Commands.Stage(repo, file));
-
-                repo.Commit(
-                    "Initial commit...",
-                    new Signature(project.GitName, project.GitEmail, DateTimeOffset.Now),
-                    new Signature(project.GitName, project.GitEmail, DateTimeOffset.Now)
-                    );
-            }
-        }*/
-        var gitCli = new GitCliWrapper(project.Folder, _logger);
-        gitCli.GitInit();
-        gitCli.GitAddAll();
+        new GitCliWrapper(project.Folder, _logger)
+            .GitInit()
+            .GitAddAll()
+            .GitCommit(initialCommitMessage);
     }
 
     public void GenerateSolution(Project project, string solutionName)
