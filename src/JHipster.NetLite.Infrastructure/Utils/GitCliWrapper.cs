@@ -1,9 +1,7 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this
-
-using JHipster.NetLite.Domain.Services.Interfaces;
+﻿using JHipster.NetLite.Domain.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -52,7 +50,7 @@ public class GitCliWrapper
         return true;
     }
 
-    public GitCliWrapper GitInit()
+    public GitCliWrapper Init()
     {
         if (HasGit())
         {
@@ -67,7 +65,7 @@ public class GitCliWrapper
         return this;
     }
 
-    public GitCliWrapper GitAddAll()
+    public GitCliWrapper AddAll()
     {
         if (HasGit())
         {
@@ -81,7 +79,7 @@ public class GitCliWrapper
         return this;
     }
 
-    public GitCliWrapper GitCommit(string message)
+    public GitCliWrapper Commit(string message)
     {
         if (HasGit())
         {
@@ -94,5 +92,38 @@ public class GitCliWrapper
         }
 
         return this;
+    }
+
+    public ArrayList GetCommits()
+    {
+        ArrayList commits = new ArrayList();
+        StringBuilder sb = new StringBuilder();
+        int nbCommitInfo = 0;
+
+        if (HasGit())
+        {
+            Process process = new Process();
+            processStartInfo.Arguments = "log";
+            process.StartInfo = processStartInfo;
+
+            process.OutputDataReceived += (sender, args) =>
+            {
+                Console.WriteLine("passage");
+                sb.AppendLine(args.Data);
+                nbCommitInfo++;
+
+                if (nbCommitInfo == 6)
+                {
+                    nbCommitInfo = 0;
+                    commits.Add(sb.ToString());
+                    sb = new StringBuilder();
+                }
+            };
+            process.Start();
+            process.BeginOutputReadLine();
+            process.WaitForExit();
+        }
+
+        return commits;
     }
 }

@@ -4,7 +4,7 @@ using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastructure.Repositories;
-using LibGit2Sharp;
+using JHipster.NetLite.Infrastructure.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -156,18 +156,14 @@ namespace JHipster.NetLite.Infrastructure.Tests
         {
             //Arrange
             File.Create(Path.Join(_folder, "file.txt")).Close();
+            GitCliWrapper gitCliWrapper = new GitCliWrapper(_folder, _logger);
 
             //Act
             _projectRepository.InitGit(new Project(_folder, "", "", "", "Jean.Dupont", "jean.dupont@gmail.com"));
 
             //Assert
-            var dir = new DirectoryInfo(Path.Join(_folder, ".git"));
-            dir.Exists.Should().BeTrue();
-
-            using (var repo = new Repository(_folder))
-            {
-                repo.Commits.Should().HaveCount(1);
-            }
+            new DirectoryInfo(Path.Join(_folder, ".git")).Exists.Should().BeTrue();
+            gitCliWrapper.GetCommits().ToArray().Should().HaveCount(1);
 
             var directory = new DirectoryInfo(_folder) { Attributes = FileAttributes.Normal };
 
