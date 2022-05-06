@@ -41,17 +41,13 @@ namespace JHipster.NetLite.Infrastructure.Tests
         {
 
             //Arrange
-            File.Create(Path.Join(_testPath, "file.txt")).Close();
             GitCliWrapper gitCliWrapper = new GitCliWrapper(_testPath, _logger);
 
             //Act
+            gitCliWrapper.Init();
 
-            if (!gitCliWrapper.HasGit())
-            {
-                Console.WriteLine("Git not installed");
-            }
-            gitCliWrapper.Init()
-                         .AddAll()
+            File.Create(Path.Join(_testPath, "file.txt")).Close();
+            gitCliWrapper.AddAll()
                          .Commit("message");
 
             //Assert
