@@ -33,7 +33,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
                 Directory.Delete(_testPath, true);
             }
             Directory.CreateDirectory(_testPath);
-            _gitCliWrapp = new GitCliWrapper(_testPath, _logger);
+            _gitCliWrapp = new GitCliWrapper(_testPath, "Jean.Dupont", "Jean.Dupont@gmail.com", _logger);
         }
 
         [TestMethod]
@@ -41,14 +41,14 @@ namespace JHipster.NetLite.Infrastructure.Tests
         {
 
             //Arrange
-            GitCliWrapper gitCliWrapper = new GitCliWrapper(_testPath, _logger);
+            GitCliWrapper gitCliWrapper = new GitCliWrapper(_testPath, "Jean.Dupont", "Jean.Dupont@gmail.com", _logger);
 
             //Act
             gitCliWrapper.Init();
 
             File.Create(Path.Join(_testPath, "file.txt")).Close();
             gitCliWrapper.AddAll()
-                         .Commit("message", "Jean.Dupont", "jean.dupont@gmail.com");
+                         .Commit("message");
 
             //Assert
             new DirectoryInfo(Path.Join(_testPath, ".git")).Exists.Should().BeTrue();

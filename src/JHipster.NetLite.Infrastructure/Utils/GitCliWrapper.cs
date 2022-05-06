@@ -16,10 +16,11 @@ public class GitCliWrapper
 
     private readonly ILogger<IInitDomainService> _logger;
 
-    public GitCliWrapper(string workingDirectory, ILogger<IInitDomainService> logger)
+    public GitCliWrapper(string workingDirectory, string authorName, string authorEmail, ILogger<IInitDomainService> logger)
     {
         _logger = logger;
         InitializeProcessStartInfo(workingDirectory);
+        InitializeGitAuthor(authorName, authorEmail);
     }
 
     private void InitializeProcessStartInfo(string workingDirectory)
@@ -29,6 +30,26 @@ public class GitCliWrapper
         processStartInfo.RedirectStandardOutput = true;
         processStartInfo.RedirectStandardError = true;
         processStartInfo.WorkingDirectory = workingDirectory;
+    }
+
+    private void InitializeGitAuthor(string authorName, string authorEmail)
+    {
+        if (HasGit())
+        {
+            processStartInfo.Arguments = $"config --global user.email \"{authorEmail}\"";
+
+            Process process1 = new Process();
+            process1.StartInfo = processStartInfo;
+            process1.Start();
+            process1.WaitForExit();
+
+            processStartInfo.Arguments = $"config --global user.name \"{authorName}\"";
+
+            Process process2 = new Process();
+            process2.StartInfo = processStartInfo;
+            process2.Start();
+            process2.WaitForExit();
+        }
     }
 
     private bool HasGit()
@@ -79,16 +100,15 @@ public class GitCliWrapper
         return this;
     }
 
-    public GitCliWrapper Commit(string message, string author, string authorEmail)
+    public GitCliWrapper Commit(string message)
     {
         if (HasGit())
         {
             Process process = new Process();
-            processStartInfo.Arguments = $"commit -m \"{message}\" --author \"{author} <{authorEmail}>\"";
+            processStartInfo.Arguments = $"commit -m \"{message}\"";
             process.StartInfo = processStartInfo;
             process.Start();
             process.WaitForExit();
-            var test = process.ExitCode;
         }
 
         return this;

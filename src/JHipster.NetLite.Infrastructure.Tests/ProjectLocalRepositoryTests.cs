@@ -156,7 +156,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
         {
             //Arrange
             File.Create(Path.Join(_folder, "file.txt")).Close();
-            GitCliWrapper gitCliWrapper = new GitCliWrapper(_folder, _logger);
+            GitCliWrapper gitCliWrapper = new GitCliWrapper(_folder, "Jean.Dupont", "Jean.Dupont@gmail.com", _logger);
 
             //Act
             _projectRepository.InitGit(new Project(_folder, "", "", "", "Jean.Dupont", "jean.dupont@gmail.com"));
