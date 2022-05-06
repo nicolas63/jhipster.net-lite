@@ -48,7 +48,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
             File.Create(Path.Join(_testPath, "file.txt")).Close();
             gitCliWrapper.AddAll()
-                         .Commit("message");
+                         .Commit("message", "Jean.Dupont", "jean.dupont@gmail.com");
 
             //Assert
             new DirectoryInfo(Path.Join(_testPath, ".git")).Exists.Should().BeTrue();

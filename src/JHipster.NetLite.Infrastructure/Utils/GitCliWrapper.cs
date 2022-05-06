@@ -79,12 +79,12 @@ public class GitCliWrapper
         return this;
     }
 
-    public GitCliWrapper Commit(string message)
+    public GitCliWrapper Commit(string message, string author, string authorEmail)
     {
         if (HasGit())
         {
             Process process = new Process();
-            processStartInfo.Arguments = $"commit -m \"{message}\"";
+            processStartInfo.Arguments = $"commit -m \"{message}\" --author \"{author} <{authorEmail}>\"";
             process.StartInfo = processStartInfo;
             process.Start();
             process.WaitForExit();

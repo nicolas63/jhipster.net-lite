@@ -99,7 +99,7 @@ public class ProjectLocalRepository : IProjectRepository
         var gitCli = new GitCliWrapper(project.Folder, _logger);
         gitCli.Init();
         gitCli.AddAll();
-        gitCli.Commit(InitialCommitMessage);
+        gitCli.Commit(InitialCommitMessage, project.GitName, project.GitEmail);
     }
 
     public void GenerateSolution(Project project, string solutionName)
