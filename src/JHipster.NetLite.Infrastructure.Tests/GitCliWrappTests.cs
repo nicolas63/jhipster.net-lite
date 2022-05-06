@@ -39,11 +39,17 @@ namespace JHipster.NetLite.Infrastructure.Tests
         [TestMethod]
         public void Should_InitAndCommit_When_Calling()
         {
+
             //Arrange
             File.Create(Path.Join(_testPath, "file.txt")).Close();
             GitCliWrapper gitCliWrapper = new GitCliWrapper(_testPath, _logger);
 
             //Act
+
+            if (!gitCliWrapper.HasGit())
+            {
+                Console.WriteLine("Git not installed");
+            }
             gitCliWrapper.Init()
                          .AddAll()
                          .Commit("message");

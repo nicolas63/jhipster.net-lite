@@ -31,7 +31,7 @@ public class GitCliWrapper
         processStartInfo.WorkingDirectory = workingDirectory;
     }
 
-    private bool HasGit()
+    public bool HasGit()
     {
         try
         {
@@ -108,7 +108,6 @@ public class GitCliWrapper
 
             process.OutputDataReceived += (sender, args) =>
             {
-                Console.WriteLine("passage");
                 sb.AppendLine(args.Data);
                 nbCommitInfo++;
 
