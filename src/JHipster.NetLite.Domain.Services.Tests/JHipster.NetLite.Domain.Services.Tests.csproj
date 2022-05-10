@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\JHipster.NetLite.Domain.Services\JHipster.NetLite.Domain.Services.csproj" />
     <ProjectReference Include="..\JHipster.NetLite.Domain\JHipster.NetLite.Domain.csproj" />
+    <ProjectReference Include="..\JHipster.NetLite.Infrastructure.Tests\JHipster.NetLite.Infrastructure.Tests.csproj" />
     <ProjectReference Include="..\JHipster.NetLite.Infrastructure\JHipster.NetLite.Infrastructure.csproj" />
   </ItemGroup>
 

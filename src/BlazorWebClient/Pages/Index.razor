@@ -1,0 +1,125 @@
+﻿@page "/"
+@using BlazorWebClient.Data
+@using BlazorWebClient.Services.Api
+@using BlazorWebClient.Services.GithubAction
+@using BlazorWebClient.Services.Init
+@using BlazorWebClient.Services.Sonar
+@using JHipster.NetLite.Domain.Entities
+@inject IInitService initService
+@inject IApiService apiService
+@inject IGithubActionService githubActionService
+@inject ISonarService sonarService
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>JHipster.Net-lite</h1>
+<div>
+        <EditForm Model="projectForm" OnValidSubmit="ValideForm" class="d-flex">
+            <div>
+            <DataAnnotationsValidator />
+	        <ValidationSummary />
+                <div class="mb-3">
+                    <label>Folder* : </label>
+		            <InputText id="folder" @bind-Value="projectForm.Folder" placeholder="Enter destination folder's path"></InputText>
+	            </div>
+	            <div class="mb-3">
+                     <label>ProjectName* : </label>
+		            <InputText id="projectname" @bind-Value="projectForm.ProjectName" placeholder="Enter project's name"></InputText>
+	            </div>
+	            <div class="mb-3">
+                     <label>Namespace* : </label>
+		            <InputText id="namespace" @bind-Value="projectForm.Namespace" placeholder="Enter namespace"></InputText>
+	            </div>
+	            <div class="mb-3">
+                    <label>SslPort* : </label>
+		            <InputText id="sslport" @bind-Value="projectForm.SslPort" placeholder="Enter sslport"></InputText>
+	            </div>
+	            <div class="mb-3">
+                    <label>GitName* : </label>
+		            <InputText id="gitname" @bind-Value="projectForm.GitName" placeholder="Enter your git name"></InputText>
+	            </div>
+	            <div class="mb-3">
+                    <label>GitEmail* : </label>
+		            <InputText id="gitemail" @bind-Value="projectForm.GitEmail" placeholder="Enter your git email"></InputText>
+	            </div>
+                <button class="btn btn-primary">
+                    Download
+                </button>
+            </div>
+            <div class="d-flex flex-column mx-5">
+                <div class="d-flex radio-group p-2 rounded mb-2">
+                    <InputRadioGroup TValue="bool" @bind-Value="initInput" class="form-control">
+                        <label>Init : </label>
+                        <InputRadio class="m-2" Value="true"/>Yes
+                        <InputRadio class="m-2" Value="false"/>No
+                    </InputRadioGroup>
+                </div>
+                <div class="d-flex radio-group p-2 rounded my-2">
+                    <InputRadioGroup TValue="bool" @bind-Value="apiInput" class="form-control">
+                        <label>Api : </label>
+                        <InputRadio class="m-2" Value="true"/>Yes
+                        <InputRadio class="m-2" Value="false"/>No
+                    </InputRadioGroup>
+                </div>
+                <div class="d-flex radio-group p-2 rounded my-2">
+                    <InputRadioGroup TValue="bool" @bind-Value="githubActionInput" class="form-control">
+                        <label>Github Action : </label>
+                        <InputRadio class="m-2" Value="true"/>Yes
+                        <InputRadio class="m-2" Value="false"/>No
+                    </InputRadioGroup>
+                </div>
+                <div class="d-flex radio-group p-2 rounded my-2">
+                    <InputRadioGroup TValue="bool" @bind-Value="sonarInput" class="form-control">
+                        <label>Sonar : </label>
+                        <InputRadio class="m-2" Value="true"/>Yes
+                        <InputRadio class="m-2" Value="false"/>No
+                    </InputRadioGroup>
+                </div>
+            </div>
+        </EditForm>
+</div>
+
+@code {
+    ProjectForm projectForm = new ProjectForm();
+    bool initInput = false;
+    bool apiInput = false;
+    bool githubActionInput = false;
+    bool sonarInput = false;
+
+
+    private void ValideForm()
+    {
+        Project project = new Project(
+            projectForm.Folder,
+            projectForm.Namespace,
+            projectForm.ProjectName,
+            projectForm.SslPort,
+            projectForm.GitName,
+            projectForm.GitEmail
+        );
+        CallWebApi(project);
+    }
+
+    private void CallWebApi(Project project)
+    {
+        
+        if (initInput)
+        {
+            initService.Post(project); 
+        }
+        if (apiInput)
+        {
+            apiService.Post(project);  
+        }
+        if (githubActionInput)
+        {
+            githubActionService.Post(project);
+        }
+        if(sonarInput)
+        {
+            sonarService.Post(project);
+        }
+    }
+}
+

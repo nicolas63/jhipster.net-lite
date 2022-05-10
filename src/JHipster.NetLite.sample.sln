@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JHipster.NetLite.Web.Tests", "JHipster.NetLite.Web.Tests\JHipster.NetLite.Web.Tests.csproj", "{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebClient", "BlazorWebClient\BlazorWebClient.csproj", "{68CBCFCE-4886-4966-A19F-7809D52D8626}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC7BDD36-482B-4C1A-8DAC-B7889D0F83A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68CBCFCE-4886-4966-A19F-7809D52D8626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68CBCFCE-4886-4966-A19F-7809D52D8626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68CBCFCE-4886-4966-A19F-7809D52D8626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68CBCFCE-4886-4966-A19F-7809D52D8626}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

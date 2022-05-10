@@ -1,0 +1,8 @@
+﻿.radio-group {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    font-size: 25px;
+}
+
+InputRadioGroup {
+    border: 1px solid red;
+}
