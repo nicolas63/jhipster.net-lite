@@ -25,7 +25,7 @@ public class InitController : ControllerBase
     }
 
     /// <summary>
-    /// Generating the Readme file and initializes the project solution
+    /// Generating the Readme file, initializes the project solution and Git
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>

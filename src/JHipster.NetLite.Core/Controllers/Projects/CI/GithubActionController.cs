@@ -30,7 +30,7 @@ public class GithubActionController : ControllerBase
     }
 
     /// <summary>
-    /// Generating the Readme file and initializes the project solution
+    /// Generating the github action's files
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>

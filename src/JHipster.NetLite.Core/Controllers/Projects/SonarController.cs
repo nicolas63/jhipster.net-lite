@@ -33,7 +33,7 @@ public class SonarController : ControllerBase
     }
 
     /// <summary>
-    /// Generating the Readme file and initializes the project solution
+    /// Generating the Sonar's files
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>
