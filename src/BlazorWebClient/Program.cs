@@ -11,8 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-//var assembly = typeof(ServiceCollectionExtensions).Assembly;
-//var test = JHipsterLiteConstantes.WebAssembly;
 builder.Services.AddAutoMapper(JHipsterLiteConstantes.WebAssembly);
 builder.Services.AddHttpClient();
 

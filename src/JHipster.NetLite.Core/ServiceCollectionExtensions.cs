@@ -16,9 +16,8 @@ public static class ServiceCollectionExtensions
 
     public static IMvcBuilder AddJHipsterLite(this IMvcBuilder builder)
     {
-        var assembly = typeof(ServiceCollectionExtensions).Assembly;
-        builder.AddControllersAsServices().AddApplicationPart(assembly).AddControllersAsServices();
-        builder.Services.AddAutoMapper(assembly);
+        builder.AddControllersAsServices().AddApplicationPart(JHipsterLiteConstantes.WebAssembly).AddControllersAsServices();
+        builder.Services.AddAutoMapper(JHipsterLiteConstantes.WebAssembly);
         builder.Services.AddJHipsterLiteApplicationServices()
                           .AddJHipsterLiteDomainServices()
                           .AddJHipsterLiteRepositories();
@@ -35,22 +34,20 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddJHipsterLiteApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IInitApplicationService, InitApplicationService>();
-        services.AddScoped<IApiApplicationService, ApiApplicationService>();
-        services.AddScoped<IGithubActionApplicationService, GithubActionApplicationService>();
-        services.AddScoped<ISonarApplicationService, SonarApplicationService>();
-
-        return services;
+        return services.AddScoped<IInitApplicationService, InitApplicationService>()
+                .AddScoped<IApiApplicationService, ApiApplicationService>()
+                .AddScoped<IGithubActionApplicationService, GithubActionApplicationService>()
+                .AddScoped<ISonarApplicationService, SonarApplicationService>()
+                .AddScoped<IBlazorApplicationService, BlazorApplicationService>();
     }
 
     private static IServiceCollection AddJHipsterLiteDomainServices(this IServiceCollection services)
     {
-        services.AddScoped<IInitDomainService, InitDomainService>();
-        services.AddScoped<IApiDomainService, ApiDomainService>();
-        services.AddScoped<IGithubActionDomainService, GithubActionDomainService>();
-        services.AddScoped<ISonarDomainService, SonarDomainService>();
-
-        return services;
+        return services.AddScoped<IInitDomainService, InitDomainService>()
+                .AddScoped<IApiDomainService, ApiDomainService>()
+                .AddScoped<IGithubActionDomainService, GithubActionDomainService>()
+                .AddScoped<ISonarDomainService, SonarDomainService>()
+                .AddScoped<IBlazorDomainService, BlazorDomainService>();
     }
 
     private static IServiceCollection AddJHipsterLiteRepositories(this IServiceCollection services)

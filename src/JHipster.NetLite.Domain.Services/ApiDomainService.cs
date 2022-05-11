@@ -25,13 +25,13 @@ public class ApiDomainService : IApiDomainService
     private async Task CreateAPI(Project project)
     {
         //Web Api
-        await _projectRepository.Template(project, "WebApiGeneration", "WeatherForecast.cs");
-        await _projectRepository.Template(project, "WebApiGeneration", "Program.cs");
-        await _projectRepository.Template(project, "WebApiGeneration", "appsettings.json");
-        await _projectRepository.Template(project, "WebApiGeneration", "appsettings.Development.json");
-        await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Properties"), "launchSettings.json");
-        await _projectRepository.Template(project, Path.Join("WebApiGeneration", "Controllers"), "WeatherForecastController.cs");
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi"), "WeatherForecast.cs");
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi"), "Program.cs");
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi"), "appsettings.json");
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi"), "appsettings.Development.json");
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi", "Properties"), "launchSettings.json");
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi", "Controllers"), "WeatherForecastController.cs");
         //Editorconfig
-        await _projectRepository.Add(project.Folder, "WebApiGeneration", ".editorconfig");
+        await _projectRepository.Add(project.Folder, Path.Join("Api", "WebApi"), ".editorconfig");
     }
 }

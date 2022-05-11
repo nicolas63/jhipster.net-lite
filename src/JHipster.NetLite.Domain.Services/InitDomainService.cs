@@ -13,7 +13,7 @@ public class InitDomainService : IInitDomainService
 
     private readonly ILogger<InitDomainService> _logger;
 
-    private const string CsprojName = "ProjectName";
+    private const string CsprojName = "WebApi";
 
     public InitDomainService(IProjectRepository projectRepository, ILogger<InitDomainService> logger)
     {
@@ -38,8 +38,8 @@ public class InitDomainService : IInitDomainService
         //Solution
         _projectRepository.GenerateSolution(project, project.ProjectName);
         //csproj
-        await _projectRepository.Template(project, "WebApiGeneration", CsprojName + ".csproj");
-        _projectRepository.AddProjectsToSolution(project, project.ProjectName, CsprojName);
+        await _projectRepository.Template(project, Path.Join("Api", "WebApi"), CsprojName + ".csproj");
+        _projectRepository.AddProjectsToSolution(project, project.ProjectName, Path.Join("WebApi", CsprojName));
     }
 
     private void InitGit(Project project)
