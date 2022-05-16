@@ -1,9 +1,11 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this
 
+using BlazorWebClient.Services;
 using BlazorWebClient.Services.Api;
 using BlazorWebClient.Services.GithubAction;
 using BlazorWebClient.Services.Init;
+using BlazorWebClient.Services.Interfaces;
 using BlazorWebClient.Services.Sonar;
 
 namespace BlazorWebClient;
@@ -15,6 +17,7 @@ public static class ServiceCollectionExtensions
         return service.AddScoped<IInitService, InitService>()
                .AddScoped<IApiService, ApiService>()
                .AddScoped<IGithubActionService, GithubActionService>()
-               .AddScoped<ISonarService, SonarService>();
+               .AddScoped<ISonarService, SonarService>()
+               .AddScoped<IBlazorService, BlazorService>();
     }
 }

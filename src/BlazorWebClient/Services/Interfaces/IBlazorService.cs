@@ -1,8 +1,8 @@
 ﻿using JHipster.NetLite.Domain.Entities;
 
-namespace BlazorWebClient.Services.Api;
+namespace BlazorWebClient.Services.Interfaces;
 
-public interface IApiService
+public interface IBlazorService
 {
     Task Post(Project project);
 }

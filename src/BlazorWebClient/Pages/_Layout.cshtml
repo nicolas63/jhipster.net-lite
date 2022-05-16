@@ -15,6 +15,24 @@
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-expand-lg myNavbar">
+      <div class="class="navbar-brand text-decoration-none d-flex align-items-center gap-4" id="navbarSupportedContent">
+          <img src="assets/jhipster-logo.png" width="48"/>
+          <span class="fs-3 text-decoration-none text-white title">JHipster.Net-Lite</span>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link nav-title" href="#">API</a>
+        </div>
+      </div>
+    </nav>
+</header>
+
     @RenderBody()
 
     <div id="blazor-error-ui">
@@ -29,5 +47,8 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+    
+
 </body>
 </html>

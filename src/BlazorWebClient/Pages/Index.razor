@@ -1,92 +1,173 @@
 ﻿@page "/"
 @using BlazorWebClient.Data
+@using BlazorWebClient.Data.Consts
+@using BlazorWebClient.Data.Consts.RenderSelection
 @using BlazorWebClient.Services.Api
 @using BlazorWebClient.Services.GithubAction
 @using BlazorWebClient.Services.Init
+@using BlazorWebClient.Services.Interfaces
 @using BlazorWebClient.Services.Sonar
 @using JHipster.NetLite.Domain.Entities
+@using System.Collections
 @inject IInitService initService
 @inject IApiService apiService
 @inject IGithubActionService githubActionService
 @inject ISonarService sonarService
-
+@inject IBlazorService blazorService
 
 <PageTitle>Index</PageTitle>
 
-<h1>JHipster.Net-lite</h1>
-<div>
-        <EditForm Model="projectForm" OnValidSubmit="ValideForm" class="d-flex">
-            <div>
+<div class="row d-flex">
+        <EditForm Model="projectForm" OnValidSubmit="ValideForm" class="d-flex col-12">
+            <div class="div-form col-4 p-3">
             <DataAnnotationsValidator />
 	        <ValidationSummary />
-                <div class="mb-3">
-                    <label>Folder* : </label>
+                <div class="mb-3 d-flex flex-column">
+                    <label>Folder (required) : </label>
 		            <InputText id="folder" @bind-Value="projectForm.Folder" placeholder="Enter destination folder's path"></InputText>
 	            </div>
-	            <div class="mb-3">
-                     <label>ProjectName* : </label>
+	            <div class="mb-3 d-flex flex-column">
+                     <label>ProjectName : </label>
 		            <InputText id="projectname" @bind-Value="projectForm.ProjectName" placeholder="Enter project's name"></InputText>
 	            </div>
-	            <div class="mb-3">
-                     <label>Namespace* : </label>
+	            <div class="mb-3 d-flex flex-column">
+                     <label>Namespace : </label>
 		            <InputText id="namespace" @bind-Value="projectForm.Namespace" placeholder="Enter namespace"></InputText>
 	            </div>
-	            <div class="mb-3">
-                    <label>SslPort* : </label>
+	            <div class="mb-3 d-flex flex-column">
+                    <label>SslPort : </label>
 		            <InputText id="sslport" @bind-Value="projectForm.SslPort" placeholder="Enter sslport"></InputText>
 	            </div>
-	            <div class="mb-3">
-                    <label>GitName* : </label>
+	            <div class="mb-3 d-flex flex-column">
+                    <label>GitName (required) : </label>
 		            <InputText id="gitname" @bind-Value="projectForm.GitName" placeholder="Enter your git name"></InputText>
 	            </div>
-	            <div class="mb-3">
-                    <label>GitEmail* : </label>
+	            <div class="mb-3 d-flex flex-column">
+                    <label>GitEmail (required) : </label>
 		            <InputText id="gitemail" @bind-Value="projectForm.GitEmail" placeholder="Enter your git email"></InputText>
 	            </div>
                 <button class="btn btn-primary">
-                    Download
+                    Start
                 </button>
             </div>
-            <div class="d-flex flex-column mx-5">
-                <div class="d-flex radio-group p-2 rounded mb-2">
-                    <InputRadioGroup TValue="bool" @bind-Value="initInput" class="form-control">
-                        <label>Init : </label>
-                        <InputRadio class="m-2" Value="true"/>Yes
-                        <InputRadio class="m-2" Value="false"/>No
-                    </InputRadioGroup>
+
+            <div class="d-flex flex-column mx-5 col-8">
+                <div class="row">
+                    <div class="radio-group col-5 ml-5">
+                        <div class="d-flex flex-column h-100">
+                            <div class="title-selection title-selection-language px-3 h-25">
+                                <span>Language</span>
+                            </div>
+                            <div class="input-selection-language pb-2 pt-3 px-3 h-75">
+                            <InputRadioGroup TValue="string" @bind-Value="languageElement.Name">
+                                <div class="input-selection d-flex align-items-center justify-content-center justify-content-between p-2">
+                                    <InputRadio class="form-check-input" Value="LanguagesConst.CSharp"/>
+                                    <span>C#</span>
+                                    <img src="assets/CSharp-logo.png" width="35"/>
+                                </div>
+                            </InputRadioGroup>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="radio-group col-5 ml-5">
+                        <div class="d-flex flex-column h-100">
+                            <div class="title-selection title-selection-client px-3 h-25">
+                                <span>Client</span>
+                            </div>
+                            <div class="input-selection-client pb-2 pt-3 px-3 h-75 d-flex">
+                            <InputRadioGroup TValue="string" @bind-Value="clientElement.Name">
+                                <div class="input-selection d-flex align-items-center justify-content-center justify-content-between p-2">
+                                    <InputRadio class="form-check-input" Value="GlobalConst.None"/>
+                                    <span>None</span>
+                                    <img src="assets/jhipster-logo.png" width="30"/>
+                                </div>
+                                
+                                <div class="input-selection d-flex align-items-center justify-content-center justify-content-between p-2 ms-3">
+                                    <InputRadio class="form-check-input" Value="ClientsConst.Blazor"/>
+                                    <span>Blazor</span>
+                                    <img src="assets/Blazor-Logo.png" width="30"/>
+                                </div>
+                            </InputRadioGroup>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex radio-group p-2 rounded my-2">
-                    <InputRadioGroup TValue="bool" @bind-Value="apiInput" class="form-control">
-                        <label>Api : </label>
-                        <InputRadio class="m-2" Value="true"/>Yes
-                        <InputRadio class="m-2" Value="false"/>No
-                    </InputRadioGroup>
-                </div>
-                <div class="d-flex radio-group p-2 rounded my-2">
-                    <InputRadioGroup TValue="bool" @bind-Value="githubActionInput" class="form-control">
-                        <label>Github Action : </label>
-                        <InputRadio class="m-2" Value="true"/>Yes
-                        <InputRadio class="m-2" Value="false"/>No
-                    </InputRadioGroup>
-                </div>
-                <div class="d-flex radio-group p-2 rounded my-2">
-                    <InputRadioGroup TValue="bool" @bind-Value="sonarInput" class="form-control">
-                        <label>Sonar : </label>
-                        <InputRadio class="m-2" Value="true"/>Yes
-                        <InputRadio class="m-2" Value="false"/>No
-                    </InputRadioGroup>
+
+                <div class="row">
+                    <div class="radio-group mt-5 col-5 ml-5">
+                        <div class="d-flex flex-column h-100">
+                            <div class="title-selection title-selection-tools px-3 h-25">
+                                <span>Tools</span>
+                            </div>
+                            <div class="d-flex pb-2 pt-3 px-3 h-75 input-selection-tools">
+                                <div class="input-selection d-flex align-items-center justify-content-center justify-content-between p-2">
+                                    <input type="checkbox" @oninput="SonarCheckboxChanged"/>
+                                    <span>Sonar</span>
+                                    <img src="assets/sonar-logo.png" width="40"/>
+                                </div>
+                                <div class="check-group-github input-selection d-flex align-items-center justify-content-center justify-content-between p-2 ms-3">
+                                    <input type="checkbox" @oninput="GithubActionCheckboxChanged"/>
+                                    <span>Github Actions</span>
+                                    <img src="assets/github-logo.png" width="40"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </EditForm>
 </div>
 
+<div class="selection-render-group mt-2 row d-flex">
+    @foreach (SelectionElement elem in myList)
+    {
+        if (!@elem.Name.Equals(GlobalConst.None) && !ignoredReferences.Contains(@elem.Reference))
+        {
+            <div class="selection-render-item mt-2 w-25">
+                <p class="d-flex justify-content-center align-items-center selection-render-para" style="background-color: @hashSelectionBackgroundColor[@elem.Name]; color: @hashSelectionTitleColor[@elem.Name];">@elem.Name</p>
+            </div>
+        }
+    }
+</div>
+
 @code {
     ProjectForm projectForm = new ProjectForm();
-    bool initInput = false;
-    bool apiInput = false;
-    bool githubActionInput = false;
-    bool sonarInput = false;
+    ArrayList myList = new ArrayList();
+    ArrayList ignoredReferences = new ArrayList()
+    {
+        SelectionElement.LanguageReference
+    };
 
+    Dictionary<string, string> hashSelectionBackgroundColor = new Dictionary<string, string>();
+    Dictionary<string, string> hashSelectionTitleColor = new Dictionary<string, string>();
+
+    SelectionElement initializationElement = new SelectionElement(SelectionElement.InitializationReference, SelectionElement.InitializationReference);
+    SelectionElement languageElement = new SelectionElement(LanguagesConst.CSharp, SelectionElement.LanguageReference); 
+    SelectionElement clientElement = new SelectionElement(GlobalConst.None, SelectionElement.ClientReference);
+    SelectionElement sonarElement = new SelectionElement(GlobalConst.None, SelectionElement.SonarReference);
+    SelectionElement githubActionElement = new SelectionElement(GlobalConst.None, SelectionElement.GithubActionReference);
+
+
+
+    protected override void OnInitialized()
+    {
+        myList.Add(initializationElement);
+        myList.Add(languageElement);
+        myList.Add(clientElement);
+        myList.Add(sonarElement);
+        myList.Add(githubActionElement);
+
+        hashSelectionBackgroundColor.Add(ClientsConst.Blazor, BackgroundColorConst.Blazor);
+        hashSelectionBackgroundColor.Add(SelectionElement.InitializationReference , BackgroundColorConst.Initialization);
+        hashSelectionBackgroundColor.Add(SelectionElement.SonarReference , BackgroundColorConst.Sonar);
+        hashSelectionBackgroundColor.Add(SelectionElement.GithubActionReference , BackgroundColorConst.GithubAction);
+
+        hashSelectionTitleColor.Add(ClientsConst.Blazor, TitleColorConst.Blazor);
+        hashSelectionTitleColor.Add(SelectionElement.InitializationReference , TitleColorConst.Initialization);
+        hashSelectionTitleColor.Add(SelectionElement.SonarReference , TitleColorConst.Sonar);
+        hashSelectionTitleColor.Add(SelectionElement.GithubActionReference , TitleColorConst.GithubAction);
+    }
 
     private void ValideForm()
     {
@@ -98,27 +179,58 @@
             projectForm.GitName,
             projectForm.GitEmail
         );
-        CallWebApi(project);
+
+        initService.Post(project);
+        apiService.Post(project);
+        CallTools(project);
+        CallClients(project);
     }
 
-    private void CallWebApi(Project project)
+    private void CallTools(Project project)
     {
-        
-        if (initInput)
+        if (!sonarElement.Name.Equals(GlobalConst.None))
         {
-            initService.Post(project); 
+            sonarService.Post(project);
         }
-        if (apiInput)
-        {
-            apiService.Post(project);  
-        }
-        if (githubActionInput)
+
+        if (!githubActionElement.Name.Equals(GlobalConst.None))
         {
             githubActionService.Post(project);
         }
-        if(sonarInput)
+    }
+
+    private void CallClients(Project project)
+    {
+        if (!clientElement.Name.Equals(GlobalConst.None))
         {
-            sonarService.Post(project);
+            if (clientElement.Name.Equals(ClientsConst.Blazor))
+            {
+                blazorService.Post(project);
+            }
+        }
+    }
+
+    private void SonarCheckboxChanged(ChangeEventArgs e)
+    {
+        if ((bool) e.Value)
+        {
+            sonarElement.Name = SelectionElement.SonarReference;
+        }
+        else
+        {
+            sonarElement.Name = GlobalConst.None;
+        }
+    }
+
+    private void GithubActionCheckboxChanged(ChangeEventArgs e)
+    {
+        if ((bool) e.Value)
+        {
+            githubActionElement.Name = SelectionElement.GithubActionReference;
+        }
+        else
+        {
+            githubActionElement.Name = GlobalConst.None;
         }
     }
 }
