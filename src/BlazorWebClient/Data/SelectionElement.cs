@@ -1,7 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this
-
-namespace BlazorWebClient.Data;
+﻿namespace BlazorWebClient.Data;
 
 public class SelectionElement
 {
@@ -24,6 +21,4 @@ public class SelectionElement
         Name = name;
         Reference = reference;
     }
-
-    public override bool Equals(object? obj) => obj is SelectionElement element && Reference == element.Reference;
 }

@@ -4,20 +4,10 @@ using JHipster.NetLite.Web.DTO;
 
 namespace BlazorWebClient.Services.Api;
 
-public class ApiService : IApiService
+public class ApiService : AbstractEntityService, IApiService
 {
-    protected readonly HttpClient _httpClient;
-    protected readonly IMapper _mapper;
-
     public ApiService(HttpClient httpClient, IMapper mapper)
+        : base(httpClient, mapper, "https://localhost:7107/api/projects/api")
     {
-        _httpClient = httpClient;
-        _mapper = mapper;
-    }
-
-    public virtual async Task Post(Project project)
-    {
-        var projectDto = _mapper.Map<ProjectDto>(project);
-        await _httpClient.PostAsJsonAsync("https://localhost:7107/api/projects/api", projectDto);
     }
 }

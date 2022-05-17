@@ -30,7 +30,6 @@ public class BlazorDomainService : IBlazorDomainService
     public async Task Init(Project project)
     {
         await CreateBlazorWebClient(project);
-        AddToSolution(project);
     }
 
     private async Task CreateBlazorWebClient(Project project)
@@ -66,10 +65,7 @@ public class BlazorDomainService : IBlazorDomainService
         await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient"), "App.razor");
         await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient"), CsprojName + ".csproj");
         await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient"), "Program.cs");
-    }
 
-    private void AddToSolution(Project project)
-    {
         _projectRepository.AddProjectsToSolution(project, project.ProjectName, Path.Join("BlazorWebClient", CsprojName));
     }
 }

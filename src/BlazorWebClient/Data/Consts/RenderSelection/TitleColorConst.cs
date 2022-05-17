@@ -1,6 +1,6 @@
 ﻿namespace BlazorWebClient.Data.Consts.RenderSelection;
 
-public class TitleColorConst
+public static class TitleColorConst
 {
     public const string Initialization = "#8c8c8c";
 

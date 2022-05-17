@@ -17,4 +17,10 @@ public class AbstractEntityService
         _mapper = mapper;
         BaseUrl = baseUrl;
     }
+
+    public virtual async Task Post(Project project)
+    {
+        var projectDto = _mapper.Map<ProjectDto>(project);
+        await _httpClient.PostAsJsonAsync(BaseUrl, projectDto);
+    }
 }

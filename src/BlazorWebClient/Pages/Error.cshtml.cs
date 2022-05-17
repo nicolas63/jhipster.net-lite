@@ -5,7 +5,7 @@ using System.Diagnostics;
 namespace BlazorWebClient.Pages
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [IgnoreAntiforgeryToken]
+    [AutoValidateAntiforgeryToken]
     public class ErrorModel : PageModel
     {
         public string? RequestId { get; set; }

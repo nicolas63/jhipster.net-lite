@@ -1,6 +1,6 @@
 ﻿namespace BlazorWebClient.Data.Consts;
 
-public class BackgroundColorConst
+public static class BackgroundColorConst
 {
     public const string Initialization = "#e6e6e6";
 
