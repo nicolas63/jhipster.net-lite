@@ -21,7 +21,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
         private string _testPath = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestWrapper");
 
-        private GitCliWrapper _gitCliWrapp;
+        private GitCliWrapper? _gitCliWrapp;
 
         private ILogger<InitDomainService> _logger = new NullLogger<InitDomainService>();
 

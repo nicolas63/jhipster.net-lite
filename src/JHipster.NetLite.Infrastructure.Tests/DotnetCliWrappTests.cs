@@ -19,7 +19,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
         private string _testPath = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "TestWrapper");
 
-        private DotnetCliWrapper _dotnetCliWrapp;
+        private DotnetCliWrapper? _dotnetCliWrapp;
 
         private ILogger<InitDomainService> _logger = new NullLogger<InitDomainService>();
 
