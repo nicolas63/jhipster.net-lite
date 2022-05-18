@@ -1,6 +1,3 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this
-
 using AutoMapper;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
