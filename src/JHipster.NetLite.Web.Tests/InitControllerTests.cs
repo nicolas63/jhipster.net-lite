@@ -45,7 +45,7 @@ namespace JHipster.NetLite.Web.Tests
                 .Throws(new Exception("test unitaire"));
 
             //Act 
-            var result = await _initController.Post(new ProjectDto("", "", "", ""));
+            var result = await _initController.Post(new ProjectDto("", "", "", "", "", ""));
 
             //Assert 
             var statusResult = result as BadRequestObjectResult;

@@ -128,7 +128,6 @@ public class GitCliWrapper
 
             process.OutputDataReceived += (sender, args) =>
             {
-                Console.WriteLine(args.Data);
                 sb.AppendLine(args.Data);
                 nbCommitInfo++;
 
@@ -136,7 +135,7 @@ public class GitCliWrapper
                 {
                     nbCommitInfo = 0;
                     commits.Add(sb.ToString());
-                    sb = new StringBuilder();
+                    sb.Clear();
                 }
             };
             process.Start();

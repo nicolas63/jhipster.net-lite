@@ -1,6 +1,3 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this
-
 using AutoMapper;
 using JHipster.NetLite.Application.Services.Interfaces;
 using JHipster.NetLite.Domain.Entities;
@@ -33,7 +30,7 @@ public class SonarController : ControllerBase
     }
 
     /// <summary>
-    /// Generating the Readme file and initializes the project solution
+    /// Generating the Sonar's files
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>

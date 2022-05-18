@@ -30,7 +30,7 @@ public class ApiController : ControllerBase
     }
 
     /// <summary>
-    /// Generating the Readme file and initializes the project solution
+    /// Generating the web api project
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>
