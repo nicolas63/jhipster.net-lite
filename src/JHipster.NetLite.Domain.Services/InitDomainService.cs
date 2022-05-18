@@ -46,9 +46,4 @@ public class InitDomainService : IInitDomainService
     {
         _projectRepository.InitGit(project);
     }
-
-    private void InitGit(Project project)
-    {
-        _projectRepository.InitGit(project);
-    }
 }
