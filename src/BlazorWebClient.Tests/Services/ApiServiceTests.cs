@@ -1,33 +1,25 @@
 ﻿using AutoFixture;
-using AutoMapper;
 using BlazorWebClient.Services.Api;
 using FluentAssertions;
 using JHipster.NetLite.Domain.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using Bunit;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace BlazorWebClient.Tests;
 
 [TestClass]
-public class ApiServiceTests : Bunit.TestContext
+public class ApiServiceTests
 {
     private Mock<IApiService> _apiService;
 
     private Fixture _fixture;
 
-    private IMapper _mapper;
-
     public ApiServiceTests()
     {
         _apiService = new Mock<IApiService>();
         _fixture = new Fixture();
-        Services.AddSingleton<IApiService>(_apiService.Object);
-        Services.AddHttpClientInterceptor();
     }
 
     [TestMethod]
