@@ -34,6 +34,8 @@ public class BlazorDomainService : IBlazorDomainService
 
     private async Task CreateBlazorWebClient(Project project)
     {
+        await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient", "Model"), "WeatherForecast.cs");
+
         await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient", "Pages"), "Counter.razor");
         await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient", "Pages"), "FetchData.razor");
         await _projectRepository.Add(project.Folder, Path.Join("Blazor", "BlazorWebClient", "Pages"), "Index.razor");

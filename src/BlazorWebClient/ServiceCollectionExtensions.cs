@@ -1,7 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this
-
-using BlazorWebClient.Services;
+﻿using BlazorWebClient.Services;
 using BlazorWebClient.Services.Api;
 using BlazorWebClient.Services.GithubAction;
 using BlazorWebClient.Services.Init;
