@@ -180,7 +180,7 @@
         hashSelectionTitleColor.Add(SelectionElement.GithubActionReference , TitleColorConst.GithubAction);
     }
 
-    private void ValideForm()
+    private async Task ValideForm()
     {
         Project project = new Project(
             projectForm.Folder,
@@ -191,32 +191,32 @@
             projectForm.GitEmail
         );
 
-        initService.Post(project);
-        apiService.Post(project);
-        CallTools(project);
-        CallClients(project);
+        await initService.Post(project);
+        await apiService.Post(project);
+        await CallTools(project);
+        await CallClients(project);
     }
 
-    private void CallTools(Project project)
+    private async Task CallTools(Project project)
     {
         if (!sonarElement.Name.Equals(GlobalConst.None))
         {
-            sonarService.Post(project);
+            await sonarService.Post(project);
         }
 
         if (!githubActionElement.Name.Equals(GlobalConst.None))
         {
-            githubActionService.Post(project);
+            await githubActionService.Post(project);
         }
     }
 
-    private void CallClients(Project project)
+    private async Task CallClients(Project project)
     {
         if (!clientElement.Name.Equals(GlobalConst.None))
         {
             if (clientElement.Name.Equals(ClientsConst.Blazor))
             {
-                blazorService.Post(project);
+                await blazorService.Post(project);
             }
         }
     }
