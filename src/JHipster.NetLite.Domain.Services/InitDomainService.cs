@@ -25,6 +25,7 @@ public class InitDomainService : IInitDomainService
     {
         await AddReadme(project);
         await InitSolution(project);
+        InitGit(project);
     }
 
     private async Task AddReadme(Project project)
@@ -39,5 +40,10 @@ public class InitDomainService : IInitDomainService
         //csproj
         await _projectRepository.Template(project, "WebApiGeneration", CsprojName + ".csproj");
         _projectRepository.AddProjectsToSolution(project, project.ProjectName, CsprojName);
+    }
+
+    private void InitGit(Project project)
+    {
+        _projectRepository.InitGit(project);
     }
 }

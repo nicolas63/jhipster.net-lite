@@ -4,6 +4,7 @@ using JHipster.NetLite.Domain.Services;
 using JHipster.NetLite.Domain.Services.Interfaces;
 using JHipster.NetLite.Infrastructure.Helpers;
 using JHipster.NetLite.Infrastructure.Repositories;
+using JHipster.NetLite.Infrastructure.Utils;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -64,7 +65,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
 
             //Act
             var textBeforeTemplating = await File.ReadAllTextAsync(Path.Join(folderPathBeforeTemplating, PathFile, MustacheHelper.WithExt(FileName)));
-            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName);
+            await _projectRepository.Template(new Project(_folder, "", "", "", "", ""), PathFile, FileName);
             var textAfterTemplating = await File.ReadAllTextAsync(Path.Join(_folder, FileName));
 
             //Assert
@@ -78,7 +79,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var newPathFile = "Redirect";
 
             //Act
-            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName, newPathFile);
+            await _projectRepository.Template(new Project(_folder, "", "", "", "", ""), PathFile, FileName, newPathFile);
 
             //Assert
             File.Exists(Path.Join(_folder, newPathFile, FileName)).Should().BeTrue();
@@ -93,7 +94,7 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var newPathName = "Suuuuu.md";
 
             //Act
-            await _projectRepository.Template(new Project(_folder, "", "", ""), PathFile, FileName, newPathFile, newPathName);
+            await _projectRepository.Template(new Project(_folder, "", "", "", "", ""), PathFile, FileName, newPathFile, newPathName);
 
             //Assert
             File.Exists(Path.Join(_folder, newPathFile, newPathName)).Should().BeTrue();
@@ -148,6 +149,30 @@ namespace JHipster.NetLite.Infrastructure.Tests
             var textCopy = await File.ReadAllTextAsync(Path.Join(_folder, destinationFolder, destinationFileName));
             textToCopy.Should().BeEquivalentTo(textCopy);
 
+        }
+
+        [TestMethod]
+        public void Should_InitGit_When_Call()
+        {
+            //Arrange
+            File.Create(Path.Join(_folder, "file.txt")).Close();
+            GitCliWrapper gitCliWrapper = new GitCliWrapper(_folder, "Jean.Dupont", "Jean.Dupont@gmail.com", _logger);
+
+            //Act
+            _projectRepository.InitGit(new Project(_folder, "", "", "", "Jean.Dupont", "jean.dupont@gmail.com"));
+
+            //Assert
+            new DirectoryInfo(Path.Join(_folder, ".git")).Exists.Should().BeTrue();
+            gitCliWrapper.GetCommits().ToArray().Should().HaveCount(1);
+
+            var directory = new DirectoryInfo(_folder) { Attributes = FileAttributes.Normal };
+
+            foreach (var info in directory.GetFileSystemInfos("*", SearchOption.AllDirectories))
+            {
+                info.Attributes = FileAttributes.Normal;
+            }
+
+            directory.Delete(true);
         }
     }
 }

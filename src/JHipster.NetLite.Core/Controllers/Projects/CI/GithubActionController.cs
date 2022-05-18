@@ -30,7 +30,7 @@ public class GithubActionController : ControllerBase
     }
 
     /// <summary>
-    /// Generation of the Github Action files
+    /// Generating the Readme file and initializes the project solution
     /// </summary>
     /// <param name="folder"></param>
     /// <returns></returns>
@@ -41,7 +41,9 @@ public class GithubActionController : ControllerBase
     ///        "folder": "C:/Sample",
     ///        "namespace": "sample",
     ///        "projectName": "SampleProject",
-    ///        "sslPort": "12345"
+    ///        "sslPort": "12345",
+    ///        "GitName": "Jean.Dupont",
+    ///        "GitEmail": "jean.dupont@gmail.com"
     ///     }
     ///
     /// </remarks>

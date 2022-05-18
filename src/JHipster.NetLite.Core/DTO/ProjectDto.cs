@@ -20,4 +20,8 @@ public class ProjectDto
     public string ProjectName { get; set; }
 
     public string SslPort { get; set; }
+
+    public string GitName { get; set; }
+
+    public string GitEmail { get; set; }
 }

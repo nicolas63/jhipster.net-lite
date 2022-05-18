@@ -13,6 +13,8 @@ namespace JHipster.NetLite.Infrastructure.Repositories;
 
 public class ProjectLocalRepository : IProjectRepository
 {
+    private const string InitialCommitMessage = "Initial commit.";
+
     private readonly string DefaultFolder = Path.Join(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Templates");
 
     private readonly ILogger<IInitDomainService> _logger;
@@ -50,7 +52,7 @@ public class ProjectLocalRepository : IProjectRepository
         string destinationPath = Path.Join(foldersPath, destinationFilename);
 
         await File.WriteAllTextAsync(destinationPath, dataToCopy);
-
+        
         await AssertFileIsGenerated(destinationPath, dataToCopy);
     }
 
@@ -68,7 +70,7 @@ public class ProjectLocalRepository : IProjectRepository
     {
         AssertRequiredTemplateParameters(project.Folder, pathFile, fileNameWithExtension, newPathFile, newPathName);
 
-        var folders = pathFile.Split(Path.DirectorySeparatorChar);//TODO pourquoi un split ici ? 
+        var folders = pathFile.Split(Path.DirectorySeparatorChar);
         string pathFileToCopy = Path.Join(DefaultFolder, pathFile, MustacheHelper.WithExt(fileNameWithExtension));
         string pathFolderToCreate = Path.Join(project.Folder, newPathFile);
 
@@ -90,6 +92,14 @@ public class ProjectLocalRepository : IProjectRepository
         await AssertFileIsGenerated(pathFileToPaste, dataToPast);
 
         _logger.LogInformation($"Ending templating '{pathFileToPaste}'");
+    }
+
+    public void InitGit(Project project)
+    {
+        var gitCli = new GitCliWrapper(project.Folder, project.GitName, project.GitEmail, _logger);
+        gitCli.Init();
+        gitCli.AddAll();
+        gitCli.Commit(InitialCommitMessage);
     }
 
     public void GenerateSolution(Project project, string solutionName)

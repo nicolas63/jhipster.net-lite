@@ -30,9 +30,9 @@ public class ApiController : ControllerBase
     }
 
     /// <summary>
-    /// Generates a web API project
+    /// Generating the Readme file and initializes the project solution
     /// </summary>
-    /// <param name="folder">The folder using for the generation</param>
+    /// <param name="folder"></param>
     /// <returns></returns>
     /// <remarks>
     /// Sample request:
@@ -41,7 +41,9 @@ public class ApiController : ControllerBase
     ///        "folder": "C:/Sample",
     ///        "namespace": "sample",
     ///        "projectName": "SampleProject",
-    ///        "sslPort": "12345"
+    ///        "sslPort": "12345",
+    ///        "GitName": "Jean.Dupont",
+    ///        "GitEmail": "jean.dupont@gmail.com"
     ///     }
     ///
     /// </remarks>
